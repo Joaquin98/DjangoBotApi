@@ -922,18 +922,13 @@ Object.defineProperty(main_module, 'settings', {
 });
 
 
-
-
 let jugador = {
-        'key': 'init',
-        'value': function () {
+        init() {
             jugador.loadPlayerTowns(), jugador.initButtons(), jugador.initTimer();
-        }
-    }, {
-        'key': 'start',
-        'value': function () {
+        }, 
+        start () {
             var _0x36c75b = false,
-                _0x497d31 = null;
+                _   0x497d31 = null;
             if ($.each(jugador.playerTowns, function (_0x3a949a, _0x5e32b2) {
                     var _0x5dfd05 = farms_manager.checkReady(_0x5e32b2);
                     true === _0x5dfd05 ? (_0x36c75b = true, jugador.Queue.add({
@@ -967,29 +962,24 @@ let jugador = {
             else Console.Log('Nothing is ready yet!', 0), jugador.startTimer(0x1e, function () {
                 jugador.start();
             });
-        }
-    }, {
+        }, 
         stop () {
             clearInterval(jugador.interval), jugador.Queue.stop(), $('#time_autobot .caption .value_container .curr').html('Stopped');
-        }
-    }, {
+        },
         finished () {
             jugador.start();
-        }
-    }, {
+        }, 
         initTimer () {
             $('.nui_main_menu').css('top', '275px'), $('#time_autobot').append(_0x257397.timerBoxSmall({
                 'id': 'Autofarm_timer',
                 'styles': '',
                 'text': 'Start Autobot'
             })).show();
-        }
-    }, {
+        }, 
         updateTimer (_0x17eb87, _0x273027) {
             var _0x4716cc = 0;
             _0x4716cc = void 0 !== _0x17eb87 && void 0 !== _0x273027 ? (jugador.Queue.total - (jugador.Queue.queue.length + 0x1) + _0x273027 / _0x17eb87) / jugador.Queue.total * 0x64 : (jugador.Queue.total - jugador.Queue.queue.length) / jugador.Queue.total * 0x64, isNaN(_0x4716cc) || ($('#time_autobot .progress .indicator').width(_0x4716cc + '%'), $('#time_autobot .caption .value_container .curr').html(Math.round(_0x4716cc) + '%'));
-        }
-    }, {
+        }, 
         checkAutostart () {
             if (farms_manager.settings.autostart) {
                 jugador.modules.Autofarm['isOn'] = true;
@@ -1006,31 +996,27 @@ let jugador = {
                 var _0xe53eb6 = $('#Autobuild_onoff');
                 _0xe53eb6.addClass('on'), _0xe53eb6.find('span').mousePopup(new MousePopup('Stop Autobuild'));
             }(farms_manager.settings.autostart || _0x3e7923.settings.autostart || _0x12eddf.settings['autostart']) && jugador.start();
-        }
-    }, {
-        'key': 'startTimer',
-        'value': function (_0x127196, _0x227a94) {
+        }, 
+        startTimer (_0x127196, _0x227a94) {
             var _0x4dec49 = _0x127196;
             jugador.interval = setInterval(function () {
                 $('#time_autobot .caption .value_container .curr').html(data.toHHMMSS(_0x127196)), $('#time_autobot .progress .indicator').width((_0x4dec49 - _0x127196) / _0x4dec49 * 0x64 + '%'), --_0x127196 < 0 && (clearInterval(jugador.interval), _0x227a94());
             }, 0x3e8);
-        }
-    }, {
+        }, 
+
         initButtons(_0x89fea) {
             var _0x232241 = $('#' + _0x89fea + '_onoff');
             _0x232241.removeClass('disabled'), _0x232241.on('click', function (_0x3470ce) {
                 if (_0x3470ce.preventDefault(), 'Autoattack' === _0x89fea && !data.checkPremium('captain')) return HumanMessage.error(Game.premium_data.captain.name + ' ' + DM.getl10n('premium').advisors.not_activated['toLowerCase']() + '.'), false;
                 true === jugador.modules[_0x89fea].isOn ? (jugador.modules[_0x89fea].isOn = false, _0x232241.removeClass('on'), _0x232241.find('span').mousePopup(new MousePopup('Start ' + _0x89fea)), HumanMessage.success(_0x89fea + ' is deactivated.'), Console.Log(_0x89fea + ' is deactivated.', 0), 'Autofarm' === _0x89fea ? farms_manager.stop() : 'Autoculture' === _0x89fea ? _0x3e7923.stop() : 'Autobuild' === _0x89fea ? _0x12eddf.stop() : 'Autoattack' === _0x89fea && attack_manager.stop()) : false === jugador.modules[_0x89fea].isOn && (_0x232241.addClass('on'), HumanMessage.success(_0x89fea + ' is activated.'), Console.Log(_0x89fea + ' is activated.', 0), _0x232241.find('span').mousePopup(new MousePopup('Stop ' + _0x89fea)), jugador.modules[_0x89fea].isOn = true, 'Autoattack' === _0x89fea && attack_manager.start()), 'Autoattack' !== _0x89fea && jugador.checkWhatToStart();
             }), _0x232241.find('span').mousePopup(new MousePopup('Start ' + _0x89fea));
-        }
-    }, {
+        }, 
         checkWhatToStart () {
             var _0x335074 = 0;
             $.each(jugador.modules, function (_0x32c7a4, _0x3f5cd9) {
                 _0x3f5cd9.isOn && 'Autoattack' !== _0x3f5cd9 && _0x335074++;
             }), 0 === _0x335074 ? jugador.stop() : _0x335074 >= 0 && !jugador.Queue.isRunning() && (clearInterval(jugador.interval), jugador.start());
-        }
-    }, {
+        }, 
         loadPlayerTowns () {
             var _0xa8e110 = 0;
             $.each(ITowns.towns, function (_0x5d6913, _0xe12385) {
@@ -1043,8 +1029,7 @@ let jugador = {
                     _0x1fae73 = _0x570499.name;
                 return _0xe14144 === _0x1fae73 ? 0 : _0xe14144 > _0x1fae73 ? 0x1 : -0x1;
             });
-        }
-    }, {
+        }, 
         callbackAuth (argumento) {
             data.isLogged = true,
             data.trial_time = argumento.trial_time,
@@ -1058,8 +1043,8 @@ let jugador = {
                    $('#Autobuild_onoff').mousePopup(new MousePopup(jugador.requiredPrem)), $('#Autoattack_onoff').mousePopup(new MousePopup(jugador.requiredPrem)),
                     data.createNotification('getPremiumNotification', 'Unfortunately your premium membership is over. Please upgrade now!'));
         }
-    }], (_0x5e934f = null) && _0x6823f(_0xc61fd5.prototype, _0x5e934f), _0x48ecbd && _0x6823f(_0xc61fd5, _0x48ecbd), jugador;
-}();
+    }
+
 Object.defineProperty(jugador, 'models', {
     'enumerable': true,
     'writable': true,
@@ -1146,3 +1131,1153 @@ Object.defineProperty(jugador, 'models', {
     'writable': true,
     'value': DM.getl10n('tooltips').requirements.replace('.', '') + ' premium'
 });
+
+
+
+
+let real_main = {
+     info() {
+        ! function (_0x4ad9aa, _0x523b59) {
+            if (!(_0x4ad9aa instanceof _0x523b59)) throw new TypeError('Cannot call a class as a function');
+        }(this, info), Object.defineProperty(this, 'trial_time', {
+            'enumerable': true,
+            'writable': true,
+            'value': 0
+        }), Object.defineProperty(this, 'premium_time', {
+            'enumerable': true,
+            'writable': true,
+            'value': 0
+        }), Object.defineProperty(this, 'facebook_like', {
+            'enumerable': true,
+            'writable': true,
+            'value': 0
+        }), Object.defineProperty(this, 'toolbox_element', {
+            'enumerable': true,
+            'writable': true,
+            'value': null
+        });
+    },
+        init () {
+            Console.Log('Initialize Autobot', 0), real_main.authenticate(), real_main.obServer(), real_main.isActive(), real_main.setToolbox(), real_main.initAjax(), real_main.initMapTownFeature(), real_main.fixMessage(), configurations.init();
+        }, 
+        setToolbox () {
+            real_main.toolbox_element = $('.nui_bot_toolbox');
+        }, 
+        authenticate () {
+            basic_actions.Auth('login', real_main.Account, jugador.callbackAuth);
+        },
+        obServer () {
+            $.Observer(GameEvents.notification.push).subscribe('GRCRTNotification', function () {
+                $('#notification_area>.notification.getPremiumNotification').on('click', function () {
+                    real_main.getPremium();
+                });
+            });
+        }, 
+        initWnd () {
+            if (real_main.isLogged) {
+                if (void 0 !== real_main.botWnd) {
+                    try {
+                        real_main.botWnd.close();
+                    } catch (_0x481090) {}
+                    real_main.botWnd = void 0;
+                }
+                if (void 0 !== real_main.botPremWnd) {
+                    try {
+                        real_main.botPremWnd.close();
+                    } catch (_0x2df9e8) {}
+                    real_main.botPremWnd = void 0;
+                }
+                real_main.botWnd = Layout.dialogWindow.open('', real_main.title + ' v<span style="font-size: 10px;">' + real_main.version + '</span>', 0x1f4, 0x15e, '', false), real_main.botWnd.setHeight([0x15e]), real_main.botWnd.setPosition(['center', 'center']);
+                var _0x2ecea2 = real_main.botWnd.getJQElement();
+                _0x2ecea2.append($('<div/>', {
+                    'class': 'menu_wrapper',
+                    'style': 'left: 78px; right: 14px'
+                }).append($('<ul/>', {
+                    'class': 'menu_inner'
+                }).prepend(real_main.addMenuItem('AUTHORIZE', 'Account', 'Account')).prepend(real_main.addMenuItem('CONSOLE', 'Assistant', 'Assistant')).prepend(real_main.addMenuItem('ASSISTANT', 'Console', 'Console')).prepend(real_main.addMenuItem('SUPPORT', 'Support', 'Support')))), _0x2ecea2.find('.menu_inner li:last-child').before(real_main.addMenuItem('ATTACKMODULE', 'Attack', 'Autoattack')), _0x2ecea2.find('.menu_inner li:last-child').before(real_main.addMenuItem('CONSTRUCTMODULE', 'Build', 'Autobuild')), _0x2ecea2.find('.menu_inner li:last-child').before(real_main.addMenuItem('CULTUREMODULE', 'Culture', 'Autoculture')), _0x2ecea2.find('.menu_inner li:last-child').before(real_main.addMenuItem('FARMMODULE', 'Farm', 'Autofarm')), $('#Autobot-AUTHORIZE').click();
+            }
+        }, 
+        addMenuItem (_0x323aaf, _0x2a8beb, _0x321554, _0x9a8b2a) {
+            return $('<li/>').append($('<a/>', {
+                'class': 'submenu_link',
+                'href': '#',
+                'id': 'Autobot-' + _0x323aaf,
+                'rel': _0x321554
+            }).click(function () {
+                if (_0x9a8b2a) return false;
+                if (real_main.botWnd.getJQElement().find('li a.submenu_link').removeClass('active'), $(this).addClass('active'), real_main.botWnd.setContent2(real_main.getContent($(this).attr('rel'))), 'Console' === $(this).attr('rel')) {
+                    var _0x6228f6 = $('.terminal'),
+                        _0x4867f1 = $('.terminal-output')[0].scrollHeight;
+                    _0x6228f6.scrollTop(_0x4867f1);
+                }
+            }).append(function () {
+                return 'Support' !== _0x321554 ? $('<span/>', {
+                    'class': 'left'
+                }).append($('<span/>', {
+                    'class': 'right'
+                }).append($('<span/>', {
+                    'class': 'middle'
+                }).html(_0x2a8beb))) : '<a id="help-button" onclick="return false;" class="confirm"></a>';
+            }));
+        }, 
+        getContent (_0x4d0bfc) {
+            return 'Console' === _0x4d0bfc ? Console.contentConsole() : 'Account' === _0x4d0bfc ? real_main.contentAccount() : 'Support' === _0x4d0bfc ? real_main.contentSupport() : 'Autofarm' === _0x4d0bfc ? farms_manager.contentSettings() : 'Autobuild' === _0x4d0bfc ? _0x12eddf.contentSettings() : 'Autoattack' === _0x4d0bfc ? attack_manager.contentSettings() : 'Autoculture' === _0x4d0bfc ? _0x3e7923.contentSettings() : 'Assistant' === _0x4d0bfc ? configurations.contentSettings() : void 0;
+        }, 
+        //Contenidos de cada TAB
+        contentAccount () {
+            var _0x2b96f2 = {
+                    'Name:': Game.player_name,
+                    'World:': Game.world_id,
+                    'Rank:': Game.player_rank,
+                    'Towns:': Game.player_villages,
+                    'Language:': Game.locale_lang
+                },
+                _0x5298c8 = $('<table/>', {
+                    'class': 'game_table layout_main_sprite',
+                    'cellspacing': '0',
+                    'width': '100%'
+                }).append(function () {
+                    var _0xa38a24 = 0,
+                        _0x3bb040 = $('<tbody/>');
+                    return $.each(_0x2b96f2, function (_0x5501da, _0x207de7) {
+                        _0x3bb040.append($('<tr/>', {
+                            'class': _0xa38a24 % 0x2 ? 'game_table_even' : 'game_table_odd'
+                        }).append($('<td/>', {
+                            'style': 'background-color: #DFCCA6;width: 30%;'
+                        }).html(_0x5501da)).append($('<td/>').html(_0x207de7))), _0xa38a24++;
+                    }), _0x3bb040.append($('<tr/>', {
+                        'class': 'game_table_even'
+                    }).append($('<td/>', {
+                        'style': 'background-color: #DFCCA6;width: 30%;'
+                    }).html('Premium:')).append($('<td/>').append(real_main.premium_time - Timestamp.now() >= 0 ? real_main.secondsToTime(real_main.premium_time - Timestamp.now()) : 'No premium').append($('<div/>', {
+                        'id': 'premium-bot'
+                    }).append($('<div/>', {
+                        'class': 'js-caption'
+                    }).html(real_main.premium_time - Timestamp.now() >= 0 ? 'Add days' : 'Get Premium')).on('click', function () {
+                        return real_main.getPremium();
+                    })))), _0x3bb040.append($('<tr/>', {
+                        'class': 'game_table_odd'
+                    }).append($('<td/>', {
+                        'style': 'background-color: #DFCCA6;width: 30%;'
+                    }).html('Trial:')).append($('<td/>').append(function () {
+                        return real_main.trial_time - Timestamp.now() >= 0 ? real_main.secondsToTime(real_main.trial_time - Timestamp.now()) : 'Trial is over';
+                    }).append(function () {
+                        return 0 === real_main.facebook_like ? $('<a/>', {
+                            'id': 'get_7days'
+                        }).html('Get 3 free days!').click('on', function () {
+                            return real_main.botFacebookWnd();
+                        }) : null;
+                    }))), _0x3bb040;
+                });
+            return _0x257397.gameWrapper('Account', 'account_property_wrapper', _0x5298c8, 'margin-bottom:9px;').append($('<div/>', {
+                'id': 'grepobanner',
+                'style': ''
+            }));
+        }, 
+        contentSupport () {
+            return $('<fieldset/>', {
+                'id': 'Support_tab',
+                'style': 'float:left; width:472px;height: 270px;'
+            }).append($('<legend/>').html('Grepobot Support')).append($('<div/>', {
+                'style': 'float: left;'
+            }).append(_0x257397.selectBox({
+                'id': 'support_type',
+                'name': 'support_type',
+                'label': 'Type: ',
+                'styles': 'width: 167px;margin-left: 18px;',
+                'value': 'Bug report',
+                'options': [{
+                    'value': 'Bug report',
+                    'name': 'Bug report'
+                }, {
+                    'value': 'Feature request',
+                    'name': 'Feature request'
+                }, {
+                    'value': 'Financial',
+                    'name': 'Financial'
+                }, {
+                    'value': 'Other',
+                    'name': 'Other'
+                }]
+            })).append(_0x257397.input({
+                'id': 'support_input_email',
+                'name': 'Email',
+                'style': 'margin-left: 12px;width: 166px;',
+                'value': '',
+                'type': 'email'
+            })).append(_0x257397.input({
+                'id': 'support_input_subject',
+                'name': 'Subject',
+                'style': 'margin-top: 0;width: 166px;',
+                'value': '',
+                'type': 'text'
+            })).append(_0x257397.textarea({
+                'id': 'support_textarea',
+                'name': 'Message',
+                'value': ''
+            })).append(_0x257397.button({
+                'name': 'Send',
+                'style': 'margin-top: 0;'
+            }).on('click', function () {
+                var _0x1531b8 = $('#Support_tab').serializeObject(),
+                    _0x360978 = false;
+                void 0 === _0x1531b8.support_input_email || '' === _0x1531b8.support_input_email ? _0x360978 = 'Please enter your email.' : void 0 === _0x1531b8.support_input_subject || '' === _0x1531b8.support_input_subject ? _0x360978 = 'Please enter a subject.' : void 0 === _0x1531b8.support_textarea || '' === _0x1531b8.support_textarea ? _0x360978 = 'Please enter a message.' : void 0 === _0x1531b8.support_input_email || /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/ ['test'](_0x1531b8.support_input_email) || (_0x360978 = 'Your email is not valid!'), _0x360978 ? HumanMessage.error(_0x360978) : game.Auth('supportEmail', $.extend({
+                    'csrfToken': real_main.Account.csrfToken,
+                    'player_name': real_main.Account.player_name,
+                    'player_id': real_main.Account['player_id'],
+                    'world_id': real_main.Account.world_id
+                }, _0x1531b8), function (_0x5757b7) {
+                    if (_0x5757b7.success) {
+                        if (void 0 !== real_main.botWnd) {
+                            try {
+                                real_main.botWnd.close();
+                            } catch (_0xfee7fb) {}
+                            real_main.botWnd = void 0;
+                        }
+                        HumanMessage.success('Thank you, your email has been send!');
+                    }
+                });
+            }))).append($('<div/>', {
+                'style': 'float: right; width: 215px;'
+            }).append($('<a/>', {
+                'id': 'Facebook_grepobot',
+                'target': '_blank',
+                'href': 'https://www.facebook.com/BotForGrepolis/'
+            }).html('<img src=\"https://bot.grepobot.com/images/facebook_page.png\" title=\"Facebook Grepobot\"/>')));
+        }, 
+        checkAlliance () {
+            $('.allianceforum.main_menu_item').hasClass('disabled') || basic_actions.members_show(function (_0x23fa5a) {
+                void 0 !== _0x23fa5a.plain.html && $.each($(_0x23fa5a.plain.html).find('#ally_members_body .ally_name a'), function () {
+                    var _0x161826 = atob($(this).attr('href'));
+                    console.log(JSON.parse(_0x161826.substr(0, _0x161826.length - 0x3)));
+                });
+            });
+        }, 
+        fixMessage () {
+            var _0x21d00b;
+            HumanMessage._initialize = (_0x21d00b = HumanMessage._initialize, function () {
+                _0x21d00b.apply(this, arguments), $(window).unbind('click');
+            });
+        }, 
+        getPremium () {
+            var _0x53133a = this;
+            if (real_main.isLogged) {
+                if ($.Observer(GameEvents.menu.click).publish({
+                        'option_id': 'premium'
+                    }), void 0 !== real_main.botPremWnd) {
+                    try {
+                        real_main.botPremWnd['close']();
+                    } catch (_0x7923ce) {}
+                    real_main.botPremWnd = void 0;
+                }
+                if (void 0 !== real_main.botWnd) {
+                    try {
+                        real_main.botWnd.close();
+                    } catch (_0x20b49d) {}
+                    real_main.botWnd = void 0;
+                }
+                real_main.botPremWnd = Layout.dialogWindow.open('', 'Autobot v' + real_main.version + ' - Premium', 0x1f4, 0x15e, '', false), real_main.botPremWnd.setHeight([0x15e]), real_main.botPremWnd.setPosition(['center', 'center']);
+                var _0x2c9709 = $('<div/>', {
+                    'id': 'payment'
+                }).append($('<div/>', {
+                    'id': 'left'
+                }).append($('<ul/>', {
+                    'id': 'time_options'
+                }).append($('<li/>', {
+                    'class': 'active'
+                }).append($('<span/>', {
+                    'class': 'amount'
+                }).html('1 Month')).append($('<span/>', {
+                    'class': 'price'
+                }).html('€&nbsp;4,99'))).append($('<li/>').append($('<span/>', {
+                    'class': 'amount'
+                }).html('2 Month')).append($('<span/>', {
+                    'class': 'price'
+                }).html('€&nbsp;9,99')).append($('<div/>', {
+                    'class': 'referenceAmount'
+                }).append($('<div/>', {
+                    'class': 'reference',
+                    'style': 'transform: rotate(17deg);'
+                }).html('+12 Days&nbsp;')))).append($('<li/>').append($('<span/>', {
+                    'class': 'amount'
+                }).html('4 Months')).append($('<span/>', {
+                    'class': 'price'
+                }).html('€&nbsp;19,99')).append($('<div/>', {
+                    'class': 'referenceAmount'
+                }).append($('<div/>', {
+                    'class': 'reference',
+                    'style': 'transform: rotate(17deg);'
+                }).html('+36 Days&nbsp;')))).append($('<li/>').append($('<span/>', {
+                    'class': 'amount'
+                }).html('10 Months')).append($('<span/>', {
+                    'class': 'price'
+                }).html('€&nbsp;49,99')).append($('<div/>', {
+                    'class': 'referenceAmount'
+                }).append($('<div/>', {
+                    'class': 'reference',
+                    'style': 'transform: rotate(17deg);'
+                }).html('+120 Days&nbsp;')))))).append($('<div/>', {
+                    'id': 'right'
+                }).append($('<div/>', {
+                    'id': 'pothead'
+                })).append($('<div/>', {
+                    'id': 'information'
+                })));
+                real_main.botPremWnd['setContent2'](_0x2c9709), $('#time_options li').on('click', function () {
+                    $('#time_options li').removeClass('active'), $(this).addClass('active');
+                }), game.PaymentOptions(function (_0x7b4639) {
+                    _0x53133a.makeSelectbox(_0x7b4639);
+                });
+            }
+        }, 
+
+        makeSelectbox (_0x291a1e) {
+            var _0x2a004f = {},
+                _0x157f3d = $('<select/>', {
+                    'id': 'paymentSelect'
+                }).append(function () {
+                    for (var _0x1a4922 = [], _0x3a3544 = 0; _0x3a3544 < _0x291a1e.length; _0x3a3544++) {
+                        var _0x49a91a = _0x291a1e[_0x3a3544];
+                        _0x2a004f[_0x49a91a.id] = {
+                            'small': _0x49a91a.image.size1x,
+                            'big': _0x49a91a.image.size2x
+                        }, _0x1a4922.push($('<option/>', {
+                            'value': _0x49a91a.id
+                        }).html(_0x49a91a.description.replace('Button', '')));
+                    }
+                    return _0x1a4922;
+                });
+            $('#payment #information').append(_0x157f3d);
+            var _0x91564a = _0x157f3d,
+                _0x3a980f = _0x157f3d.children('option').length;
+            _0x157f3d.addClass('s-hidden'), _0x91564a.wrap('<div class="select"></div>'), _0x91564a.after('<div class="styledSelect"></div>');
+            var _0x5d44d5 = _0x91564a.next('div.styledSelect');
+            _0x5d44d5.text(_0x91564a.children('option').eq(0).text()), $('#payment #information').append(function () {
+                var _0x27a71e = _0x91564a.children('option').eq(0).val();
+                return $('<div/>', {
+                    'id': 'payment-button',
+                    'style': "background-image: url('" ['concat'](_0x2a004f[_0x27a71e].big, '\')')
+                }).on('click', function () {
+                    return real_main.doPayment($('#time_options').children('.active').index() + 0x1, _0x27a71e);
+                });
+            });
+            for (var _0x3c733a = $('<ul />', {
+                    'class': 'options'
+                }).insertAfter(_0x5d44d5), _0x2cfc69 = 0; _0x2cfc69 < _0x3a980f; _0x2cfc69++) {
+                var _0x4a20d5 = _0x91564a.children('option').eq(_0x2cfc69).val();
+                $('<li />', {
+                    'text': _0x91564a.children('option').eq(_0x2cfc69).text(),
+                    'rel': _0x4a20d5
+                }).append($('<div/>', {
+                    'class': 'payment-option',
+                    'style': "background-image: url('" ['concat'](_0x2a004f[_0x4a20d5].small, '\')')
+                })).appendTo(_0x3c733a);
+            }
+            var _0x2faae5 = _0x3c733a.children('li');
+            _0x5d44d5.click(function (_0x5f272d) {
+                _0x5f272d.stopPropagation(), $('div.styledSelect.active').each(function () {
+                    $(this).removeClass('active').next('ul.options').hide();
+                }), $(this).toggleClass('active').next('ul.options').toggle();
+            }), _0x2faae5.click(function (_0x17b5e5) {
+                var _0x473776 = this;
+                _0x17b5e5.stopPropagation(), $('#payment-button').remove(), _0x5d44d5.text($(this).text()).removeClass('active'), $('#payment #information').append($('<div/>', {
+                    'id': 'payment-button',
+                    'style': "background-image: url('" ['concat'](_0x2a004f[$(this).attr('rel')].big, '\')')
+                }).on('click', function () {
+                    return real_main.doPayment($('#time_options').children('.active').index() + 0x1, $(_0x473776).attr('rel'));
+                })), _0x91564a.val($(this).attr('rel')), _0x3c733a.hide();
+            }), $(document).click(function () {
+                _0x5d44d5.removeClass('active'), _0x3c733a.hide();
+            });
+        }, 
+        doPayment (_0x16b1c1, _0x12a284) {
+            window.open(real_main.domain + 'payment?option=' + _0x16b1c1 + '&method=' + _0x12a284 + '&player_id=' + real_main.Account.player_id, 'grepolis_payment', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,height=650,width=800');
+        }, 
+        botFacebookWnd () {
+            if (real_main.isLogged && 0 === real_main.facebook_like) {
+                if (void 0 !== real_main.facebookWnd) {
+                    try {
+                        real_main.facebookWnd['close']();
+                    } catch (_0x4b7c28) {}
+                    real_main.facebookWnd = void 0;
+                }
+                real_main.facebookWnd = Layout.dialogWindow.open('', 'Autobot v' + real_main.version + ' - Get 3 days free!', 0x113, 0x7d, '', false), real_main.facebookWnd['setHeight']([0x7d]), real_main.facebookWnd.setPosition(['center', 'center']);
+                var _0x331c0b = $('<div/>', {
+                    'id': 'facebook_wnd'
+                }).append('<span class=\"like-share-text\">Like & share and get <b>3 days</b> free premium.</span><a href=\"#\" class=\"fb-share\"><span class=\"fb-text\">Share</spanclass></a><div class=\"fb_like\"><div class=\"fb-like\" data-href=\"https://www.facebook.com/BotForGrepolis/\" data-layout=\"button\" data-action=\"like\" data-show-faces=\"false\" data-share=\"false\"></div></div>');
+                real_main.facebookWnd.setContent2(_0x331c0b), $('.ui-dialog #facebook_wnd').closest('.gpwindow_content').css({
+                    'left': '-9px',
+                    'right': '-9px',
+                    'top': '35px'
+                });
+                var _0x4a7adf = false,
+                    _0x503fb1 = false,
+                    _0x3b4791 = function () {
+                        if ((_0x4a7adf || _0x503fb1) && real_main.upgrade3Days(), _0x4a7adf && _0x503fb1) {
+                            if ($.Observer(GameEvents.window['quest'].open).publish({
+                                    'quest_type': 'hermes'
+                                }), HumanMessage.success('You have received 3 days premium! Thank you for sharing.'), void 0 !== real_main.facebookWnd) {
+                                try {
+                                    real_main.facebookWnd.close();
+                                } catch (_0x21e7fb) {}
+                                real_main.facebookWnd = void 0;
+                            }
+                            if (void 0 !== real_main.botWnd) {
+                                try {
+                                    real_main.botWnd['close']();
+                                } catch (_0x40a9d3) {}
+                                real_main.botWnd = void 0;
+                            }
+                        }
+                    };
+                void 0 === window.fbAsyncInit && (window.fbAsyncInit = function () {
+                    FB.init({
+                        'appId': '1505555803075328',
+                        'xfbml': true,
+                        'version': 'v2.4'
+                    }), FB.Event.subscribe('edge.create', function () {
+                        _0x503fb1 = true, _0x3b4791();
+                    }), FB.Event['subscribe']('edge.remove', function () {
+                        _0x503fb1 = false;
+                    });
+                }), $('#facebook-jssdk').length <= 0 ? (_0x127caa = document, _0x40ccaa = 'script', _0x54267b = 'facebook-jssdk', _0xf55cce = _0x127caa.getElementsByTagName(_0x40ccaa)[0], _0x127caa.getElementById(_0x54267b) || ((_0x3dc931 = _0x127caa.createElement(_0x40ccaa)).id = _0x54267b, _0x3dc931.src = '//connect.facebook.net/en_US/sdk.js', _0xf55cce.parentNode.insertBefore(_0x3dc931, _0xf55cce))) : FB.XFBML.parse(), $('#facebook_wnd .fb-share').on('click', function () {
+                    FB.ui({
+                        'method': 'share',
+                        'href': 'https://www.facebook.com/BotForGrepolis/'
+                    }, function (_0x155b31) {
+                        _0x155b31 && !_0x155b31.error_code && (_0x4a7adf = true, _0x3b4791());
+                    });
+                });
+            }
+            var _0x127caa, _0x40ccaa, _0x54267b, _0x3dc931, _0xf55cce;
+        }, 
+        upgrade3Days () {
+            game.Auth('upgrade3Days', real_main.Account, function (_0x3ff584) {
+                _0x3ff584.success && game.Auth('login', real_main.Account, jugador.callbackAuth);
+            });
+        }, 
+        initAjax () {
+            $(document).ajaxComple te(function (_0x3d6089, _0xe31249, _0x350347) {
+                if (-0x1 === _0x350347.url.indexOf(real_main.domain) && -0x1 !== _0x350347.url.indexOf('/game/') && 0x4 === _0xe31249.readyState && 0xc8 === _0xe31249.status) {
+                    var _0x5f0e8d = _0x350347.url.split('?'),
+                        _0x40b631 = _0x5f0e8d[0].substr(0x6) + '/' + _0x5f0e8d[0x1].split('&')[0x1].substr(0x7);
+                    void 0 !== _0x12eddf && _0x12eddf.calls(_0x40b631), void 0 !== attack_manager && attack_manager.calls(_0x40b631, _0xe31249.responseText);
+                }
+            });
+        }, 
+        randomize (init_number, end_number) {
+            return Math.floor(Math.random() * (end_number - init_number + 1)) + init_number;
+        }, 
+        secondsToTime (seconds) {
+            var days = Math.floor(seconds / 86400),
+                hours = Math.floor(seconds % 86400 / 3600),
+                minutes = Math.floor(seconds % 86400 % 3600 / 60);
+            return (days ? days + ' days ' : '') + (hours ? hours + ' hours ' : '') + (minutes ? minutes + ' minutes ' : '');
+        }, 
+        timeToSeconds (time) {
+            for (var time_list = time.split(':'), seconds = 0, vule_in_seconds = 0x1; time_list.length > 0;) seconds += vule_in_seconds * parseInt(time_list.pop(), 10), vule_in_seconds *= 60;
+            return seconds;
+        }, 
+        arrowActivated () {
+            var _0x35c8ee = $('<div/>', {
+                'class': 'helpers helper_arrow group_quest d_w animate bounce',
+                'data-direction': 'w',
+                'style': 'top: 0; left: 360px; visibility: visible; display: none;'
+            });
+            real_main.toolbox_element.append(_0x35c8ee), _0x35c8ee.show().animate({
+                'left': '138px'
+            }, 'slow').delay(0x2710).fadeOut('normal'), setTimeout(function () {
+                real_main.botFacebookWnd();
+            }, 0x61a8);
+        }, 
+        createNotification (_0x3b88e4, _0x55b45e) {
+            (void 0 === Layout.notify ? new NotificationHandler() : Layout).notify($('#notification_area>.notification').length + 0x1, _0x3b88e4, '<span><b>Autobot</b></span>' + _0x55b45e + "<span class='small notification_date'>Version " + real_main.version + '</span>');
+        }, 
+        toHHMMSS (_0x18192c) {
+            var _0x2e6005 = ~~(_0x18192c / 3600),
+                _0x11954f = ~~(_0x18192c % 3600 / 60),
+                _0x35b2a9 = _0x18192c % 60,
+                _0x24f608 = '';
+            return _0x2e6005 > 0 && (_0x24f608 += _0x2e6005 + ':' + (_0x11954f < 0xa ? '0' : '')), _0x24f608 += _0x11954f + ':' + (_0x35b2a9 < 0xa ? '0' : ''), _0x24f608 += '' + _0x35b2a9;
+        }, 
+        stringify (_0x643b69) {
+            var _0x29ee91 = _0x1d5731(_0x643b69);
+            if ('string' === _0x29ee91) return '\"' + _0x643b69 + '\"';
+            if ('boolean' === _0x29ee91 || 'number' === _0x29ee91) return _0x643b69;
+            if ('function' === _0x29ee91) return _0x643b69.toString();
+            var _0x5b2c4e = [];
+            for (var _0x23725e in _0x643b69) _0x5b2c4e.push('\"' + _0x23725e + '\":' + this.stringify(_0x643b69[_0x23725e]));
+            return '{' + _0x5b2c4e.join(',') + '}';
+        }, 
+        isActive () {
+            setTimeout(function () {
+                game.Auth('isActive', real_main.Account, real_main.isActive);
+            }, 0xea60);
+        }, 
+        town_map_info (_0x1eac95, _0x3eea4d) {
+            if (void 0 !== _0x1eac95 && _0x1eac95.length > 0 && _0x3eea4d.player_name)
+                for (var _0xe74f66 = 0; _0xe74f66 < _0x1eac95.length; _0xe74f66++)
+                    if ('flag town' === _0x1eac95[_0xe74f66].className) {
+                        void 0 !== configurations && (configurations.settings.town_names && $(_0x1eac95[_0xe74f66]).addClass('active_town'), configurations.settings.player_name && $(_0x1eac95[_0xe74f66]).addClass('active_player'), configurations.settings.alliance_name && $(_0x1eac95[_0xe74f66]).addClass('active_alliance')), $(_0x1eac95[_0xe74f66]).append('<div class="player_name">' + (_0x3eea4d.player_name || '') + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"town_name\">' + _0x3eea4d.name + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"alliance_name\">' + (_0x3eea4d.alliance_name || '') + '</div>');
+                        break;
+                    } return _0x1eac95;
+        }, 
+        checkPremium (_0x559a7a) {
+            return $('.advisor_frame.' + _0x559a7a + ' div').hasClass(_0x559a7a + '_active');
+        }, 
+        initWindow () {
+            $('.nui_main_menu').css('top', '249px'), $('<div/>', {
+                'class': 'nui_bot_toolbox'
+            }).append($('<div/>', {
+                'class': 'bot_menu layout_main_sprite'
+            }).append($('<ul/>').append($('<li/>', {
+                'id': 'Autofarm_onoff',
+                'class': 'disabled'
+            }).append($('<span/>', {
+                'class': 'autofarm farm_town_status_0'
+            }))).append($('<li/>', {
+                'id': 'Autoculture_onoff',
+                'class': 'disabled'
+            }).append($('<span/>', {
+                'class': 'autoculture farm_town_status_0'
+            }))).append($('<li/>', {
+                'id': 'Autobuild_onoff',
+                'class': 'disabled'
+            }).append($('<span/>', {
+                'class': 'autobuild toolbar_activities_recruits'
+            }))).append($('<li/>', {
+                'id': 'Autoattack_onoff',
+                'class': 'disabled'
+            }).append($('<span/>', {
+                'class': 'autoattack sword_icon'
+            }))).append($('<li/>').append($('<span/>', {
+                'href': '#',
+                'class': 'botsettings circle_button_settings'
+            }).on('click', function () {
+                real_main.isLogged && real_main.initWnd();
+            }).mousePopup(new MousePopup(DM.getl10n('COMMON').main_menu.settings)))))).append($('<div/>', {
+                'id': 'time_autobot',
+                'class': 'time_row'
+            })).append($('<div/>', {
+                'class': 'bottom'
+            })).insertAfter('.nui_left_box');
+        }, 
+        initMapTownFeature () {
+            var _0x362cfc;
+            MapTiles.createTownDiv = (_0x362cfc = MapTiles.createTownDiv, function () {
+                var _0x18ba43 = _0x362cfc.apply(this, arguments);
+                return real_main.town_map_info(_0x18ba43, arguments[0]);
+            });
+        }
+}
+
+Object.defineProperty(real_main, 'title', {
+        'enumerable': true,
+        'writable': true,
+        'value': 'Autobot'
+    }), Object.defineProperty(real_main, 'version', {
+        'enumerable': true,
+        'writable': true,
+        'value': '4.0'
+    }), Object.defineProperty(real_main, 'domain', {
+        'enumerable': true,
+        'writable': true,
+        'value': 'https://bot.grepobot.com/'
+    }), Object.defineProperty(real_main, 'botWnd', {
+        'enumerable': true,
+        'writable': true,
+        'value': ''
+    }), Object.defineProperty(real_main, 'botPremWnd', {
+        'enumerable': true,
+        'writable': true,
+        'value': ''
+    }), Object.defineProperty(real_main, 'botEmailWnd', {
+        'enumerable': true,
+        'writable': true,
+        'value': ''
+    }), Object.defineProperty(real_main, 'facebookWnd', {
+        'enumerable': true,
+        'writable': true,
+        'value': ''
+    }), Object.defineProperty(real_main, 'isLogged', {
+        'enumerable': true,
+        'writable': true,
+        'value': false
+    }), Object.defineProperty(real_main, 'Account', {
+        'enumerable': true,
+        'writable': true,
+        'value': {
+            'player_id': Game.player_id,
+            'player_name': Game.player_name,
+            'world_id': Game.world_id,
+            'locale_lang': Game.locale_lang,
+            'premium_grepolis': Game.premium_user,
+            'csrfToken': Game.csrfToken
+        }
+    }),
+    function () {
+        String.prototype.capitalize = function () {
+            return this.charAt(0).toUpperCase() + this.slice(0x1);
+        }, $.fn['serializeObject'] = function () {
+            var _0x2d8824 = {},
+                _0x650cc6 = this.serializeArray();
+            return $.each(_0x650cc6, function () {
+                void 0 !== _0x2d8824[this.name] ? (_0x2d8824[this.name].push || (_0x2d8824[this.name] = [_0x2d8824[this.name]]), _0x2d8824[this.name].push(this.value || '')) : _0x2d8824[this.name] = this.value || '';
+            }), _0x2d8824;
+        };
+        var _0x3aaef2 = setInterval(function () {
+            void 0 !== window.$ && $('.nui_main_menu').length && !$.isEmptyObject(ITowns.towns) && (clearInterval(_0x3aaef2), real_main.initWindow(), real_main.initMapTownFeature(), real_main.init());
+        }, 0x64);
+    }();
+
+
+    let configuration =  {
+
+        init () {
+                Console.Log('Initialize Autobuild', 0x3), configuration.initFunction(), configuration.initButton(), configuration.checkCaptain(), configuration.activateCss();
+            }, 
+            setSettings (_0x1affb5) {
+                '' !== _0x1affb5 && null != _0x1affb5 && $.extend(configuration.settings, _0x1affb5);
+            }, 
+            activateCss () {
+                $('.construction_queue_order_container').addClass('active');
+            }, 
+            setQueue (_0x24c656, _0xed1724, _0x249491) {
+                '' !== _0x24c656 && null != _0x24c656 && (configuration.building_queue = _0x24c656, configuration.initQueue($('.construction_queue_order_container'), 'building')), '' !== _0xed1724 && null != _0xed1724 && (configuration.units_queue = _0xed1724), '' !== _0x249491 && null != _0x249491 && (configuration.ships_queue = _0x249491);
+            }, 
+            calls (_0x21ca26) {
+                switch (_0x21ca26) {
+                case 'building_main/index':
+                case 'building_main/build':
+                case 'building_main/cancel':
+                case 'building_main/tear_down':
+                    configuration.windows.building_main_index(_0x21ca26);
+                    break;
+                case 'building_barracks/index':
+                case 'building_barracks/build':
+                case 'building_barracks/cancel':
+                case 'building_barracks/tear_down':
+                    configuration.windows.building_barracks_index(_0x21ca26);
+                }
+            },
+        initFunction () {
+                var _0x9f0cac;
+                GameViews.ConstructionQueueBaseView.prototype['renderQueue'] = (_0x9f0cac = GameViews.ConstructionQueueBaseView.prototype.renderQueue, function () {
+                    if (_0x9f0cac.apply(this, arguments), '#building_tasks_main .various_orders_queue .frame-content .various_orders_content' !== this.$el.selector && '#ui_box .ui_construction_queue .construction_queue_order_container' !== this.$el.selector || configuration.initQueue(this.$el, 'building'), '#unit_orders_queue .js-researches-queue' === this.$el.selector) {
+                        var _0x65f672 = this.$el['find']('.ui_various_orders');
+                        _0x65f672.hasClass('barracks') ? configuration.initQueue(this.$el, 'unit') : _0x65f672.hasClass('docks') && configuration.initQueue(this.$el, 'ship');
+                    }
+                }), UnitOrder.selectUnit = function (_0x1cbb3e) {
+                    return function () {
+                        _0x1cbb3e.apply(this, arguments), this.barracks ? configuration.initUnitOrder(this, 'unit') : this.barracks || configuration.initUnitOrder(this, 'ship');
+                    };
+                }(UnitOrder.selectUnit);
+            }, 
+            
+            initButton () {
+                jugador.initButtons('Autobuild');
+            }, 
+            checkCaptain () {
+                $('.advisor_frame.captain div').hasClass('captain_active') && (configuration.isCaptain = true), configuration.Queue = configuration.isCaptain ? 0x7 : 0x2;
+            }, 
+            checkReady (_0x27aa41) {
+                var _0x39a132 = ITowns.towns[_0x27aa41.id];
+                return !!jugador.modules.Autobuild.isOn && !_0x39a132.hasConqueror() && !!(configuration.settings.enable_building || configuration.settings['enable_units'] || configuration.settings.enable_ships) && (_0x27aa41.modules.Autobuild.isReadyTime >= Timestamp.now() ? _0x27aa41.modules['Autobuild'].isReadyTime : !(void 0 === configuration.building_queue[_0x27aa41.id] && void 0 === configuration.units_queue[_0x27aa41.id] && void 0 === configuration.ships_queue[_0x27aa41.id]));
+            }, 
+            startBuild (_0x5a9c32) {
+                if (!configuration.checkEnabled()) return false;
+                configuration.town = _0x5a9c32, configuration.iTown = ITowns.towns[configuration.town.id], jugador.currentTown !== configuration.town.key ? (Console.Log(configuration.town.name + ' move to town.', 0x3), game.switch_town(configuration.town.id, function () {
+                    jugador.currentTown = configuration.town.key, configuration.startUpgrade();
+                })) : configuration.startUpgrade();
+            }, 
+            startQueueing () {
+                if (!configuration.checkEnabled()) return false;
+                void 0 === configuration.building_queue[configuration.town.id] && void 0 === configuration.units_queue[configuration.town.id] && void 0 === configuration.ships_queue[configuration.town.id] && configuration.finished();
+                var _0x4dbd4f = configuration.getReadyTime(configuration.town.id).shouldStart;
+                'building' === _0x4dbd4f ? configuration.startBuildBuilding() : 'unit' === _0x4dbd4f || 'ship' === _0x4dbd4f ? configuration.startBuildUnits('unit' === _0x4dbd4f ? configuration.units_queue : configuration.ships_queue, _0x4dbd4f) : configuration.finished();
+            }, 
+            startUpgrade () {
+                if (!configuration.checkEnabled()) return false;
+                GameDataInstantBuy.isEnabled() && configuration.checkInstantComplete(configuration.town.id) ? configuration.interval = setTimeout(function () {
+                    game.frontend_bridge(configuration.town.id, {
+                        'model_url': 'BuildingOrder/' + configuration.instantBuyTown.order_id,
+                        'action_name': 'buyInstant',
+                        'arguments': {
+                            'order_id': configuration.instantBuyTown['order_id']
+                        },
+                        'town_id': configuration.town.id,
+                        'nl_init': true
+                    }, function (_0x385a61) {
+                        if (_0x385a61.success) {
+                            if (configuration.town.id === Game.townId)
+                                for (var _0x27e1d8 = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0x5b4ca6 = 0; _0x27e1d8.length > _0x5b4ca6; _0x5b4ca6++) _0x27e1d8[_0x5b4ca6].getHandler().refresh();
+                            Console.Log('<span style="color: #ffa03d;">' + configuration.instantBuyTown.building_name['capitalize']() + ' - ' + _0x385a61.success + '</span>', 0x3);
+                        }
+                        _0x385a61.error && Console.Log(configuration.town.name + ' ' + _0x385a61.error, 0x3), configuration.interval = setTimeout(function () {
+                            configuration.instantBuyTown = false, configuration.startQueueing();
+                        }, data.randomize(0x1f4, 0x2bc));
+                    });
+                }, data.randomize(0x3e8, 0x7d0)) : configuration.startQueueing();
+            }, 
+            startBuildUnits (_0x158b9f, _0x5e4003) {
+                if (!configuration.checkEnabled()) return false;
+                if (void 0 !== _0x158b9f[configuration.town.id])
+                    if (void 0 !== _0x158b9f[configuration.town.id]) {
+                        var _0x30449e = _0x158b9f[configuration.town.id][0];
+                        GameDataUnits.getMaxBuildForSingleUnit(_0x30449e.item_name) >= _0x30449e.count ? configuration.interval = setTimeout(function () {
+                            game.building_barracks(configuration.town.id, {
+                                'unit_id': _0x30449e.item_name,
+                                'amount': _0x30449e.count,
+                                'town_id': configuration.town.id,
+                                'nl_init': true
+                            }, function (_0x7fca57) {
+                                if (_0x7fca57.error) Console.Log(configuration.town.name + ' ' + _0x7fca57.error, 0x3);
+                                else {
+                                    if (configuration.town.id === Game.townId)
+                                        for (var _0xf20dc5 = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0x5ab8c3 = 0; _0xf20dc5.length > _0x5ab8c3; _0x5ab8c3++) _0xf20dc5[_0x5ab8c3].getHandler().refresh();
+                                    Console.Log('<span style=\"color: ' + ('unit' === _0x5e4003 ? '#ffe03d' : '#3dadff') + ';">Units - ' + _0x30449e.count + ' ' + GameData.units[_0x30449e.item_name].name_plural + ' added.</span>', 0x3), game.Auth('removeItemQueue', {
+                                        'player_id': data.Account.player_id,
+                                        'world_id': data.Account['world_id'],
+                                        'csrfToken': data.Account['csrfToken'],
+                                        'town_id': configuration.town.id,
+                                        'item_id': _0x30449e.id,
+                                        'type': _0x5e4003
+                                    }, configuration.callbackSaveUnits($('#unit_orders_queue .ui_various_orders'), _0x5e4003)), $('.queue_id_' + _0x30449e.id).remove();
+                                }
+                                configuration.finished();
+                            });
+                        }, data.randomize(0x3e8, 0x7d0)) : (Console.Log(configuration.town.name + ' recruiting ' + _0x30449e.count + ' ' + GameData.units[_0x30449e.item_name].name_plural + ' not ready.', 0x3), configuration.finished());
+                    } else configuration.finished();
+                else configuration.finished();
+            }, 
+            startBuildBuilding () {
+                if (!configuration.checkEnabled()) return false;
+                void 0 !== configuration.building_queue[configuration.town.id] && configuration.building_queue[configuration.town.id] ? configuration.interval = setTimeout(function () {
+                    Console.Log(configuration.town.name + ' getting building information.', 0x3), game.building_main(configuration.town.id, function (response) {
+                        if (configuration.hasFreeBuildingSlots(response)) {
+                            var first_building = configuration.building_queue[configuration.town.id][0];
+                            if (void 0 !== first_building) {
+                                var _0x40d77e = configuration.getBuildings(response)[first_building.item_name];
+                                _0x40d77e.can_upgrade ? game.frontend_bridge(configuration.town.id, {
+                                    'model_url': 'BuildingOrder',
+                                    'action_name': 'buildUp',
+                                    'arguments': {
+                                        'building_id': first_building.item_name
+                                    },
+                                    'town_id': configuration.town.id,
+                                    'nl_init': true
+                                }, function (_0x3b1ab1) {
+                                    if (_0x3b1ab1.success) {
+                                        if (configuration.town.id === Game.townId)
+                                            for (var _0x11ba7b = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0xc0e5db = 0; _0x11ba7b.length > _0xc0e5db; _0xc0e5db++) _0x11ba7b[_0xc0e5db].getHandler().refresh();
+                                        Console.Log('<span style="color: #ffa03d;">' + first_building.item_name.capitalize() + ' - ' + _0x3b1ab1.success + '</span>', 0x3), game.Auth('removeItemQueue', {
+                                            'player_id': data.Account.player_id,
+                                            'world_id': data.Account.world_id,
+                                            'csrfToken': data.Account.csrfToken,
+                                            'town_id': configuration.town.id,
+                                            'item_id': first_building.id,
+                                            'type': 'building'
+                                        }, configuration.callbackSaveBuilding($('#building_tasks_main .ui_various_orders, .construction_queue_order_container .ui_various_orders'))), $('.queue_id_' + first_building.id).remove();
+                                    }
+                                    _0x3b1ab1.error && Console.Log(configuration.town.name + ' ' + _0x3b1ab1.error, 0x3), configuration.finished();
+                                }) : _0x40d77e.enough_population ? _0x40d77e.enough_resources ? (Console.Log(configuration.town['name'] + ' ' + first_building.item_name + ' can not be started due dependencies.', 0x3), game.Auth('removeItemQueue', {
+                                    'player_id': data.Account.player_id,
+                                    'world_id': data.Account.world_id,
+                                    'csrfToken': data.Account.csrfToken,
+                                    'town_id': configuration.town.id,
+                                    'item_id': first_building.id,
+                                    'type': 'building'
+                                }, configuration.callbackSaveBuilding($('#building_tasks_main .ui_various_orders, .construction_queue_order_container .ui_various_orders'))), $('.queue_id_' + first_building.id).remove(), configuration.finished()) : (Console.Log(configuration.town.name + ' not enough resources for ' + first_building.item_name + '.', 0x3), configuration.finished()) : (Console.Log(configuration.town.name + ' not enough population for ' + first_building.item_name + '.', 0x3), configuration.finished());
+                            } else configuration.finished();
+                        } else Console.Log(configuration.town.name + ' no free building slots available.', 0x3), configuration.finished();
+                    });
+                }, data.randomize(0x3e8, 0x7d0)) : configuration.finished();
+            }, 
+            getReadyTime (_0x4c0f00) {
+                var _0x574a96 = {
+                    'building': {
+                        'queue': [],
+                        'timeLeft': 0
+                    },
+                    'unit': {
+                        'queue': [],
+                        'timeLeft': 0
+                    },
+                    'ship': {
+                        'queue': [],
+                        'timeLeft': 0
+                    }
+                };
+                $.each(MM.getOnlyCollectionByName('BuildingOrder').models, function (_0x4c8cd0, _0x4e0239) {
+                    _0x4c0f00 === _0x4e0239.getTownId() && _0x574a96.building.queue.push({
+                        'type': 'building',
+                        'model': _0x4e0239
+                    });
+                }), $.each(MM.getOnlyCollectionByName('UnitOrder').models, function (_0x325d7b, _0x3775a3) {
+                    _0x4c0f00 === _0x3775a3.attributes.town_id && ('ground' === _0x3775a3.attributes.kind && _0x574a96.unit.queue.push({
+                        'type': 'unit',
+                        'model': _0x3775a3
+                    }), 'naval' === _0x3775a3.attributes.kind && _0x574a96.ship.queue.push({
+                        'type': 'ship',
+                        'model': _0x3775a3
+                    }));
+                });
+                var _0x57c46c = null,
+                    _0x532788 = 'nothing';
+                return $.each(_0x574a96, function (_0x3ecbc7) {
+                    ('building' === _0x3ecbc7 && void 0 !== configuration.building_queue[_0x4c0f00] || 'unit' === _0x3ecbc7 && void 0 !== configuration.units_queue[_0x4c0f00] || 'ship' === _0x3ecbc7 && void 0 !== configuration.ships_queue[_0x4c0f00]) && (_0x532788 = _0x3ecbc7);
+                }), GameDataInstantBuy.isEnabled() && _0x574a96.building.queue.length > 0 && (_0x57c46c = _0x574a96.building.queue[0].model.getTimeLeft() - 0x12c), {
+                    'readyTime': Timestamp.now() + (_0x57c46c > 0 ? _0x57c46c : +configuration.settings.timeinterval),
+                    'shouldStart': _0x532788
+                };
+            }, 
+            stop () {
+                clearInterval(configuration.interval);
+            }, 
+            checkEnabled () {
+                return jugador.modules.Autobuild['isOn'];
+            }, 
+            finished () {
+                if (!configuration.checkEnabled()) return false;
+                configuration.town.modules['Autobuild'].isReadyTime = configuration.getReadyTime(configuration.town.id).readyTime, jugador.Queue['next']();
+            }, 
+            checkInstantComplete (_0x3cbb07) {
+                return configuration.instantBuyTown = false, $.each(MM.getOnlyCollectionByName('BuildingOrder').models, function (_0x5e206f, _0x30eeb4) {
+                    if (_0x3cbb07 === _0x30eeb4.getTownId() && _0x30eeb4.getTimeLeft() < 0x12c) return configuration.instantBuyTown = {
+                        'order_id': _0x30eeb4.id,
+                        'building_name': _0x30eeb4.getBuildingId()
+                    }, false;
+                }), configuration.instantBuyTown;
+            }, 
+            checkBuildingDepencencies (_0x30382c, _0x4d38f6) {
+                var _0x5e4815 = GameData.buildings[_0x30382c].dependencies,
+                    _0x3bafc3 = _0x4d38f6.getBuildings().getBuildings(),
+                    _0x109f46 = [];
+                return $.each(_0x5e4815, function (_0x4f4fb2, _0x367131) {
+                    _0x3bafc3[_0x4f4fb2] < _0x367131 && _0x109f46.push({
+                        'building_id': _0x4f4fb2,
+                        'level': _0x367131
+                    });
+                }), _0x109f46;
+            }, 
+            callbackSaveBuilding (_0x20f84c) {
+                return function (_0x469af9) {
+                    _0x20f84c.each(function () {
+                        $(this).find('.empty_slot').remove(), _0x469af9.item ? ($(this).append(configuration.buildingElement($(this), _0x469af9.item)), configuration.setEmptyItems($(this))) : configuration.setEmptyItems($(this));
+                    }), delete _0x469af9.item, configuration.building_queue = _0x469af9;
+                };
+            }, 
+            callbackSaveSettings () {
+                Console.Log('Settings saved', 0x3), HumanMessage.success('The settings were saved!');
+            }, 
+            hasFreeBuildingSlots (_0x1b896e) {
+                var _0x3b2607 = false;
+                return void 0 !== _0x1b896e && /BuildingMain\.full_queue = false;/g ['test'](_0x1b896e.html) && (_0x3b2607 = true), _0x3b2607;
+            }, 
+            getBuildings (_0x2f35ec) {
+                var _0x23122a = null;
+                if (void 0 !== _0x2f35ec.html) {
+                    var _0x33863e = _0x2f35ec.html.match(/BuildingMain\.buildings = (.*);/g);
+                    void 0 !== _0x33863e[0] && (_0x23122a = JSON.parse(_0x33863e[0].substring(0x19, _0x33863e[0].length - 0x1)));
+                }
+                return _0x23122a;
+            }, 
+            initQueue (_0x330ace, _0x1fcfd2) {
+                var _0x1f0d83 = _0x330ace.find('.ui_various_orders');
+                _0x1f0d83.find('.empty_slot').remove(), 'building' === _0x1fcfd2 && ($('#building_tasks_main').addClass('active'), void 0 !== configuration.building_queue[Game.townId] && $.each(configuration.building_queue[Game.townId], function (_0x17748a, _0x18f33b) {
+                    _0x1f0d83.append(configuration.buildingElement(_0x1f0d83, _0x18f33b));
+                })), 'unit' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== configuration.units_queue[Game.townId] && $.each(configuration.units_queue[Game.townId], function (_0x3d42e7, _0x50d168) {
+                    _0x1f0d83.append(configuration.unitElement(_0x1f0d83, _0x50d168, _0x1fcfd2));
+                })), 'ship' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== configuration.ships_queue[Game.townId] && $.each(configuration.ships_queue[Game.townId], function (_0x554efc, _0x25417c) {
+                    _0x1f0d83.append(configuration.unitElement(_0x1f0d83, _0x25417c, _0x1fcfd2));
+                })), configuration.setEmptyItems(_0x1f0d83), _0x1f0d83.parent().mousewheel(function (_0xa72ca6, _0x5cf784) {
+                    this.scrollLeft -= 0x1e * _0x5cf784, _0xa72ca6.preventDefault();
+                });
+            }, 
+            initUnitOrder (_0x4a693e, _0x3444c7) {
+                var _0x732846 = _0x4a693e.units[_0x4a693e.unit_id],
+                    _0x34f802 = _0x4a693e.$el.find('#unit_order_confirm'),
+                    _0x566952 = _0x4a693e.$el['find']('#unit_order_addqueue'),
+                    _0x44539c = _0x4a693e.$el.find('#unit_order_slider');
+                if (_0x566952.length >= 0 && (_0x732846.missing_building_dependencies.length >= 0x1 || _0x732846.missing_research_dependencies.length >= 0x1) && _0x566952.hide(), 0 === _0x732846.missing_building_dependencies.length && 0 === _0x732846.missing_research_dependencies.length) {
+                    var _0x4a4fb5 = ITowns.towns[Game.townId],
+                        _0x5c3e3a = _0x732846.max_build,
+                        _0x34d4eb = Math.max.apply(this, [_0x732846.resources.wood, _0x732846.resources['stone'], _0x732846.resources['iron']]),
+                        _0x1060a2 = [];
+                    _0x1060a2.push(Math.floor(_0x4a4fb5.getStorage() / _0x34d4eb)), _0x1060a2.push(Math.floor((_0x4a4fb5.getAvailablePopulation() - configuration.checkPopulationBeingBuild()) / _0x732846.population)), _0x732846.favor > 0 && _0x1060a2.push(Math.floor(0x1f4 / _0x732846.favor));
+                    var _0x43701c = Math.min.apply(this, _0x1060a2);
+                    _0x43701c > 0 && _0x43701c >= _0x5c3e3a && _0x4a693e.slider.setMax(_0x43701c), 0 === _0x566952.length ? (_0x566952 = $('<a/>', {
+                        'href': '#',
+                        'id': 'unit_order_addqueue',
+                        'class': 'confirm'
+                    }), _0x34f802.after(_0x566952), _0x566952.mousePopup(new MousePopup('Add to reqruite queue')).on('click', function (_0x2efc67) {
+                        _0x2efc67.preventDefault(), configuration.addUnitQueueItem(_0x732846, _0x3444c7);
+                    })) : (_0x566952.unbind('click'), _0x566952.on('click', function (_0x245e5c) {
+                        _0x245e5c.preventDefault(), configuration.addUnitQueueItem(_0x732846, _0x3444c7);
+                    })), _0x43701c <= 0 ? _0x566952.hide() : _0x566952.show(), _0x34f802.show(), _0x44539c.slider({
+                        'slide': function (_0x385572, _0x23b9ea) {
+                            _0x23b9ea.value > _0x5c3e3a ? _0x34f802.hide() : _0x23b9ea.value >= 0 && _0x23b9ea.value <= _0x5c3e3a && _0x34f802.show(), 0 === _0x23b9ea.value ? _0x566952.hide() : _0x23b9ea.value > 0 && _0x43701c > 0 && _0x566952.show();
+                        }
+                    });
+                }
+            }, 
+            checkBuildingLevel (_0x231975) {
+                console.log(_0x231975);
+                var _0x47971a = ITowns.towns[Game.townId].getBuildings().attributes[_0x231975.item_name];
+                return $.each(ITowns.towns[Game.townId].buildingOrders().models, function (_0x58774e, _0x4c2976) {
+                    _0x4c2976.attributes.building_type === _0x231975.item_name && _0x47971a++;
+                }), void 0 !== configuration.building_queue[Game.townId] && $(configuration.building_queue[Game.townId]).each(function (_0xf86fe5, _0x1570e7) {
+                    if (_0x1570e7.id === _0x231975.id) return false;
+                    _0x1570e7.item_name === _0x231975.item_name && _0x47971a++;
+                }), ++_0x47971a;
+            }, 
+            checkPopulationBeingBuild () {
+                var _0x430413 = 0;
+                return void 0 !== configuration.units_queue[Game.townId] && $(configuration.units_queue[Game.townId].unit).each(function (_0x212d15, _0x21b244) {
+                    _0x430413 += _0x21b244.count * GameData.units[_0x21b244.item_name].population;
+                }), void 0 !== configuration.ships_queue[Game.townId] && $(configuration.ships_queue[Game.townId].ship).each(function (_0x303cf8, _0x41857a) {
+                    _0x430413 += _0x41857a.count * GameData.units[_0x41857a.item_name].population;
+                }), _0x430413;
+            }, 
+            addUnitQueueItem (_0x43803b, _0x4315d3) {
+                game.Auth('addItemQueue', {
+                    'player_id': data.Account.player_id,
+                    'world_id': data.Account.world_id,
+                    'csrfToken': data.Account.csrfToken,
+                    'town_id': Game.townId,
+                    'item_name': _0x43803b.id,
+                    'type': _0x4315d3,
+                    'count': UnitOrder.slider['getValue']()
+                }, configuration.callbackSaveUnits($('#unit_orders_queue .ui_various_orders'), _0x4315d3));
+            }, 
+            callbackSaveUnits (_0x177516, _0x2fb349) {
+                return function (_0x54a3cd) {
+                    console.log(_0x54a3cd), 'unit' === _0x2fb349 ? configuration.units_queue = _0x54a3cd : 'ship' === _0x2fb349 && (configuration.ships_queue = _0x54a3cd), _0x177516.each(function () {
+                        $(this).find('.empty_slot').remove(), _0x54a3cd.item ? ($(this).append(configuration.unitElement($(this), _0x54a3cd.item, _0x2fb349)), configuration.setEmptyItems($(this)), delete _0x54a3cd.item) : configuration.setEmptyItems($(this)), UnitOrder.selectUnit(UnitOrder.unit_id);
+                    });
+                };
+            }, 
+            setEmptyItems (_0x5e9851) {
+                var _0x58f460 = 0,
+                    _0x171bdb = _0x5e9851.parent().width();
+                $.each(_0x5e9851.find('.js-tutorial-queue-item'), function () {
+                    _0x58f460 += $(this).outerWidth(true);
+                });
+                var _0x1868fd = _0x171bdb - _0x58f460;
+                if (_0x1868fd >= 0) {
+                    _0x5e9851.width(_0x171bdb);
+                    for (var _0x99cb46 = 0x1; _0x99cb46 <= Math.floor(_0x1868fd) / 0x3c; _0x99cb46++) _0x5e9851.append($('<div/>', {
+                        'class': 'js-queue-item js-tutorial-queue-item construction_queue_sprite empty_slot'
+                    }));
+                } else _0x5e9851.width(_0x58f460 + 0x19);
+            }, 
+            buildingElement (_0x55213c, _0xb2dc47) {
+                return $('<div/>', {
+                    'class': 'js-tutorial-queue-item queued_building_order last_order ' + _0xb2dc47.item_name + ' queue_id_' + _0xb2dc47.id
+                }).append($('<div/>', {
+                    'class': 'construction_queue_sprite frame'
+                }).mousePopup(new MousePopup(_0xb2dc47.item_name.capitalize() + ' queued')).append($('<div/>', {
+                    'class': 'item_icon building_icon40x40 js-item-icon build_queue ' + _0xb2dc47.item_name
+                }).append($('<div/>', {
+                    'class': 'building_level'
+                }).append('<span class=\"construction_queue_sprite arrow_green_ver\"></span>' + configuration.checkBuildingLevel(_0xb2dc47))))).append($('<div/>', {
+                    'class': 'btn_cancel_order button_new square remove js-item-btn-cancel-order build_queue'
+                }).on('click', function (_0x111cab) {
+                    _0x111cab.preventDefault(), game.Auth('removeItemQueue', {
+                        'player_id': data.Account['player_id'],
+                        'world_id': data.Account.world_id,
+                        'csrfToken': data.Account['csrfToken'],
+                        'town_id': Game.townId,
+                        'item_id': _0xb2dc47.id,
+                        'type': 'building'
+                    }, configuration.callbackSaveBuilding($('#building_tasks_main .ui_various_orders, .construction_queue_order_container .ui_various_orders'))), $('.queue_id_' + _0xb2dc47.id).remove();
+                }).append($('<div/>', {
+                    'class': 'left'
+                })).append($('<div/>', {
+                    'class': 'right'
+                })).append($('<div/>', {
+                    'class': 'caption js-caption'
+                }).append($('<div/>', {
+                    'class': 'effect js-effect'
+                }))));
+            }, 
+            unitElement (_0x23785b, _0x395850, _0x5182ae) {
+                return $('<div/>', {
+                    'class': 'js-tutorial-queue-item queued_building_order last_order ' + _0x395850.item_name + ' queue_id_' + _0x395850.id
+                }).append($('<div/>', {
+                    'class': 'construction_queue_sprite frame'
+                }).mousePopup(new MousePopup(_0x395850.item_name.capitalize().replace('_', ' ') + ' queued')).append($('<div/>', {
+                    'class': 'item_icon unit_icon40x40 js-item-icon build_queue ' + _0x395850.item_name
+                }).append($('<div/>', {
+                    'class': 'unit_count text_shadow'
+                }).html(_0x395850.count)))).append($('<div/>', {
+                    'class': 'btn_cancel_order button_new square remove js-item-btn-cancel-order build_queue'
+                }).on('click', function (_0x5a52ba) {
+                    _0x5a52ba.preventDefault(), game.Auth('removeItemQueue', {
+                        'player_id': data.Account.player_id,
+                        'world_id': data.Account['world_id'],
+                        'csrfToken': data.Account.csrfToken,
+                        'town_id': Game.townId,
+                        'item_id': _0x395850.id,
+                        'type': _0x5182ae
+                    }, configuration.callbackSaveUnits($('#unit_orders_queue .ui_various_orders'), _0x5182ae)), $('.queue_id_' + _0x395850.id).remove();
+                }).append($('<div/>', {
+                    'class': 'left'
+                })).append($('<div/>', {
+                    'class': 'right'
+                })).append($('<div/>', {
+                    'class': 'caption js-caption'
+                }).append($('<div/>', {
+                    'class': 'effect js-effect'
+                }))));
+            }, 
+            contentSettings () {
+                return $('<fieldset/>', {
+                    'id': 'Autobuild_settings',
+                    'class': jugador.hasPremium ? '' : 'disabled-box',
+                    'style': 'float:left; width:472px; height: 270px;'
+                }).append($('<legend/>').html('Autobuild Settings')).append(_0x257397.checkbox({
+                    'text': 'AutoStart Autobuild.',
+                    'id': 'autobuild_autostart',
+                    'name': 'autobuild_autostart',
+                    'checked': configuration.settings.autostart
+                })).append(_0x257397.selectBox({
+                    'id': 'autobuild_timeinterval',
+                    'name': 'autobuild_timeinterval',
+                    'label': 'Check every: ',
+                    'styles': 'width: 120px;',
+                    'value': configuration.settings.timeinterval,
+                    'options': [{
+                        'value': '120',
+                        'name': '2 minutes'
+                    }, {
+                        'value': '300',
+                        'name': '5 minutes'
+                    }, {
+                        'value': '600',
+                        'name': '10 minutes'
+                    }, {
+                        'value': '900',
+                        'name': '15 minutes'
+                    }]
+                })).append(_0x257397.checkbox({
+                    'text': 'Enable building queue.',
+                    'id': 'autobuild_building_enable',
+                    'name': 'autobuild_building_enable',
+                    'style': 'width: 100%;padding-top: 35px;',
+                    'checked': configuration.settings.enable_building
+                })).append(_0x257397.checkbox({
+                    'text': 'Enable barracks queue.',
+                    'id': 'autobuild_barracks_enable',
+                    'name': 'autobuild_barracks_enable',
+                    'style': 'width: 100%;',
+                    'checked': configuration.settings.enable_units
+                })).append(_0x257397.checkbox({
+                    'text': 'Enable ships queue.',
+                    'id': 'autobuild_ships_enable',
+                    'name': 'autobuild_ships_enable',
+                    'style': 'width: 100%;padding-bottom: 35px;',
+                    'checked': configuration.settings.enable_ships
+                })).append(function () {
+                    var _0x54e89f = _0x257397.button({
+                        'name': DM.getl10n('notes').btn_save,
+                        'style': 'top: 10px;',
+                        'class': jugador.hasPremium ? '' : ' disabled'
+                    }).on('click', function () {
+                        if (!jugador.hasPremium) return false;
+                        var _0x2a0611 = $('#Autobuild_settings').serializeObject();
+                        configuration.settings.autostart = void 0 !== _0x2a0611.autobuild_autostart, configuration.settings['timeinterval'] = parseInt(_0x2a0611.autobuild_timeinterval), configuration.settings['autostart'] = void 0 !== _0x2a0611.autobuild_autostart, configuration.settings.enable_building = void 0 !== _0x2a0611.autobuild_building_enable, configuration.settings.enable_units = void 0 !== _0x2a0611.autobuild_barracks_enable, configuration.settings.enable_ships = void 0 !== _0x2a0611.autobuild_ships_enable, configuration.settings['instant_buy'] = void 0 !== _0x2a0611.autobuild_instant_buy, game.Auth('saveBuild', {
+                            'player_id': data.Account.player_id,
+                            'world_id': data.Account.world_id,
+                            'csrfToken': data.Account.csrfToken,
+                            'autobuild_settings': data.stringify(configuration.settings)
+                        }, configuration.callbackSaveSettings);
+                    });
+                    return jugador.hasPremium || _0x54e89f.mousePopup(new MousePopup(jugador.requiredPrem)), _0x54e89f;
+                });
+            }
+        }
+   Object.defineProperty(configuration, 'settings', {
+        'enumerable': true,
+        'writable': true,
+        'value': {
+            'autostart': false,
+            'enable_building': true,
+            'enable_units': true,
+            'enable_ships': true,
+            'timeinterval': 0x78,
+            'instant_buy': true
+        }
+    }), Object.defineProperty(configuration, 'building_queue', {
+        'enumerable': true,
+        'writable': true,
+        'value': {}
+    }), Object.defineProperty(configuration, 'units_queue', {
+        'enumerable': true,
+        'writable': true,
+        'value': {}
+    }), Object.defineProperty(configuration, 'ships_queue', {
+        'enumerable': true,
+        'writable': true,
+        'value': {}
+    }), Object.defineProperty(configuration, 'town', {
+        'enumerable': true,
+        'writable': true,
+        'value': null
+    }), Object.defineProperty(configuration, 'iTown', {
+        'enumerable': true,
+        'writable': true,
+        'value': null
+    }), Object.defineProperty(configuration, 'interval', {
+        'enumerable': true,
+        'writable': true,
+        'value': null
+    }), Object.defineProperty(configuration, 'currentWindow', {
+        'enumerable': true,
+        'writable': true,
+        'value': null
+    }), Object.defineProperty(configuration, 'isCaptain', {
+        'enumerable': true,
+        'writable': true,
+        'value': false
+    }), Object.defineProperty(configuration, 'Queue', {
+        'enumerable': true,
+        'writable': true,
+        'value': 0
+    }), Object.defineProperty(configuration, 'ModuleManager', {
+        'enumerable': true,
+        'writable': true,
+        'value': void 0
+    }), Object.defineProperty(configuration, 'windows', {
+        'enumerable': true,
+        'writable': true,
+        'value': {
+            'wndId': null,
+            'wndContent': null,
+            'building_main_index': function () {
+                if (GPWindowMgr && GPWindowMgr.getOpenFirst(Layout.wnd['TYPE_BUILDING'])) {
+                    configuration.currentWindow = GPWindowMgr.getOpenFirst(Layout.wnd['TYPE_BUILDING']).getJQElement().find('.gpwindow_content');
+                    var _0x5116c3 = configuration.currentWindow.find('#main_tasks h4');
+                    _0x5116c3.html(_0x5116c3.html().replace(/\/.*\)/, '/&infin;)'));
+                    var _0x3464ad = ['theater', 'thermal', 'library', 'lighthouse', 'tower', 'statue', 'oracle', 'trade_office'];
+                    $.each($('#buildings .button_build.build_grey.build_up.small.bold'), function () {
+                        var _0x148b01 = $(this).parent().parent().attr('id').replace('building_main_', '');
+                        configuration.checkBuildingDepencencies(_0x148b01, ITowns.getTown(Game.townId)).length <= 0 && -0x1 === $.inArray(_0x148b01, _0x3464ad) && $(this).removeClass('build_grey').addClass('build').html('Add to queue').on('click', function (_0x342fa8) {
+                            _0x342fa8.preventDefault(), game.Auth('addItemQueue', {
+                                'player_id': data.Account.player_id,
+                                'world_id': data.Account.world_id,
+                                'csrfToken': data.Account['csrfToken'],
+                                'town_id': Game.townId,
+                                'item_name': _0x148b01,
+                                'count': 0x1,
+                                'type': 'building'
+                            }, configuration.callbackSaveBuilding($('#building_tasks_main .ui_various_orders, .construction_queue_order_container .ui_various_orders')));
+                        });
+                    });
+                }
+            },
+            'building_barracks_index': function () {
+                GPWindowMgr && GPWindowMgr.getOpenFirst(Layout.wnd['TYPE_BUILDING']) && (configuration.currentWindow = GPWindowMgr.getOpenFirst(Layout.wnd.TYPE_BUILDING).getJQElement().find('.gpwindow_content'), configuration.currentWindow.find('#unit_orders_queue h4').find('.js-max-order-queue-count').html('&infin;'));
+            }
+        }
+    });
