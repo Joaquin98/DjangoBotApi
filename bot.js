@@ -1,7 +1,3 @@
-var script = document.createElement('script');
-script.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
-document.getElementsByTagName('head')[0].appendChild(script);
-
 
 function default_handler(_0x735f65, default_handler) {
     return function(data) {
