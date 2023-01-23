@@ -385,13 +385,6 @@ let basic_actions = {
 
 let farms_manager = {
 
-    isCaptain = false,
-    settings = {},
-    town = {
-        farmTowns : [],
-        name : ""
-        },
-    shouldFarm = [],
     /** Inicializa el módulo, activa el modulo y chequea si el capitan está activado */
     init() {
         Console.Log('Initialize AutoFarm', 1), farms_manager.initButton(), farms_manager.checkCaptain();
