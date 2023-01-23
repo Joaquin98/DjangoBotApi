@@ -1065,7 +1065,7 @@ let module_game = {
             module_autobot.trial_time = argumento.trial_time,
             module_autobot.premium_time = argumento.premium_time,
             module_autobot.facebook_like = argumento.facebook_like,
-            '' !== argumento.assistant_settings && module_auto_builds.setSettings(argumento.assistant_settings),
+            '' !== argumento.assistant_settings && module_auto_build.setSettings(argumento.assistant_settings),
             module_autobot.trial_time - Timestamp.now() >= 0 || module_autobot.premium_time - Timestamp.now() >= 0 ? (module_game.hasPremium = true, module_game.init(), farms_manager.init(), farms_manager.setSettings(argumento.autofarm_settings), module_auto_culture.init(), module_auto_culture.setSettings(argumento.autoculture_settings), _0x12eddf.init(),
              _0x12eddf.setSettings(argumento.autobuild_settings), _0x12eddf.setQueue(argumento.building_queue,
                  argumento.units_queue, argumento.ships_queue), attack_manager.init(), module_game.checkAutostart()) :
@@ -1162,6 +1162,70 @@ Object.defineProperty(module_game, 'models', {
     'value': DM.getl10n('tooltips').requirements.replace('.', '') + ' premium'
 });
 
+var console = {
+    contentConsole () {
+        var _0x3cb7ae = $('<fieldset/>', {
+                'style': 'float:left; width:472px;'
+            }).append($('<legend/>').html('Autobot Console')).append($('<div/>', {
+                'class': 'terminal'
+            }).append($('<div/>', {
+                'class': 'terminal-output'
+            })).scroll(function () {
+                console.LogScrollBottom();
+            })),
+            _0x392edf = _0x3cb7ae.find('.terminal-output');
+        return $.each(console.Logs, function (_0x4acef2, _0x685b91) {
+            _0x392edf.append(_0x685b91);
+        }), _0x3cb7ae;
+    }, 
+    Log (message, type) {
+        function _0x4a56ce(_0x450bde) {
+            return _0x450bde < 0xa ? '0' + _0x450bde : _0x450bde;
+        }
+        this.Logs.length >= 0x1f4 && this.Logs.shift();
+        var _0x2da986 = new Date(),
+            _0xb1632c = _0x4a56ce(_0x2da986.getHours()) + ':' + _0x4a56ce(_0x2da986.getMinutes()) + ':' + _0x4a56ce(_0x2da986.getSeconds()),
+            _0x380e1c = $('<div/>').append($('<div/>', {
+                'style': 'width: 100%;'
+            }).html(_0xb1632c + ' - [' + console.Types[type] + ']: ' + message));
+        this.Logs['push'](_0x380e1c);
+        var _0x5da79b = $('.terminal-output');
+        if (_0x5da79b.length && (_0x5da79b.append(_0x380e1c), this.scrollUpdate)) {
+            var _0x4bf51c = $('.terminal'),
+                _0x497166 = $('.terminal-output')[0].scrollHeight;
+            _0x4bf51c.scrollTop(_0x497166);
+        }
+    }, 
+    LogScrollBottom () {
+        clearInterval(this.scrollInterval);
+        var _0x36b9fc = $('.terminal'),
+            _0x1107fe = $('.terminal-output');
+        this.scrollUpdate = _0x36b9fc.scrollTop() + _0x36b9fc.height() === _0x1107fe.height();
+        var _0x5b625a = _0x1107fe[0].scrollHeight;
+        this.scrollInterval = setInterval(function () {
+            _0x36b9fc.scrollTop(_0x5b625a);
+        }, 0x1b58);
+    }
+};
+Object.defineProperty(console, 'Logs', {
+'enumerable': true,
+'writable': true,
+'value': []
+}), Object.defineProperty(console, 'Types', {
+'enumerable': true,
+'writable': true,
+'value': ['Autobot', 'Farming', 'Culture', 'Builder', 'Attack ']
+}), Object.defineProperty(console, 'scrollInterval', {
+'enumerable': true,
+'writable': true,
+'value': ''
+}), Object.defineProperty(console, 'scrollUpdate', {
+'enumerable': true,
+'writable': true,
+'value': true
+});
+
+
 
 let module_autobot = {
      info() {
@@ -1186,7 +1250,7 @@ let module_autobot = {
         });
     },
         init () {
-            Console.Log('Initialize Autobot', 0), module_autobot.authenticate(), module_autobot.obServer(), module_autobot.isActive(), module_autobot.setToolbox(), module_autobot.initAjax(), module_autobot.initMapTownFeature(), module_autobot.fixMessage(), module_auto_builds.init();
+            Console.Log('Initialize Autobot', 0), module_autobot.authenticate(), module_autobot.obServer(), module_autobot.isActive(), module_autobot.setToolbox(), module_autobot.initAjax(), module_autobot.initMapTownFeature(), module_autobot.fixMessage(), module_auto_build.init();
         }, 
         setToolbox () {
             module_autobot.toolbox_element = $('.nui_bot_toolbox');
@@ -1249,7 +1313,7 @@ let module_autobot = {
             }));
         }, 
         getContent (_0x4d0bfc) {
-            return 'Console' === _0x4d0bfc ? Console.contentConsole() : 'Account' === _0x4d0bfc ? module_autobot.contentAccount() : 'Support' === _0x4d0bfc ? module_autobot.contentSupport() : 'Autofarm' === _0x4d0bfc ? farms_manager.contentSettings() : 'Autobuild' === _0x4d0bfc ? _0x12eddf.contentSettings() : 'Autoattack' === _0x4d0bfc ? attack_manager.contentSettings() : 'Autoculture' === _0x4d0bfc ? module_auto_culture.contentSettings() : 'Assistant' === _0x4d0bfc ? module_auto_builds.contentSettings() : void 0;
+            return 'Console' === _0x4d0bfc ? Console.contentConsole() : 'Account' === _0x4d0bfc ? module_autobot.contentAccount() : 'Support' === _0x4d0bfc ? module_autobot.contentSupport() : 'Autofarm' === _0x4d0bfc ? farms_manager.contentSettings() : 'Autobuild' === _0x4d0bfc ? _0x12eddf.contentSettings() : 'Autoattack' === _0x4d0bfc ? attack_manager.contentSettings() : 'Autoculture' === _0x4d0bfc ? module_auto_culture.contentSettings() : 'Assistant' === _0x4d0bfc ? module_auto_build.contentSettings() : void 0;
         }, 
         //Contenidos de cada TAB
         contentAccount () {
@@ -1648,7 +1712,7 @@ let module_autobot = {
             if (void 0 !== _0x1eac95 && _0x1eac95.length > 0 && _0x3eea4d.player_name)
                 for (var _0xe74f66 = 0; _0xe74f66 < _0x1eac95.length; _0xe74f66++)
                     if ('flag town' === _0x1eac95[_0xe74f66].className) {
-                        void 0 !== module_auto_builds && (module_auto_builds.settings.town_names && $(_0x1eac95[_0xe74f66]).addClass('active_town'), module_auto_builds.settings.player_name && $(_0x1eac95[_0xe74f66]).addClass('active_player'), module_auto_builds.settings.alliance_name && $(_0x1eac95[_0xe74f66]).addClass('active_alliance')), $(_0x1eac95[_0xe74f66]).append('<div class="player_name">' + (_0x3eea4d.player_name || '') + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"town_name\">' + _0x3eea4d.name + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"alliance_name\">' + (_0x3eea4d.alliance_name || '') + '</div>');
+                        void 0 !== module_auto_build && (module_auto_build.settings.town_names && $(_0x1eac95[_0xe74f66]).addClass('active_town'), module_auto_build.settings.player_name && $(_0x1eac95[_0xe74f66]).addClass('active_player'), module_auto_build.settings.alliance_name && $(_0x1eac95[_0xe74f66]).addClass('active_alliance')), $(_0x1eac95[_0xe74f66]).append('<div class="player_name">' + (_0x3eea4d.player_name || '') + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"town_name\">' + _0x3eea4d.name + '</div>'), $(_0x1eac95[_0xe74f66]).append('<div class=\"alliance_name\">' + (_0x3eea4d.alliance_name || '') + '</div>');
                         break;
                     } return _0x1eac95;
         }, 
@@ -2316,69 +2380,7 @@ Object.defineProperty(module_autobot, 'title', {
     });
 
 
-    var console = {
-            contentConsole () {
-                var _0x3cb7ae = $('<fieldset/>', {
-                        'style': 'float:left; width:472px;'
-                    }).append($('<legend/>').html('Autobot Console')).append($('<div/>', {
-                        'class': 'terminal'
-                    }).append($('<div/>', {
-                        'class': 'terminal-output'
-                    })).scroll(function () {
-                        console.LogScrollBottom();
-                    })),
-                    _0x392edf = _0x3cb7ae.find('.terminal-output');
-                return $.each(console.Logs, function (_0x4acef2, _0x685b91) {
-                    _0x392edf.append(_0x685b91);
-                }), _0x3cb7ae;
-            }, 
-            Log (message, type) {
-                function _0x4a56ce(_0x450bde) {
-                    return _0x450bde < 0xa ? '0' + _0x450bde : _0x450bde;
-                }
-                this.Logs.length >= 0x1f4 && this.Logs.shift();
-                var _0x2da986 = new Date(),
-                    _0xb1632c = _0x4a56ce(_0x2da986.getHours()) + ':' + _0x4a56ce(_0x2da986.getMinutes()) + ':' + _0x4a56ce(_0x2da986.getSeconds()),
-                    _0x380e1c = $('<div/>').append($('<div/>', {
-                        'style': 'width: 100%;'
-                    }).html(_0xb1632c + ' - [' + console.Types[type] + ']: ' + message));
-                this.Logs['push'](_0x380e1c);
-                var _0x5da79b = $('.terminal-output');
-                if (_0x5da79b.length && (_0x5da79b.append(_0x380e1c), this.scrollUpdate)) {
-                    var _0x4bf51c = $('.terminal'),
-                        _0x497166 = $('.terminal-output')[0].scrollHeight;
-                    _0x4bf51c.scrollTop(_0x497166);
-                }
-            }, 
-            LogScrollBottom () {
-                clearInterval(this.scrollInterval);
-                var _0x36b9fc = $('.terminal'),
-                    _0x1107fe = $('.terminal-output');
-                this.scrollUpdate = _0x36b9fc.scrollTop() + _0x36b9fc.height() === _0x1107fe.height();
-                var _0x5b625a = _0x1107fe[0].scrollHeight;
-                this.scrollInterval = setInterval(function () {
-                    _0x36b9fc.scrollTop(_0x5b625a);
-                }, 0x1b58);
-            }
-    };
-    Object.defineProperty(console, 'Logs', {
-        'enumerable': true,
-        'writable': true,
-        'value': []
-    }), Object.defineProperty(console, 'Types', {
-        'enumerable': true,
-        'writable': true,
-        'value': ['Autobot', 'Farming', 'Culture', 'Builder', 'Attack ']
-    }), Object.defineProperty(console, 'scrollInterval', {
-        'enumerable': true,
-        'writable': true,
-        'value': ''
-    }), Object.defineProperty(console, 'scrollUpdate', {
-        'enumerable': true,
-        'writable': true,
-        'value': true
-    });
-
+    
 
     var attack_manager = {
             init () {
