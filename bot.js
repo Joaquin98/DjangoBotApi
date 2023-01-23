@@ -2,35 +2,11 @@ var script = document.createElement('script');
 script.src = 'https://code.jquery.com/jquery-3.6.3.min.js';
 document.getElementsByTagName('head')[0].appendChild(script);
 
-function Auth(action, account_info, callback_fun) {
-    $.ajax({
-        'method': 'POST',
-        'jsonpCallback': callback_fun,
-        'url': data.domain + 'api',
-        'dataType': 'json',
-        'data': $.extend({
-            'action': action
-        }, account_info),
-        'success': function(x) {
-            callback_fun(x);
-        }
-    });
-}
-
-$.ajax({
-    'method': 'GET',
-    'url': "https://worldtimeapi.org/api/timezone/Europe"
-}).responseJSON
-
-
-Game = {
-    csrfToken: "dsfsdf"
-}
 
 function default_handler(_0x735f65, default_handler) {
     return function(data) {
         default_handler = void 0 !== default_handler;
-        var _0x1a27ff = data.json;
+        var _0x1a27ff = module_autobot.json;
         return _0x1a27ff.redirect ? (window.location.href = _0x1a27ff.redirect, void delete _0x1a27ff.redirect) : _0x1a27ff.maintenance ? MaintenanceWindowFactory.openMaintenanceWindow(_0x1a27ff.maintenance) : (_0x1a27ff.notifications && NotificationLoader && (NotificationLoader.recvNotifyData(_0x1a27ff, 'data'), delete _0x1a27ff.notifications, delete _0x1a27ff.next_fetch_in), _0x735f65(default_handler ? data : _0x1a27ff));
     };
 }
@@ -41,7 +17,7 @@ let basic_actions = {
         $.ajax({
             'method': 'POST',
             'jsonpCallback': callback_fun,
-            'url': data.domain + 'api',
+            'url': module_autobot.domain + 'api',
             'dataType': 'json',
             'data': $.extend({
                 'action': action
@@ -55,7 +31,7 @@ let basic_actions = {
     PaymentOptions (_0x39c1c9) {
         $.ajax({
             'method': 'GET',
-            'url': data.domain + 'paymentOptions',
+            'url': module_autobot.domain + 'paymentOptions',
             'dataType': 'json',
             'success': function (_0xc2234d) {
                 _0x39c1c9(_0xc2234d);
@@ -68,7 +44,7 @@ let basic_actions = {
         let url = window.location['protocol'] + '//' + document.domain + '/game/data?' + $.param({
             'town_id': town_id,
             'action': 'get',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
         let data = {
             'json': JSON.stringify({
@@ -101,7 +77,7 @@ let basic_actions = {
         let url = window.location['protocol'] + '//' + document.domain + '/game/index?' + $.param({
             'town_id': town_id,
             'action': 'switch_town',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
         $.ajax({
             'url': url,
@@ -116,7 +92,7 @@ let basic_actions = {
         let url = window.location['protocol'] + '//' + document.domain + '/game/farm_town_info?' + $.param({
             'town_id': town_id,
             'action': 'claim_load',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
         let data = {
             'json': JSON.stringify({
@@ -140,9 +116,9 @@ let basic_actions = {
     farm_town_overviews(_0x4eaf5c, _0x3ebe11) {
         var _0x1546c3, _0x36f853, _0x36650a = _0x4eaf5c;
         _0x36f853 = {
-            'town_id': Game.townId,
+            'town_id': module_game.townId,
             'action': 'get_farm_towns_for_town',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
                 'island_x': ITowns.towns[_0x36650a].getIslandCoordinateX(),
                 'island_y': ITowns.towns[_0x36650a].getIslandCoordinateY(),
@@ -150,7 +126,7 @@ let basic_actions = {
                 'booty_researched': !!ITowns.towns[_0x36650a].researches().attributes.booty || '',
                 'diplomacy_researched': !!ITowns.towns[_0x36650a].researches().attributes['diplomacy'] || '',
                 'itrade_office': ITowns.towns[_0x36650a].buildings().attributes.trade_office,
-                'town_id': Game.townId,
+                'town_id': module_game.townId,
                 'nl_init': true
             })
         }, _0x1546c3 = window.location['protocol'] + '//' + document.domain + '/game/farm_town_overviews', $.ajax({
@@ -166,17 +142,17 @@ let basic_actions = {
     claim_loads(current_town_id, farm_town_ids, claim_factor, time_option, default_handler) {
         $.ajax({
             'url': window.location.protocol + '//' + document.domain + '/game/farm_town_overviews?' + $.param({
-                'town_id': Game.townId,
+                'town_id': module_game.townId,
                 'action': 'claim_loads',
-                'h': Game.csrfToken
-            });,
+                'h': module_game.csrfToken
+            }),
             'data': {
                 'json': JSON.stringify({
                     'farm_town_ids': farm_town_ids,
                     'time_option': time_option,
                     'claim_factor': claim_factor,
                     'current_town_id': current_town_id,
-                    'town_id': Game.townId,
+                    'town_id': module_game.townId,
                     'nl_init': true
                 })
             },
@@ -191,7 +167,7 @@ let basic_actions = {
         let data = {
             'town_id': town_id,
             'action': 'culture',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
                 'town_id': town_id,
                 'nl_init': true
@@ -211,7 +187,7 @@ let basic_actions = {
         let data = {
             'town_id': town_id,
             'action': 'index',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
                 'town_id': town_id,
                 'nl_init': true
@@ -232,7 +208,7 @@ let basic_actions = {
         let url = window.location['protocol'] + '//' + document.domain + '/game/building_place?' + $.param({
             'town_id': town_id,
             'action': 'start_celebration',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
         let data = {
             'json': JSON.stringify({
@@ -252,11 +228,11 @@ let basic_actions = {
 
     email_validation(default_handler) {
         let data = {
-            'town_id': Game.townId,
+            'town_id': module_game.townId,
             'action': 'email_validation',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
-                'town_id': Game.townId,
+                'town_id': module_game.townId,
                 'nl_init': true
             })
         };
@@ -272,11 +248,11 @@ let basic_actions = {
 
     members_show(default_handler) {
         let data = {
-            'town_id': Game.townId,
+            'town_id': module_game.townId,
             'action': 'members_show',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
-                'town_id': Game.townId,
+                'town_id': module_game.townId,
                 'nl_init': true
             })
         };
@@ -307,7 +283,7 @@ let basic_actions = {
         let url = window.location['protocol'] + '//' + document.domain + '/game/frontend_bridge?' + $.param({
             'town_id': town_id,
             'action': 'execute',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
 
         let data = {
@@ -326,7 +302,7 @@ let basic_actions = {
         let url = window.location.protocol + '//' + document.domain + '/game/building_barracks?' + $.param({
             'town_id': town_id,
             'action': 'build',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
         let data = {
             'json': JSON.stringify(data_input)
@@ -344,7 +320,7 @@ let basic_actions = {
         let data = {
             'town_id': town_id,
             'action': 'attacks',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
                 'town_id': town_id,
                 'nl_init': true
@@ -364,14 +340,14 @@ let basic_actions = {
         let data = {
             'town_id': town_id,
             'action': 'attack',
-            'h': Game.csrfToken,
+            'h': module_game.csrfToken,
             'json': JSON.stringify({
                 'id': attack.target_id,
                 'nl_init': true,
                 'origin_town_id': attack.town_id,
                 'preselect': true,
                 'preselect_units': attack.units,
-                'town_id': Game.townId
+                'town_id': module_game.townId
             })
         };
         let url = window.location.protocol + '//' + document.domain + '/game/town_info';
@@ -388,7 +364,7 @@ let basic_actions = {
         let url = window.location.protocol + '//' + document.domain + '/game/town_info?' + $.param({
             'town_id': town_id,
             'action': 'send_units',
-            'h': Game.csrfToken
+            'h': module_game.csrfToken
         });
 
         let data = {
@@ -413,6 +389,23 @@ let basic_actions = {
 
 let farms_manager = {
 
+    isCaptain = false,
+    settings = {},
+    town = {
+        farmTowns : [],
+        name : ""
+        },
+    shouldFarm = [],
+    /** Inicializa el módulo, activa el modulo y chequea si el capitan está activado */
+    init() {
+        Console.Log('Initialize AutoFarm', 1), farms_manager.initButton(), farms_manager.checkCaptain();
+    },
+
+    /* Cambia el estado del botón del menu */
+    initButton() {
+        module_game.initButtons('Autofarm');
+    },
+
     checkReady(_0x12de32) {
         var _0x7ca83a = ITowns.towns[_0x12de32.id];
         if (_0x7ca83a.hasConqueror()) return false;
@@ -421,9 +414,9 @@ let farms_manager = {
         var _0x4b62f6 = _0x7ca83a.resources();
         if (_0x4b62f6.wood === _0x4b62f6.storage && _0x4b62f6.stone === _0x4b62f6.storage && _0x4b62f6.iron === _0x4b62f6.storage && farms_manager.settings.skipwhenfull) return false;
         var _0x332894 = false;
-        return $.each(jugador.Queue.queue, function(_0x4cd034, _0x33bc0a) {
+        return $.each(module_game.Queue.queue, function(index, _0x33bc0a) {
             if ('Autofarm' === _0x33bc0a.module && -0x1 !== _0x12de32.relatedTowns.indexOf(_0x33bc0a.townId)) return _0x332894 = true, false;
-        }), farms_manager.settings.lowresfirst && _0x12de32.relatedTowns.length > 0 && (_0x332894 = false, $.each(_0x12de32.relatedTowns, function(_0x5e6530, _0x480fa6) {
+        }), farms_manager.settings.lowresfirst && _0x12de32.relatedTowns.length > 0 && (_0x332894 = false, $.each(_0x12de32.relatedTowns, function(index, _0x480fa6) {
             var _0x294ce5 = _0x7ca83a.resources(),
                 _0x384e5a = ITowns.towns[_0x480fa6].resources();
             if (_0x294ce5.wood + _0x294ce5.stone + _0x294ce5.iron > _0x384e5a.wood + _0x384e5a.stone + _0x384e5a.iron) return _0x332894 = true, false;
@@ -432,7 +425,7 @@ let farms_manager = {
 
     disableP() {
         attack_manager.settings = {
-            'autostart': !false,
+            'autostart': true,
             'method': 300,
             'timebetween': true,
             'skipwhenfull': true,
@@ -440,91 +433,115 @@ let farms_manager = {
             'stoplootbelow': true
         };
     },
+
+    /* Se fija si está activado el modulo */
     checkEnabled() {
-        return jugador.modules['Autofarm'].isOn;
+        return module_game.modules['Autofarm'].isOn;
     },
 
-
-    // Se fija si esta en la ciudad solicitada y si se tiene capitan o no
-    // llamando asi al farmeo clasico o con capitan
+    /* Se fija si esta en la ciudad solicitada y si se tiene capitan o no 
+    llamando asi al farmeo clasico o con capitan */
     startFarming(town) {
+
         if (!farms_manager.checkEnabled()) return false;
-        farms_manager.town = town, farms_manager.shouldFarm = [], farms_manager.iTown = ITowns.towns[farms_manager.town.id];
-        var funInt = function() {
+
+        farms_manager.town = town, 
+        farms_manager.shouldFarm = [], 
+        farms_manager.iTown = ITowns.towns[farms_manager.town.id];
+
+        var claim = function() {
             farms_manager.interval = setTimeout(function() {
-                Console.Log(farms_manager.town.name + ' getting farm information.', 0x1), farms_manager.isCaptain ? farms_manager.initFarmTownsCaptain(function() {
-                    if (!farms_manager.checkEnabled()) return false;
-                    farms_manager.claimResources();
-                }) : farms_manager.initFarmTowns(function() {
-                    if (!farms_manager.checkEnabled()) return false;
-                    farms_manager.town['currentFarmCount'] = 0, farms_manager.claimResources();
-                });
-            }, data.randomize(1000, 2000));
+                Console.Log(farms_manager.town.name + ' getting farm information.', 0x1);
+                if (farms_manager.isCaptain) 
+                    farms_manager.initFarmTownsCaptain(function() {
+                                                                    if (!farms_manager.checkEnabled()) return false;
+                                                                    farms_manager.claimResources();
+                                                        }) 
+                else  
+                    farms_manager.initFarmTowns(function() {
+                                                            if (!farms_manager.checkEnabled()) return false;
+                                                            farms_manager.town['currentFarmCount'] = 0, farms_manager.claimResources();
+                                                });
+
+            }, module_autobot.randomize(1000, 2000));
         };
-        jugador.currentTown !== farms_manager.town.key ? farms_manager.interval = setTimeout(function() {
-            Console.Log(farms_manager.town.name + ' move to town.', 0x1), basic_actions.switch_town(farms_manager.town.id, function() {
+        
+
+        // Si la ciudad en la que se quiere farmear es otra se cambia de ciudad
+        module_game.currentTown !== farms_manager.town.key ? farms_manager.interval = setTimeout(function() {
+            Console.Log(farms_manager.town.name + ' move to town.', 0x1), 
+            basic_actions.switch_town(farms_manager.town.id, function() {
                 if (!farms_manager.checkEnabled()) return false;
-                jugador.currentTown = farms_manager.town.key, funInt();
+                module_game.currentTown = farms_manager.town.key, claim();
             }), farms_manager.town.isSwitched = true;
-        }, data.randomize(1000, 2000)) : funInt();
+        }, module_autobot.randomize(1000, 2000)) : claim();
     },
 
-    initFarmTowns(funX) {
-        basic_actions.game_data(farms_manager.town.id, function(_0x6c5c94) {
+    /* Toma la lista de granjas desde la informacion del juego y llama a la funcion 
+    que realiza el pedido luego de completar la lista de granjas a farmear */
+    initFarmTowns(claim_function) {
+        basic_actions.game_data(farms_manager.town.id, function(response) {
             if (!farms_manager.checkEnabled()) return false;
-            var _0x337862 = _0x6c5c94.map.data['data'].data;
+            var _0x337862 = response.map.data['data'].data;
             $.each(_0x337862, function(_0x3501c6, _0x43b144) {
                 var _0x216af2 = [];
                 $.each(_0x43b144.towns, function(_0x683a89, _0x295289) {
                     _0x295289.x === farms_manager.iTown.getIslandCoordinateX() && _0x295289.y === farms_manager.iTown['getIslandCoordinateY']() && 0x1 === _0x295289.relation_status && _0x216af2.push(_0x295289);
                 }), farms_manager.town.farmTowns = _0x216af2;
-            }), $.each(farms_manager.town.farmTowns, function(_0x2bf068, _0x5266c9) {
-                _0x5266c9.loot - Timestamp.now() <= 0 && farms_manager.shouldFarm.push(_0x5266c9);
-            }), funX(true);
+            }), $.each(farms_manager.town.farmTowns, function(_0x2bf068, farm) {
+                if(farm.loot - Timestamp.now() <= 0)
+                    farms_manager.shouldFarm.push(farm);
+            }), claim_function(true);
         });
     },
-    initFarmTownsCaptain(funX) {
-        basic_actions.farm_town_overviews(farms_manager.town.id, function(_0x46bbcb) {
+
+     /* Toma la lista de granjas desde la del capitan y llama a la funcion 
+    que realiza el pedido luego de completar la lista de granjas a farmear */
+    initFarmTownsCaptain(claim_function) {
+        basic_actions.farm_town_overviews(farms_manager.town.id, function(response) {
             if (!farms_manager.checkEnabled()) return false;
-            var _0x307bbe = [];
-            $.each(_0x46bbcb.farm_town_list, function(_0x19002a, _0x158e8e) {
-                _0x158e8e.island_x === farms_manager.iTown['getIslandCoordinateX']() && _0x158e8e.island_y === farms_manager.iTown['getIslandCoordinateY']() && 0x1 === _0x158e8e.rel && _0x307bbe.push(_0x158e8e);
-            }), farms_manager.town.farmTowns = _0x307bbe, $.each(farms_manager.town.farmTowns, function(_0x54ee1e, _0x498069) {
-                _0x498069.loot - Timestamp.now() <= 0 && farms_manager.shouldFarm.push(_0x498069);
-            }), funX(true);
+            var farm_list = [];
+            $.each(response.farm_town_list, function(_0x19002a, farm) {
+                farm.island_x === farms_manager.iTown['getIslandCoordinateX']() && farm.island_y === farms_manager.iTown['getIslandCoordinateY']() && 0x1 === farm.rel && farm_list.push(town);
+            }), farms_manager.town.farmTowns = farm_list, $.each(farms_manager.town.farmTowns, function(_0x54ee1e, farm) {
+                if (farm.loot - Timestamp.now())
+                    farms_manager.shouldFarm.push(farm);
+            }), claim_function(true);
         });
     },
+
+    /** Va farmeando las granjas que se encuentran en la propiedad shouldFarm */
     claimResources() {
         if (!farms_manager.town.farmTowns[0])
             return Console.Log(farms_manager.town.name + ' has no farm towns.', 0x1), farms_manager.finished(1800), false;
-        if (farms_manager.town.currentFarmCount < farms_manager.shouldFarm['length']) farms_manager.interval = setTimeout(function() {
-            var _0x15851d = 'normal';
-            if (Game.features.battlepoint_villages || (farms_manager.shouldFarm[farms_manager.town['currentFarmCount']].mood >= 0x56 && farms_manager.settings.stoplootbelow && (_0x15851d = 'double'), farms_manager.settings.stoplootbelow || (_0x15851d = 'double')), farms_manager.isCaptain) {
-                var _0x3c2989 = [];
-                $.each(farms_manager.shouldFarm, function(_0x480d80, _0x330feb) {
-                    _0x3c2989.push(_0x330feb.id);
-                }), farms_manager.claimLoads(_0x3c2989, _0x15851d, function() {
+        if (farms_manager.town.currentFarmCount < farms_manager.shouldFarm.length) farms_manager.interval = setTimeout(function() {
+            var type = 'normal';
+            if (module_game.features.battlepoint_villages || (farms_manager.shouldFarm[farms_manager.town['currentFarmCount']].mood >= 86 && farms_manager.settings.stoplootbelow && (type = 'double'), farms_manager.settings.stoplootbelow || (type = 'double')), farms_manager.isCaptain) {
+                var farm_list = [];
+                $.each(farms_manager.shouldFarm, function(index, farm) {
+                    farm_list.push(farm.id);
+                }), farms_manager.claimLoads(farm_list, type, function() {
                     if (!farms_manager.checkEnabled()) return false;
                     farms_manager.finished(farms_manager.getMethodTime(farms_manager.town.id));
                 });
-            } else farms_manager.claimLoad(farms_manager.shouldFarm[farms_manager.town['currentFarmCount']].id, _0x15851d, function() {
+            } else farms_manager.claimLoad(farms_manager.shouldFarm[farms_manager.town['currentFarmCount']].id, type, function() {
                 if (!farms_manager.checkEnabled()) return false;
-                farms_manager.shouldFarm[farms_manager.town.currentFarmCount].loot = Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), jugador.updateTimer(farms_manager.shouldFarm.length, farms_manager.town['currentFarmCount']), farms_manager.town.currentFarmCount++, farms_manager.claimResources();
+                farms_manager.shouldFarm[farms_manager.town.currentFarmCount].loot = Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), module_game.updateTimer(farms_manager.shouldFarm.length, farms_manager.town['currentFarmCount']), farms_manager.town.currentFarmCount++, farms_manager.claimResources();
             });
-        }, data.randomize(1000 * farms_manager.settings.timebetween, 1000 * farms_manager.settings.timebetween + 1000));
+        }, module_autobot.randomize(1000 * farms_manager.settings.timebetween, 1000 * farms_manager.settings.timebetween + 1000));
         else {
             var _0x86b50f = null;
-            $.each(farms_manager.town.farmTowns, function(_0x16e034, _0x2d73c5) {
-                var _0x2d608a = _0x2d73c5.loot - Timestamp.now();
-                (null == _0x86b50f || _0x2d608a <= _0x86b50f) && (_0x86b50f = _0x2d608a);
-            }), farms_manager.shouldFarm.length > 0 ? $.each(farms_manager.shouldFarm, function(_0x5c74d2, _0x464317) {
-                var _0x13cc92 = _0x464317.loot - Timestamp.now();
+            $.each(farms_manager.town.farmTowns, function(index, town) {
+                var time_diff = town.loot - Timestamp.now();
+                (null == _0x86b50f || time_diff <= _0x86b50f) && (_0x86b50f = time_diff);
+            }), farms_manager.shouldFarm.length > 0 ? $.each(farms_manager.shouldFarm, function(index, farm) {
+                var _0x13cc92 = farm.loot - Timestamp.now();
                 (null == _0x86b50f || _0x13cc92 <= _0x86b50f) && (_0x86b50f = _0x13cc92);
             }) : Console.Log(farms_manager.town.name + ' not ready yet.', 0x1), farms_manager.finished(_0x86b50f);
         }
     },
-    claimLoad(town_id, claim_type, _0x3e2e28) {
-        Game.features.battlepoint_villages ? basic_actions.frontend_bridge(farms_manager.town.id, {
+    claimLoad(town_id, claim_type, callback_fun) {
+        module_game.features.battlepoint_villages ? basic_actions.frontend_bridge(farms_manager.town.id, {
             'model_url': 'FarmTownPlayerRelation/' + MM.getOnlyCollectionByName('FarmTownPlayerRelation').getRelationForFarmTown(town_id).id,
             'action_name': 'claim',
             'arguments': {
@@ -533,9 +550,9 @@ let farms_manager = {
                 'option': 1
             }
         }, function(_0x51f40e) {
-            farms_manager.claimLoadCallback(town_id, _0x51f40e), _0x3e2e28(_0x51f40e);
+            farms_manager.claimLoadCallback(town_id, _0x51f40e), callback_fun(_0x51f40e);
         }) : basic_actions.claim_load(farms_manager.town.id, claim_type, farms_manager.getMethodTime(farms_manager.town.id), town_id, function(_0x507810) {
-            farms_manager.claimLoadCallback(town_id, _0x507810), _0x3e2e28(_0x507810);
+            farms_manager.claimLoadCallback(town_id, _0x507810), callback_fun(_0x507810);
         });
     },
     claimLoadCallback(_0x93b056, _0x7f95bc) {
@@ -545,49 +562,49 @@ let farms_manager = {
             0x2 === _0x7f95bc.relation_status ? (WMap.updateStatusInChunkTowns(_0x93b056.id, _0xe3f769, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), _0x5082a4, 0x2), WMap.pollForMapChunksUpdate()) : WMap.updateStatusInChunkTowns(_0x93b056.id, _0xe3f769, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), _0x5082a4), Layout.hideAjaxLoader(), Console.Log('<span style="color: #6FAE30;">' + _0x7f95bc.success + '</span>', 0x1);
         } else _0x7f95bc.error && Console.Log(farms_manager.town.name + ' ' + _0x7f95bc.error, 0x1);
     },
-    claimLoads(_0x19be7e, _0x112363, _0x55b282) {
-        basic_actions.claim_loads(farms_manager.town.id, _0x19be7e, _0x112363, farms_manager.getMethodTime(farms_manager.town.id), function(_0x312a59) {
-            farms_manager.claimLoadsCallback(_0x312a59), _0x55b282(_0x312a59);
+    claimLoads(farm_list, type, callback_fun) {
+        basic_actions.claim_loads(farms_manager.town.id, farm_list, type, farms_manager.getMethodTime(farms_manager.town.id), function(response) {
+            farms_manager.claimLoadsCallback(response), callback_fun(response);
         });
     },
-    getMethodTime(_0x2dd44b) {
-        if (Game.features['battlepoint_villages']) {
-            var _0x4cea9b = farms_manager.settings.method;
-            return $.each(MM.getOnlyCollectionByName('Town').getTowns(), function(_0x555769, _0x559c78) {
-                if (_0x559c78.id === _0x2dd44b && _0x559c78.getResearches().hasResearch('booty')) return _0x4cea9b = 0x2 * farms_manager.settings['method'], false;
-            }), _0x4cea9b;
+    getMethodTime(town_id) {
+        if (module_game.features['battlepoint_villages']) {
+            var method = farms_manager.settings.method;
+            return $.each(MM.getOnlyCollectionByName('Town').getTowns(), function(index, town) {
+                if (town.id === town_id && town.getResearches().hasResearch('booty')) return method = 2 * farms_manager.settings['method'], false;
+            }), method;
         }
         return farms_manager.settings.method;
     },
-    claimLoadsCallback(_0x42ccc7) {
-        if (_0x42ccc7.success) {
-            var _0x1f8dff = _0x42ccc7.handled_farms;
-            $.each(_0x1f8dff, function(_0x58f512, _0x7c9130) {
-                0x2 === _0x7c9130.relation_status ? (WMap.updateStatusInChunkTowns(_0x58f512, _0x7c9130.satisfaction, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), _0x7c9130.lootable_at, 0x2), WMap.pollForMapChunksUpdate()) : WMap.updateStatusInChunkTowns(_0x58f512, _0x7c9130.satisfaction, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), _0x7c9130.lootable_at);
-            }), Console.Log('<span style="color: #6FAE30;">' + _0x42ccc7.success + '</span>', 0x1);
-        } else _0x42ccc7.error && Console.Log(farms_manager.town.name + ' ' + _0x42ccc7.error, 0x1);
+    claimLoadsCallback(response) {
+        if (response.success) {
+            var farms = response.handled_farms;
+            $.each(farms, function(index, farm) {
+                2 === farm.relation_status ? (WMap.updateStatusInChunkTowns(index, farm.satisfaction, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), farm.lootable_at, 0x2), WMap.pollForMapChunksUpdate()) : WMap.updateStatusInChunkTowns(index, farm.satisfaction, Timestamp.now() + farms_manager.getMethodTime(farms_manager.town.id), Timestamp.now(), farm.lootable_at);
+            }), Console.Log('<span style="color: #6FAE30;">' + response.success + '</span>', 1);
+        } else response.error && Console.Log(farms_manager.town.name + ' ' + response.error, 1);
     },
+
     finished(_0xec133c) {
         if (!farms_manager.checkEnabled()) return false;
-        $.each(jugador.playerTowns, function(_0x65227, _0x27c152) {
+        $.each(module_game.playerTowns, function(_0x65227, _0x27c152) {
             -0x1 !== farms_manager.town.relatedTowns['indexOf'](_0x27c152.id) && (_0x27c152.modules.Autofarm.isReadyTime = Timestamp.now() + _0xec133c);
-        }), farms_manager.town.modules.Autofarm['isReadyTime'] = Timestamp.now() + _0xec133c, jugador.Queue.next();
+        }), farms_manager.town.modules.Autofarm['isReadyTime'] = Timestamp.now() + _0xec133c, module_game.Queue.next();
     },
     stop() {
         clearInterval(farms_manager.interval);
     },
-    init() {
-        Console.Log('Initialize AutoFarm', 0x1), farms_manager.initButton(), farms_manager.checkCaptain();
-    },
-    initButton() {
-        jugador.initButtons('Autofarm');
-    },
+
+    /** Se fija en el menu si el capitan esta activado y guarda el resultado en una propiedad interna. */
     checkCaptain() {
         $('.advisor_frame.captain div').hasClass('captain_active') && (farms_manager.isCaptain = true);
     },
-    setSettings(_0x42f705) {
-        '' !== _0x42f705 && null != _0x42f705 && $.extend(farms_manager.settings, _0x42f705);
+    setSettings(new_settings) {
+        '' !== new_settings && null != new_settings && $.extend(farms_manager.settings, new_settings);
     },
+
+
+    /* Rellena la informacion en el submenu que se muestra por pantalla del autofarmeo */
     contentSettings() {
         return $('<fieldset/>', {
             'id': 'Autofarm_settings',
@@ -597,7 +614,7 @@ let farms_manager = {
             'id': 'autofarm_autostart',
             'name': 'autofarm_autostart',
             'checked': farms_manager.settings['autostart'],
-            'disabled': !jugador.hasPremium
+            'disabled': !module_game.hasPremium
         })).append(function() {
             var _0x1c9ebb = {
                 'id': 'autofarm_method',
@@ -620,11 +637,11 @@ let farms_manager = {
                 }],
                 'disabled': false
             };
-            jugador.hasPremium || (_0x1c9ebb = $.extend(_0x1c9ebb, {
+            module_game.hasPremium || (_0x1c9ebb = $.extend(_0x1c9ebb, {
                 'disabled': true
             }));
             var _0x475db5 = _0x257397.selectBox(_0x1c9ebb);
-            return jugador.hasPremium || _0x475db5.mousePopup(new MousePopup(jugador.requiredPrem)), _0x475db5;
+            return module_game.hasPremium || _0x475db5.mousePopup(new MousePopup(module_game.requiredPrem)), _0x475db5;
         }).append(function() {
             var _0x504e0d = {
                 'id': 'autofarm_bewteen',
@@ -649,49 +666,50 @@ let farms_manager = {
                     'name': '9-10 seconds'
                 }]
             };
-            jugador.hasPremium || (_0x504e0d = $.extend(_0x504e0d, {
+            module_game.hasPremium || (_0x504e0d = $.extend(_0x504e0d, {
                 'disabled': true
             }));
             var _0x1b2a10 = _0x257397.selectBox(_0x504e0d);
-            return jugador.hasPremium || _0x1b2a10.mousePopup(new MousePopup(jugador.requiredPrem)), _0x1b2a10;
+            return module_game.hasPremium || _0x1b2a10.mousePopup(new MousePopup(module_game.requiredPrem)), _0x1b2a10;
         }).append(_0x257397.checkbox({
             'text': 'Skip farm when warehouse is full.',
             'id': 'autofarm_warehousefull',
             'name': 'autofarm_warehousefull',
             'checked': farms_manager.settings.skipwhenfull,
-            'disabled': !jugador.hasPremium
+            'disabled': !module_game.hasPremium
         })).append(_0x257397.checkbox({
             'text': 'Lowest resources first with more towns on one island.',
             'id': 'autofarm_lowresfirst',
             'name': 'autofarm_lowresfirst',
             'checked': farms_manager.settings.lowresfirst,
-            'disabled': !jugador.hasPremium
+            'disabled': !module_game.hasPremium
         })).append(_0x257397.checkbox({
             'text': 'Stop loot farm until mood is below 80%.',
             'id': 'autofarm_loot',
             'name': 'autofarm_loot',
             'checked': farms_manager.settings.stoplootbelow,
-            'disabled': !jugador.hasPremium
+            'disabled': !module_game.hasPremium
         })).append(function() {
             var _0x54f8df = _0x257397.button({
                 'name': DM.getl10n('notes').btn_save,
-                'class': jugador.hasPremium ? '' : ' disabled',
+                'class': module_game.hasPremium ? '' : ' disabled',
                 'style': 'top: 62px;'
             }).on('click', function() {
-                if (!jugador.hasPremium) return false;
+                if (!module_game.hasPremium) return false;
                 var _0x56067b = $('#Autofarm_settings').serializeObject();
                 farms_manager.settings.autostart = void 0 !== _0x56067b.autofarm_autostart, farms_manager.settings.method = parseInt(_0x56067b.autofarm_method), farms_manager.settings.timebetween = parseInt(_0x56067b.autofarm_bewteen), farms_manager.settings.skipwhenfull = void 0 !== _0x56067b.autofarm_warehousefull, farms_manager.settings.lowresfirst = void 0 !== _0x56067b.autofarm_lowresfirst, farms_manager.settings.stoplootbelow = void 0 !== _0x56067b.autofarm_loot, basic_actions.Auth('saveAutofarm', {
-                    'player_id': data.Account.player_id,
-                    'world_id': data.Account.world_id,
-                    'csrfToken': data.Account.csrfToken,
-                    'autofarm_settings': data.stringify(farms_manager.settings)
+                    'player_id': module_autobot.Account.player_id,
+                    'world_id': module_autobot.Account.world_id,
+                    'csrfToken': module_autobot.Account.csrfToken,
+                    'autofarm_settings': module_autobot.stringify(farms_manager.settings)
                 }, farms_manager.callbackSave);
             });
-            return jugador.hasPremium || _0x54f8df.mousePopup(new MousePopup(jugador.requiredPrem)), _0x54f8df;
+            return module_game.hasPremium || _0x54f8df.mousePopup(new MousePopup(module_game.requiredPrem)), _0x54f8df;
         });
     },
+
     callbackSave() {
-        Console.Log('Settings saved', 0x1), HumanMessage.success('The settings were saved!');
+        Console.Log('Settings saved', 1), HumanMessage.success('The settings were saved!');
     }
 };
 
@@ -743,7 +761,7 @@ let module_auto_culture = {
         Console.Log('Initialize Autoculture', 0x2), module_auto_culture.initButton();
     },
     initButton() {
-        jugador.initButtons('Autoculture');
+        module_game.initButtons('Autoculture');
     },
     setSettings(new_settings) {
         '' !== new_settings && null != new_settings && $.extend(module_auto_culture.settings, new_settings);
@@ -760,12 +778,12 @@ let module_auto_culture = {
         return building.academy >= 0x1e && resources.wood >= 0x3a98 && resources.stone >= 0x4650 && resources.iron >= 0x3a98 && (celebration_list.party = true), 0x1 === building.theater && resources.wood >= 0x2710 && resources.stone >= 0x2ee0 && resources.iron >= 0x2710 && (celebration_list.theater = true), MM.getModelByNameAndPlayerId('PlayerKillpoints').getUnusedPoints() >= 0x12c && (celebration_list.triumph = true), celebration_list;
     },
     checkReady(town) {
-        return !ITowns.towns[town.id].hasConqueror() && !!jugador.modules.Autoculture.isOn && (town.modules.Autoculture.isReadyTime >= Timestamp.now() ? town.modules['Autoculture'].isReadyTime : !(void 0 === module_auto_culture.settings['towns'][town.id] || !(module_auto_culture.settings.towns[town.id].party && module_auto_culture.checkAvailable(town.id).party || module_auto_culture.settings['towns'][town.id].triumph && module_auto_culture.checkAvailable(town.id).triumph || module_auto_culture.settings.towns[town.id].theater && module_auto_culture.checkAvailable(town.id).theater)));
+        return !ITowns.towns[town.id].hasConqueror() && !!module_game.modules.Autoculture.isOn && (town.modules.Autoculture.isReadyTime >= Timestamp.now() ? town.modules['Autoculture'].isReadyTime : !(void 0 === module_auto_culture.settings['towns'][town.id] || !(module_auto_culture.settings.towns[town.id].party && module_auto_culture.checkAvailable(town.id).party || module_auto_culture.settings['towns'][town.id].triumph && module_auto_culture.checkAvailable(town.id).triumph || module_auto_culture.settings.towns[town.id].theater && module_auto_culture.checkAvailable(town.id).theater)));
     },
     startCulture(_0x535266) {
-        return !!module_auto_culture.checkEnabled() && (jugador.modules.Autoculture.isOn ? (module_auto_culture.town = _0x535266, module_auto_culture.iTown = ITowns.towns[module_auto_culture.town.id], void(jugador.currentTown !== module_auto_culture.town.key ? (Console.Log(module_auto_culture.town.name + ' move to town.', 0x2), basic_actions.switch_town(module_auto_culture.town.id, function() {
+        return !!module_auto_culture.checkEnabled() && (module_game.modules.Autoculture.isOn ? (module_auto_culture.town = _0x535266, module_auto_culture.iTown = ITowns.towns[module_auto_culture.town.id], void(module_game.currentTown !== module_auto_culture.town.key ? (Console.Log(module_auto_culture.town.name + ' move to town.', 0x2), basic_actions.switch_town(module_auto_culture.town.id, function() {
             if (!module_auto_culture.checkEnabled()) return false;
-            jugador.currentTown = module_auto_culture.town['key'], module_auto_culture.start();
+            module_game.currentTown = module_auto_culture.town['key'], module_auto_culture.start();
         })) : module_auto_culture.start())) : (module_auto_culture.finished(0), false));
     },
     start() {
@@ -796,7 +814,7 @@ let module_auto_culture = {
                     if (!('party' !== _0x31c5ce.name || module_auto_culture.settings.towns[module_auto_culture.town.id].party && module_auto_culture.checkAvailable(module_auto_culture.town.id).party)) return _0x6816b2++, _0x2213c3(celebration_list[_0x6816b2]), false;
                     if (!('theater' !== _0x31c5ce.name || module_auto_culture.settings['towns'][module_auto_culture.town.id].theater && module_auto_culture.checkAvailable(module_auto_culture.town.id).theater)) return _0x6816b2++, _0x2213c3(celebration_list[_0x6816b2]), false;
                     if (_0x31c5ce.element.find('#countdown_' + _0x31c5ce.name).length) {
-                        var _0x135475 = data.timeToSeconds(_0x31c5ce.element.find('#countdown_' + _0x31c5ce.name).html());
+                        var _0x135475 = module_autobot.timeToSeconds(_0x31c5ce.element.find('#countdown_' + _0x31c5ce.name).html());
                         return (0x12c === _0x172121 || _0x172121 > _0x135475) && (_0x172121 = _0x135475), _0x6816b2++, _0x2213c3(celebration_list[_0x6816b2]), false;
                     }
                     return '1' !== _0x31c5ce.element.find('.button, .button_new').data('enabled') ? (_0x6816b2++, _0x2213c3(celebration_list[_0x6816b2]), false) : '1' === _0x31c5ce.element['find']('.button, .button_new').data('enabled') ? (module_auto_culture.interval = setTimeout(function() {
@@ -804,10 +822,10 @@ let module_auto_culture = {
                             if (module_auto_culture.isPauzed) return false;
                             (0x12c === _0x172121 || _0x172121 >= _0x1f94e1) && (_0x172121 = _0x1f94e1), _0x6816b2++, _0x2213c3(celebration_list[_0x6816b2]);
                         });
-                    }, (_0x6816b2 + 0x1) * data.randomize(0x3e8, 0x7d0)), false) : (_0x6816b2++, void _0x2213c3(celebration_list[_0x6816b2]));
+                    }, (_0x6816b2 + 0x1) * module_autobot.randomize(0x3e8, 0x7d0)), false) : (_0x6816b2++, void _0x2213c3(celebration_list[_0x6816b2]));
                 }(celebration_list[_0x6816b2]);
             }));
-        }, data.randomize(2000, 4000));
+        }, module_autobot.randomize(2000, 4000));
     },
 
     startCelebration(_0x4e6929, _0x1cfbb7) {
@@ -819,7 +837,7 @@ let module_auto_culture = {
                 var _0x3196b3 = {};
                 if ($.each(_0x126142.json.notifications, function(_0x245214, _0x52a18a) {
                         'Celebration' === _0x52a18a.subject && (_0x3196b3 = JSON.parse(_0x52a18a.param_str));
-                    }), module_auto_culture.town.id === Game.townId)
+                    }), module_auto_culture.town.id === module_game.townId)
                     for (var _0x7b7550 = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0xf15587 = 0; _0x7b7550.length > _0xf15587; _0xf15587++) _0x7b7550[_0xf15587].getHandler().refresh();
                 void 0 !== _0x3196b3.Celebration && (Console.Log('<span style="color: #fff;">' + PopupFactory.texts[_0x3196b3.Celebration.celebration_type] + ' is started.</span>', 0x2), _0x50d2c2 = _0x3196b3.Celebration.finished_at - Timestamp.now());
             } else Console.Log(module_auto_culture.town.name + ' ' + _0x126142.json['error'], 0x2);
@@ -833,18 +851,18 @@ let module_auto_culture = {
 
     finished(_0x55d757) {
         if (!module_auto_culture.checkEnabled()) return false;
-        module_auto_culture.town.modules.Autoculture.isReadyTime = Timestamp.now() + _0x55d757, jugador.Queue.next();
+        module_auto_culture.town.modules.Autoculture.isReadyTime = Timestamp.now() + _0x55d757, module_game.Queue.next();
     },
 
     checkEnabled() {
-        return jugador.modules.Autoculture['isOn'];
+        return module_game.modules.Autoculture['isOn'];
     },
 
     contentSettings() {
         var _0x35b0b1 = '<ul class="game_list" id="townsoverview"><li class="even">';
         _0x35b0b1 += '<div class=\"towninfo small tag_header col w80 h25\" id=\"header_town\"></div>', _0x35b0b1 += '<div class=\"towninfo small tag_header col w40\" id=\"header_island\"> Island</div>', _0x35b0b1 += '<div class="towninfo small tag_header col w35" id="header_wood"><div class="col header wood"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w40" id="header_stone"><div class="col header stone"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w40" id="header_iron"><div class="col header iron"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w35" id="header_free_pop"><div class="col header free_pop"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w40" id="header_storage"><div class="col header storage"></div></div>', _0x35b0b1 += '<div class=\"towninfo small tag_header col w50\" id=\"header_storage\"><div class=\"col header celebration party\"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w50" id="header_storage"><div class="col header celebration triumph"></div></div>', _0x35b0b1 += '<div class="towninfo small tag_header col w50" id="header_storage"><div class="col header celebration theater"></div></div>', _0x35b0b1 += '<div style="clear:both;"></div>', _0x35b0b1 += '</li></ul><div id=\"bot_townsoverview_table_wrapper\">', _0x35b0b1 += '<ul class="game_list scroll_content">';
         var _0xdceffd = 0;
-        $.each(jugador.playerTowns, function(_0x4d1c39, _0x91954e) {
+        $.each(module_game.playerTowns, function(_0x4d1c39, _0x91954e) {
             var _0x44bc70 = ITowns.towns[_0x91954e.id],
                 _0x3e364f = _0x44bc70.getIslandCoordinateX(),
                 _0x58fc52 = _0x44bc70.getIslandCoordinateY(),
@@ -864,7 +882,7 @@ let module_auto_culture = {
             _0x4610ba('.culture_triumph_row');
         }), _0x1650b5.find('.celebration.theater').mousePopup(new MousePopup('Auto ' + PopupFactory.texts.theater)).on('click', function() {
             _0x4610ba('.culture_theater_row');
-        }), $.each(jugador.playerTowns, function(_0x4a64b0, _0x29a967) {
+        }), $.each(module_game.playerTowns, function(_0x4a64b0, _0x29a967) {
             _0x1650b5.find('#culture_party_' + _0x29a967.id).html(_0x257397.checkbox({
                 'id': 'bot_culture_party_' + _0x29a967.id,
                 'name': 'bot_culture_party_' + _0x29a967.id,
@@ -885,11 +903,11 @@ let module_auto_culture = {
             var _0x5748c9 = _0x257397.button({
                 'name': DM.getl10n('notes').btn_save,
                 'style': 'float: left;',
-                'class': jugador.hasPremium ? '' : ' disabled'
+                'class': module_game.hasPremium ? '' : ' disabled'
             }).on('click', function() {
-                if (!jugador.hasPremium) return false;
+                if (!module_game.hasPremium) return false;
                 var _0x4fc462 = $('#bot_townsoverview_table_wrapper input').serializeObject();
-                $.each(jugador.playerTowns, function(_0x51ecfa, _0x4e30f7) {
+                $.each(module_game.playerTowns, function(_0x51ecfa, _0x4e30f7) {
                     module_auto_culture.settings.towns[_0x4e30f7.id] = {
                         'party': false,
                         'triumph': false,
@@ -898,19 +916,19 @@ let module_auto_culture = {
                 }), $.each(_0x4fc462, function(_0x3def6b, _0x5ad879) {
                     _0x3def6b.indexOf('bot_culture_party_') >= 0 ? module_auto_culture.settings.towns[_0x3def6b.replace('bot_culture_party_', '')].party = void 0 !== _0x5ad879 : _0x3def6b.indexOf('bot_culture_triumph_') >= 0 ? module_auto_culture.settings.towns[_0x3def6b.replace('bot_culture_triumph_', '')].triumph = void 0 !== _0x5ad879 : _0x3def6b.indexOf('bot_culture_theater_') >= 0 && (module_auto_culture.settings['towns'][_0x3def6b.replace('bot_culture_theater_', '')].theater = void 0 !== _0x5ad879);
                 }), module_auto_culture.settings.autostart = $('#autoculture_autostart').prop('checked'), basic_actions.Auth('saveCulture', {
-                    'player_id': data.Account.player_id,
-                    'world_id': data.Account.world_id,
-                    'csrfToken': data.Account.csrfToken,
-                    'autoculture_settings': data.stringify(module_auto_culture.settings)
+                    'player_id': module_autobot.Account.player_id,
+                    'world_id': module_autobot.Account.world_id,
+                    'csrfToken': module_autobot.Account.csrfToken,
+                    'autoculture_settings': module_autobot.stringify(module_auto_culture.settings)
                 }, module_auto_culture.callbackSave);
             });
-            return jugador.hasPremium || _0x5748c9.mousePopup(new MousePopup(jugador.requiredPrem)), _0x5748c9;
+            return module_game.hasPremium || _0x5748c9.mousePopup(new MousePopup(module_game.requiredPrem)), _0x5748c9;
         }).append(_0x257397.checkbox({
             'text': 'AutoStart AutoCulture.',
             'id': 'autoculture_autostart',
             'name': 'autoculture_autostart',
             'checked': module_auto_culture.settings['autostart']
-        })), _0x257397.gameWrapper('AutoCulture', 'bot_townsoverview', _0x1650b5, 'margin-bottom:9px;', !jugador.hasPremium);
+        })), _0x257397.gameWrapper('AutoCulture', 'bot_townsoverview', _0x1650b5, 'margin-bottom:9px;', !module_game.hasPremium);
     },
 
     callbackSave() {
@@ -943,52 +961,52 @@ Object.defineProperty(module_auto_culture, 'settings', {
 });
 
 
-let jugador = {
+let module_game = {
         init() {
-            jugador.loadPlayerTowns(), jugador.initButtons(), jugador.initTimer();
+            module_game.loadPlayerTowns(), module_game.initButtons(), module_game.initTimer();
         }, 
         start () {
             var _0x36c75b = false,
                 _   0x497d31 = null;
-            if ($.each(jugador.playerTowns, function (_0x3a949a, _0x5e32b2) {
+            if ($.each(module_game.playerTowns, function (_0x3a949a, _0x5e32b2) {
                     var _0x5dfd05 = farms_manager.checkReady(_0x5e32b2);
-                    true === _0x5dfd05 ? (_0x36c75b = true, jugador.Queue.add({
+                    true === _0x5dfd05 ? (_0x36c75b = true, module_game.Queue.add({
                         'townId': _0x5e32b2.id,
                         'fx': function () {
                             _0x5e32b2.startFarming();
                         }
                     })) : false !== _0x5dfd05 && (null == _0x497d31 || _0x5dfd05 < _0x497d31) && (_0x497d31 = _0x5dfd05);
                     var _0x1e0783 = module_auto_culture.checkReady(_0x5e32b2);
-                    true === _0x1e0783 ? (_0x36c75b = true, jugador.Queue.add({
+                    true === _0x1e0783 ? (_0x36c75b = true, module_game.Queue.add({
                         'townId': _0x5e32b2.id,
                         'fx': function () {
                             _0x5e32b2.startCulture();
                         }
                     })) : false !== _0x1e0783 && (null == _0x497d31 || _0x1e0783 < _0x497d31) && (_0x497d31 = _0x1e0783);
                     var _0x3dab92 = _0x12eddf.checkReady(_0x5e32b2);
-                    true === _0x3dab92 ? (_0x36c75b = true, jugador.Queue.add({
+                    true === _0x3dab92 ? (_0x36c75b = true, module_game.Queue.add({
                         'townId': _0x5e32b2.id,
                         'fx': function () {
                             _0x5e32b2.startBuild();
                         }
                     })) : false !== _0x3dab92 && (null == _0x497d31 || _0x3dab92 < _0x497d31) && (_0x497d31 = _0x3dab92);
                 }), null !== _0x497d31 || _0x36c75b)
-                if (_0x36c75b) jugador.Queue.start();
+                if (_0x36c75b) module_game.Queue.start();
                 else {
                     var _0x360e83 = _0x497d31 - Timestamp.now() + 0xa;
-                    jugador.startTimer(_0x360e83, function () {
-                        jugador.start();
+                    module_game.startTimer(_0x360e83, function () {
+                        module_game.start();
                     });
                 }
-            else Console.Log('Nothing is ready yet!', 0), jugador.startTimer(0x1e, function () {
-                jugador.start();
+            else Console.Log('Nothing is ready yet!', 0), module_game.startTimer(0x1e, function () {
+                module_game.start();
             });
         }, 
         stop () {
-            clearInterval(jugador.interval), jugador.Queue.stop(), $('#time_autobot .caption .value_container .curr').html('Stopped');
+            clearInterval(module_game.interval), module_game.Queue.stop(), $('#time_autobot .caption .value_container .curr').html('Stopped');
         },
         finished () {
-            jugador.start();
+            module_game.start();
         }, 
         initTimer () {
             $('.nui_main_menu').css('top', '275px'), $('#time_autobot').append(_0x257397.timerBoxSmall({
@@ -999,74 +1017,76 @@ let jugador = {
         }, 
         updateTimer (_0x17eb87, _0x273027) {
             var _0x4716cc = 0;
-            _0x4716cc = void 0 !== _0x17eb87 && void 0 !== _0x273027 ? (jugador.Queue.total - (jugador.Queue.queue.length + 0x1) + _0x273027 / _0x17eb87) / jugador.Queue.total * 0x64 : (jugador.Queue.total - jugador.Queue.queue.length) / jugador.Queue.total * 0x64, isNaN(_0x4716cc) || ($('#time_autobot .progress .indicator').width(_0x4716cc + '%'), $('#time_autobot .caption .value_container .curr').html(Math.round(_0x4716cc) + '%'));
+            _0x4716cc = void 0 !== _0x17eb87 && void 0 !== _0x273027 ? (module_game.Queue.total - (module_game.Queue.queue.length + 0x1) + _0x273027 / _0x17eb87) / module_game.Queue.total * 0x64 : (module_game.Queue.total - module_game.Queue.queue.length) / module_game.Queue.total * 0x64, isNaN(_0x4716cc) || ($('#time_autobot .progress .indicator').width(_0x4716cc + '%'), $('#time_autobot .caption .value_container .curr').html(Math.round(_0x4716cc) + '%'));
         }, 
         checkAutostart () {
             if (farms_manager.settings.autostart) {
-                jugador.modules.Autofarm['isOn'] = true;
+                module_game.modules.Autofarm['isOn'] = true;
                 var _0x14943a = $('#Autofarm_onoff');
                 _0x14943a.addClass('on'), _0x14943a.find('span').mousePopup(new MousePopup('Stop Autofarm'));
             }
             if (module_auto_culture.settings['autostart']) {
-                jugador.modules['Autoculture'].isOn = true;
+                module_game.modules['Autoculture'].isOn = true;
                 var _0xb1db21 = $('#Autoculture_onoff');
                 _0xb1db21.addClass('on'), _0xb1db21.find('span').mousePopup(new MousePopup('Stop Autoculture'));
             }
             if (_0x12eddf.settings['autostart']) {
-                jugador.modules.Autobuild.isOn = true;
+                module_game.modules.Autobuild.isOn = true;
                 var _0xe53eb6 = $('#Autobuild_onoff');
                 _0xe53eb6.addClass('on'), _0xe53eb6.find('span').mousePopup(new MousePopup('Stop Autobuild'));
-            }(farms_manager.settings.autostart || module_auto_culture.settings.autostart || _0x12eddf.settings['autostart']) && jugador.start();
+            }(farms_manager.settings.autostart || module_auto_culture.settings.autostart || _0x12eddf.settings['autostart']) && module_game.start();
         }, 
         startTimer (_0x127196, _0x227a94) {
             var _0x4dec49 = _0x127196;
-            jugador.interval = setInterval(function () {
-                $('#time_autobot .caption .value_container .curr').html(data.toHHMMSS(_0x127196)), $('#time_autobot .progress .indicator').width((_0x4dec49 - _0x127196) / _0x4dec49 * 0x64 + '%'), --_0x127196 < 0 && (clearInterval(jugador.interval), _0x227a94());
+            module_game.interval = setInterval(function () {
+                $('#time_autobot .caption .value_container .curr').html(module_autobot.toHHMMSS(_0x127196)), $('#time_autobot .progress .indicator').width((_0x4dec49 - _0x127196) / _0x4dec49 * 0x64 + '%'), --_0x127196 < 0 && (clearInterval(module_game.interval), _0x227a94());
             }, 0x3e8);
         }, 
 
-        initButtons(_0x89fea) {
-            var _0x232241 = $('#' + _0x89fea + '_onoff');
-            _0x232241.removeClass('disabled'), _0x232241.on('click', function (_0x3470ce) {
-                if (_0x3470ce.preventDefault(), 'Autoattack' === _0x89fea && !data.checkPremium('captain')) return HumanMessage.error(Game.premium_data.captain.name + ' ' + DM.getl10n('premium').advisors.not_activated['toLowerCase']() + '.'), false;
-                true === jugador.modules[_0x89fea].isOn ? (jugador.modules[_0x89fea].isOn = false, _0x232241.removeClass('on'), _0x232241.find('span').mousePopup(new MousePopup('Start ' + _0x89fea)), HumanMessage.success(_0x89fea + ' is deactivated.'), Console.Log(_0x89fea + ' is deactivated.', 0), 'Autofarm' === _0x89fea ? farms_manager.stop() : 'Autoculture' === _0x89fea ? module_auto_culture.stop() : 'Autobuild' === _0x89fea ? _0x12eddf.stop() : 'Autoattack' === _0x89fea && attack_manager.stop()) : false === jugador.modules[_0x89fea].isOn && (_0x232241.addClass('on'), HumanMessage.success(_0x89fea + ' is activated.'), Console.Log(_0x89fea + ' is activated.', 0), _0x232241.find('span').mousePopup(new MousePopup('Stop ' + _0x89fea)), jugador.modules[_0x89fea].isOn = true, 'Autoattack' === _0x89fea && attack_manager.start()), 'Autoattack' !== _0x89fea && jugador.checkWhatToStart();
-            }), _0x232241.find('span').mousePopup(new MousePopup('Start ' + _0x89fea));
+
+        // Activa o desactiva modulos, validando que estén disponibles
+        initButtons(button_type) {
+            var button_html = $('#' + button_type + '_onoff');
+            button_html.removeClass('disabled'), button_html.on('click', function (_0x3470ce) {
+                if (_0x3470ce.preventDefault(), 'Autoattack' === button_type && !module_autobot.checkPremium('captain')) return HumanMessage.error(module_game.premium_module_autobot.captain.name + ' ' + DM.getl10n('premium').advisors.not_activated['toLowerCase']() + '.'), false;
+                true === module_game.modules[button_type].isOn ? (module_game.modules[button_type].isOn = false, button_html.removeClass('on'), button_html.find('span').mousePopup(new MousePopup('Start ' + button_type)), HumanMessage.success(button_type + ' is deactivated.'), Console.Log(button_type + ' is deactivated.', 0), 'Autofarm' === button_type ? farms_manager.stop() : 'Autoculture' === button_type ? module_auto_culture.stop() : 'Autobuild' === button_type ? _0x12eddf.stop() : 'Autoattack' === button_type && attack_manager.stop()) : false === module_game.modules[button_type].isOn && (button_html.addClass('on'), HumanMessage.success(button_type + ' is activated.'), Console.Log(button_type + ' is activated.', 0), button_html.find('span').mousePopup(new MousePopup('Stop ' + button_type)), module_game.modules[button_type].isOn = true, 'Autoattack' === button_type && attack_manager.start()), 'Autoattack' !== button_type && module_game.checkWhatToStart();
+            }), button_html.find('span').mousePopup(new MousePopup('Start ' + button_type));
         }, 
         checkWhatToStart () {
             var _0x335074 = 0;
-            $.each(jugador.modules, function (_0x32c7a4, _0x3f5cd9) {
+            $.each(module_game.modules, function (_0x32c7a4, _0x3f5cd9) {
                 _0x3f5cd9.isOn && 'Autoattack' !== _0x3f5cd9 && _0x335074++;
-            }), 0 === _0x335074 ? jugador.stop() : _0x335074 >= 0 && !jugador.Queue.isRunning() && (clearInterval(jugador.interval), jugador.start());
+            }), 0 === _0x335074 ? module_game.stop() : _0x335074 >= 0 && !module_game.Queue.isRunning() && (clearInterval(module_game.interval), module_game.start());
         }, 
         loadPlayerTowns () {
             var _0xa8e110 = 0;
             $.each(ITowns.towns, function (_0x5d6913, _0xe12385) {
-                var _0x11009d = new jugador.models.Town();
+                var _0x11009d = new module_game.models.Town();
                 _0x11009d.key = _0xa8e110, _0x11009d.id = _0xe12385.id, _0x11009d.name = _0xe12385.name, $.each(ITowns.towns, function (_0x4296f0, _0x46672c) {
                     _0xe12385.getIslandCoordinateX() === _0x46672c.getIslandCoordinateX() && _0xe12385.getIslandCoordinateY() === _0x46672c.getIslandCoordinateY() && _0xe12385.id !== _0x46672c.id && _0x11009d.relatedTowns['push'](_0x46672c.id);
-                }), jugador.playerTowns.push(_0x11009d), _0xa8e110++;
-            }), jugador.playerTowns['sort'](function (_0x52161f, _0x570499) {
+                }), module_game.playerTowns.push(_0x11009d), _0xa8e110++;
+            }), module_game.playerTowns['sort'](function (_0x52161f, _0x570499) {
                 var _0xe14144 = _0x52161f.name,
                     _0x1fae73 = _0x570499.name;
                 return _0xe14144 === _0x1fae73 ? 0 : _0xe14144 > _0x1fae73 ? 0x1 : -0x1;
             });
         }, 
         callbackAuth (argumento) {
-            data.isLogged = true,
-            data.trial_time = argumento.trial_time,
-            data.premium_time = argumento.premium_time,
-            data.facebook_like = argumento.facebook_like,
+            module_autobot.isLogged = true,
+            module_autobot.trial_time = argumento.trial_time,
+            module_autobot.premium_time = argumento.premium_time,
+            module_autobot.facebook_like = argumento.facebook_like,
             '' !== argumento.assistant_settings && module_auto_builds.setSettings(argumento.assistant_settings),
-            data.trial_time - Timestamp.now() >= 0 || data.premium_time - Timestamp.now() >= 0 ? (jugador.hasPremium = true, jugador.init(), farms_manager.init(), farms_manager.setSettings(argumento.autofarm_settings), module_auto_culture.init(), module_auto_culture.setSettings(argumento.autoculture_settings), _0x12eddf.init(),
+            module_autobot.trial_time - Timestamp.now() >= 0 || module_autobot.premium_time - Timestamp.now() >= 0 ? (module_game.hasPremium = true, module_game.init(), farms_manager.init(), farms_manager.setSettings(argumento.autofarm_settings), module_auto_culture.init(), module_auto_culture.setSettings(argumento.autoculture_settings), _0x12eddf.init(),
              _0x12eddf.setSettings(argumento.autobuild_settings), _0x12eddf.setQueue(argumento.building_queue,
-                 argumento.units_queue, argumento.ships_queue), attack_manager.init(), jugador.checkAutostart()) :
-                  (jugador.hasPremium = false, jugador.init(), farms_manager.init(), $('#Autoculture_onoff').mousePopup(new MousePopup(jugador.requiredPrem)),
-                   $('#Autobuild_onoff').mousePopup(new MousePopup(jugador.requiredPrem)), $('#Autoattack_onoff').mousePopup(new MousePopup(jugador.requiredPrem)),
-                    data.createNotification('getPremiumNotification', 'Unfortunately your premium membership is over. Please upgrade now!'));
+                 argumento.units_queue, argumento.ships_queue), attack_manager.init(), module_game.checkAutostart()) :
+                  (module_game.hasPremium = false, module_game.init(), farms_manager.init(), $('#Autoculture_onoff').mousePopup(new MousePopup(module_game.requiredPrem)),
+                   $('#Autobuild_onoff').mousePopup(new MousePopup(module_game.requiredPrem)), $('#Autoattack_onoff').mousePopup(new MousePopup(module_game.requiredPrem)),
+                    module_autobot.createNotification('getPremiumNotification', 'Unfortunately your premium membership is over. Please upgrade now!'));
         }
     }
 
-Object.defineProperty(jugador, 'models', {
+Object.defineProperty(module_game, 'models', {
     'enumerable': true,
     'writable': true,
     'value': {
@@ -1090,7 +1110,7 @@ Object.defineProperty(jugador, 'models', {
             };
         }
     }
-}), Object.defineProperty(jugador, 'Queue', {
+}), Object.defineProperty(module_game, 'Queue', {
     'enumerable': true,
     'writable': true,
     'value': {
@@ -1109,28 +1129,28 @@ Object.defineProperty(jugador, 'models', {
             return this.queue.length > 0 || this.total > 0;
         },
         'next': function () {
-            jugador.updateTimer();
+            module_game.updateTimer();
             var _0x1e567e = this.queue['shift']();
-            _0x1e567e ? _0x1e567e.fx() : this.queue.length <= 0 && (this.total = 0, jugador.finished());
+            _0x1e567e ? _0x1e567e.fx() : this.queue.length <= 0 && (this.total = 0, module_game.finished());
         }
     }
-}), Object.defineProperty(jugador, 'currentTown', {
+}), Object.defineProperty(module_game, 'currentTown', {
     'enumerable': true,
     'writable': true,
     'value': null
-}), Object.defineProperty(jugador, 'playerTowns', {
+}), Object.defineProperty(module_game, 'playerTowns', {
     'enumerable': true,
     'writable': true,
     'value': []
-}), Object.defineProperty(jugador, 'interval', {
+}), Object.defineProperty(module_game, 'interval', {
     'enumerable': true,
     'writable': true,
     'value': false
-}), Object.defineProperty(jugador, 'hasPremium', {
+}), Object.defineProperty(module_game, 'hasPremium', {
     'enumerable': true,
     'writable': true,
     'value': false
-}), Object.defineProperty(jugador, 'modules', {
+}), Object.defineProperty(module_game, 'modules', {
     'enumerable': true,
     'writable': true,
     'value': {
@@ -1147,13 +1167,11 @@ Object.defineProperty(jugador, 'models', {
             'isOn': false
         }
     }
-}), Object.defineProperty(jugador, 'requiredPrem', {
+}), Object.defineProperty(module_game, 'requiredPrem', {
     'enumerable': true,
     'writable': true,
     'value': DM.getl10n('tooltips').requirements.replace('.', '') + ' premium'
 });
-
-
 
 
 let module_autobot = {
@@ -1185,7 +1203,7 @@ let module_autobot = {
             module_autobot.toolbox_element = $('.nui_bot_toolbox');
         }, 
         authenticate () {
-            basic_actions.Auth('login', module_autobot.Account, jugador.callbackAuth);
+            basic_actions.Auth('login', module_autobot.Account, module_game.callbackAuth);
         },
         obServer () {
             $.Observer(GameEvents.notification.push).subscribe('GRCRTNotification', function () {
@@ -1247,11 +1265,11 @@ let module_autobot = {
         //Contenidos de cada TAB
         contentAccount () {
             var _0x2b96f2 = {
-                    'Name:': Game.player_name,
-                    'World:': Game.world_id,
-                    'Rank:': Game.player_rank,
-                    'Towns:': Game.player_villages,
-                    'Language:': Game.locale_lang
+                    'Name:': module_game.player_name,
+                    'World:': module_game.world_id,
+                    'Rank:': module_game.player_rank,
+                    'Towns:': module_game.player_villages,
+                    'Language:': module_game.locale_lang
                 },
                 _0x5298c8 = $('<table/>', {
                     'class': 'game_table layout_main_sprite',
@@ -1574,7 +1592,7 @@ let module_autobot = {
         }, 
         upgrade3Days () {
             basic_actions.Auth('upgrade3Days', module_autobot.Account, function (_0x3ff584) {
-                _0x3ff584.success && basic_actions.Auth('login', module_autobot.Account, jugador.callbackAuth);
+                _0x3ff584.success && basic_actions.Auth('login', module_autobot.Account, module_game.callbackAuth);
             });
         }, 
         initAjax () {
@@ -1586,7 +1604,9 @@ let module_autobot = {
                 }
             });
         }, 
+        /*dfsdfsfd*/
         randomize (init_number, end_number) {
+            //asdfsdfds 
             return Math.floor(Math.random() * (end_number - init_number + 1)) + init_number;
         }, 
         secondsToTime (seconds) {
@@ -1728,12 +1748,12 @@ Object.defineProperty(module_autobot, 'title', {
         'enumerable': true,
         'writable': true,
         'value': {
-            'player_id': Game.player_id,
-            'player_name': Game.player_name,
-            'world_id': Game.world_id,
-            'locale_lang': Game.locale_lang,
-            'premium_grepolis': Game.premium_user,
-            'csrfToken': Game.csrfToken
+            'player_id': module_game.player_id,
+            'player_name': module_game.player_name,
+            'world_id': module_game.world_id,
+            'locale_lang': module_game.locale_lang,
+            'premium_grepolis': module_game.premium_user,
+            'csrfToken': module_game.csrfToken
         }
     }),
     function () {
@@ -1755,10 +1775,10 @@ Object.defineProperty(module_autobot, 'title', {
     let module_auto_build =  {
 
         init () {
-                Console.Log('Initialize Autobuild', 0x3), module_auto_build.initFunction(), module_auto_build.initButton(), module_auto_build.checkCaptain(), module_auto_build.activateCss();
+                Console.Log('Initialize Autobuild', 3), module_auto_build.initFunction(), module_auto_build.initButton(), module_auto_build.checkCaptain(), module_auto_build.activateCss();
             }, 
-            setSettings (_0x1affb5) {
-                '' !== _0x1affb5 && null != _0x1affb5 && $.extend(module_auto_build.settings, _0x1affb5);
+            setSettings (new_settings) {
+                '' !== new_settings && null != new_settings && $.extend(module_auto_build.settings, new_settings);
             }, 
             activateCss () {
                 $('.construction_queue_order_container').addClass('active');
@@ -1796,19 +1816,22 @@ Object.defineProperty(module_autobot, 'title', {
             }, 
             
             initButton () {
-                jugador.initButtons('Autobuild');
+                module_game.initButtons('Autobuild');
             }, 
+
+            // Se fija si en el menú aparece que está activo el capitan,
+            // Pone la propiedad isCaptain en True y la cola en 7
             checkCaptain () {
-                $('.advisor_frame.captain div').hasClass('captain_active') && (module_auto_build.isCaptain = true), module_auto_build.Queue = module_auto_build.isCaptain ? 0x7 : 0x2;
+                $('.advisor_frame.captain div').hasClass('captain_active') && (module_auto_build.isCaptain = true), module_auto_build.Queue = module_auto_build.isCaptain ? 7 : 2;
             }, 
             checkReady (_0x27aa41) {
                 var _0x39a132 = ITowns.towns[_0x27aa41.id];
-                return !!jugador.modules.Autobuild.isOn && !_0x39a132.hasConqueror() && !!(module_auto_build.settings.enable_building || module_auto_build.settings['enable_units'] || module_auto_build.settings.enable_ships) && (_0x27aa41.modules.Autobuild.isReadyTime >= Timestamp.now() ? _0x27aa41.modules['Autobuild'].isReadyTime : !(void 0 === module_auto_build.building_queue[_0x27aa41.id] && void 0 === module_auto_build.units_queue[_0x27aa41.id] && void 0 === module_auto_build.ships_queue[_0x27aa41.id]));
+                return !!module_game.modules.Autobuild.isOn && !_0x39a132.hasConqueror() && !!(module_auto_build.settings.enable_building || module_auto_build.settings['enable_units'] || module_auto_build.settings.enable_ships) && (_0x27aa41.modules.Autobuild.isReadyTime >= Timestamp.now() ? _0x27aa41.modules['Autobuild'].isReadyTime : !(void 0 === module_auto_build.building_queue[_0x27aa41.id] && void 0 === module_auto_build.units_queue[_0x27aa41.id] && void 0 === module_auto_build.ships_queue[_0x27aa41.id]));
             }, 
             startBuild (_0x5a9c32) {
                 if (!module_auto_build.checkEnabled()) return false;
-                module_auto_build.town = _0x5a9c32, module_auto_build.iTown = ITowns.towns[module_auto_build.town.id], jugador.currentTown !== module_auto_build.town.key ? (Console.Log(module_auto_build.town.name + ' move to town.', 0x3), basic_actions.switch_town(module_auto_build.town.id, function () {
-                    jugador.currentTown = module_auto_build.town.key, module_auto_build.startUpgrade();
+                module_auto_build.town = _0x5a9c32, module_auto_build.iTown = ITowns.towns[module_auto_build.town.id], module_game.currentTown !== module_auto_build.town.key ? (Console.Log(module_auto_build.town.name + ' move to town.', 0x3), basic_actions.switch_town(module_auto_build.town.id, function () {
+                    module_game.currentTown = module_auto_build.town.key, module_auto_build.startUpgrade();
                 })) : module_auto_build.startUpgrade();
             }, 
             startQueueing () {
@@ -1830,15 +1853,15 @@ Object.defineProperty(module_autobot, 'title', {
                         'nl_init': true
                     }, function (_0x385a61) {
                         if (_0x385a61.success) {
-                            if (module_auto_build.town.id === Game.townId)
+                            if (module_auto_build.town.id === module_game.townId)
                                 for (var _0x27e1d8 = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0x5b4ca6 = 0; _0x27e1d8.length > _0x5b4ca6; _0x5b4ca6++) _0x27e1d8[_0x5b4ca6].getHandler().refresh();
                             Console.Log('<span style="color: #ffa03d;">' + module_auto_build.instantBuyTown.building_name['capitalize']() + ' - ' + _0x385a61.success + '</span>', 0x3);
                         }
                         _0x385a61.error && Console.Log(module_auto_build.town.name + ' ' + _0x385a61.error, 0x3), module_auto_build.interval = setTimeout(function () {
                             module_auto_build.instantBuyTown = false, module_auto_build.startQueueing();
-                        }, data.randomize(0x1f4, 0x2bc));
+                        }, module_autobot.randomize(0x1f4, 0x2bc));
                     });
-                }, data.randomize(0x3e8, 0x7d0)) : module_auto_build.startQueueing();
+                }, module_autobot.randomize(0x3e8, 0x7d0)) : module_auto_build.startQueueing();
             }, 
             startBuildUnits (_0x158b9f, _0x5e4003) {
                 if (!module_auto_build.checkEnabled()) return false;
@@ -1854,12 +1877,12 @@ Object.defineProperty(module_autobot, 'title', {
                             }, function (_0x7fca57) {
                                 if (_0x7fca57.error) Console.Log(module_auto_build.town.name + ' ' + _0x7fca57.error, 0x3);
                                 else {
-                                    if (module_auto_build.town.id === Game.townId)
+                                    if (module_auto_build.town.id === module_game.townId)
                                         for (var _0xf20dc5 = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0x5ab8c3 = 0; _0xf20dc5.length > _0x5ab8c3; _0x5ab8c3++) _0xf20dc5[_0x5ab8c3].getHandler().refresh();
                                     Console.Log('<span style=\"color: ' + ('unit' === _0x5e4003 ? '#ffe03d' : '#3dadff') + ';">Units - ' + _0x30449e.count + ' ' + GameData.units[_0x30449e.item_name].name_plural + ' added.</span>', 0x3), basic_actions.Auth('removeItemQueue', {
-                                        'player_id': data.Account.player_id,
-                                        'world_id': data.Account['world_id'],
-                                        'csrfToken': data.Account['csrfToken'],
+                                        'player_id': module_autobot.Account.player_id,
+                                        'world_id': module_autobot.Account['world_id'],
+                                        'csrfToken': module_autobot.Account['csrfToken'],
                                         'town_id': module_auto_build.town.id,
                                         'item_id': _0x30449e.id,
                                         'type': _0x5e4003
@@ -1867,7 +1890,7 @@ Object.defineProperty(module_autobot, 'title', {
                                 }
                                 module_auto_build.finished();
                             });
-                        }, data.randomize(0x3e8, 0x7d0)) : (Console.Log(module_auto_build.town.name + ' recruiting ' + _0x30449e.count + ' ' + GameData.units[_0x30449e.item_name].name_plural + ' not ready.', 0x3), module_auto_build.finished());
+                        }, module_autobot.randomize(0x3e8, 0x7d0)) : (Console.Log(module_auto_build.town.name + ' recruiting ' + _0x30449e.count + ' ' + GameData.units[_0x30449e.item_name].name_plural + ' not ready.', 0x3), module_auto_build.finished());
                     } else module_auto_build.finished();
                 else module_auto_build.finished();
             }, 
@@ -1889,12 +1912,12 @@ Object.defineProperty(module_autobot, 'title', {
                                     'nl_init': true
                                 }, function (_0x3b1ab1) {
                                     if (_0x3b1ab1.success) {
-                                        if (module_auto_build.town.id === Game.townId)
+                                        if (module_auto_build.town.id === module_game.townId)
                                             for (var _0x11ba7b = GPWindowMgr.getByType(GPWindowMgr.TYPE_BUILDING), _0xc0e5db = 0; _0x11ba7b.length > _0xc0e5db; _0xc0e5db++) _0x11ba7b[_0xc0e5db].getHandler().refresh();
                                         Console.Log('<span style="color: #ffa03d;">' + first_building.item_name.capitalize() + ' - ' + _0x3b1ab1.success + '</span>', 0x3), basic_actions.Auth('removeItemQueue', {
-                                            'player_id': data.Account.player_id,
-                                            'world_id': data.Account.world_id,
-                                            'csrfToken': data.Account.csrfToken,
+                                            'player_id': module_autobot.Account.player_id,
+                                            'world_id': module_autobot.Account.world_id,
+                                            'csrfToken': module_autobot.Account.csrfToken,
                                             'town_id': module_auto_build.town.id,
                                             'item_id': first_building.id,
                                             'type': 'building'
@@ -1902,9 +1925,9 @@ Object.defineProperty(module_autobot, 'title', {
                                     }
                                     _0x3b1ab1.error && Console.Log(module_auto_build.town.name + ' ' + _0x3b1ab1.error, 0x3), module_auto_build.finished();
                                 }) : _0x40d77e.enough_population ? _0x40d77e.enough_resources ? (Console.Log(module_auto_build.town['name'] + ' ' + first_building.item_name + ' can not be started due dependencies.', 0x3), basic_actions.Auth('removeItemQueue', {
-                                    'player_id': data.Account.player_id,
-                                    'world_id': data.Account.world_id,
-                                    'csrfToken': data.Account.csrfToken,
+                                    'player_id': module_autobot.Account.player_id,
+                                    'world_id': module_autobot.Account.world_id,
+                                    'csrfToken': module_autobot.Account.csrfToken,
                                     'town_id': module_auto_build.town.id,
                                     'item_id': first_building.id,
                                     'type': 'building'
@@ -1912,7 +1935,7 @@ Object.defineProperty(module_autobot, 'title', {
                             } else module_auto_build.finished();
                         } else Console.Log(module_auto_build.town.name + ' no free building slots available.', 0x3), module_auto_build.finished();
                     });
-                }, data.randomize(0x3e8, 0x7d0)) : module_auto_build.finished();
+                }, module_autobot.randomize(0x3e8, 0x7d0)) : module_auto_build.finished();
             }, 
             getReadyTime (_0x4c0f00) {
                 var _0x574a96 = {
@@ -1956,11 +1979,11 @@ Object.defineProperty(module_autobot, 'title', {
                 clearInterval(module_auto_build.interval);
             }, 
             checkEnabled () {
-                return jugador.modules.Autobuild['isOn'];
+                return module_game.modules.Autobuild['isOn'];
             }, 
             finished () {
                 if (!module_auto_build.checkEnabled()) return false;
-                module_auto_build.town.modules['Autobuild'].isReadyTime = module_auto_build.getReadyTime(module_auto_build.town.id).readyTime, jugador.Queue['next']();
+                module_auto_build.town.modules['Autobuild'].isReadyTime = module_auto_build.getReadyTime(module_auto_build.town.id).readyTime, module_game.Queue['next']();
             }, 
             checkInstantComplete (_0x3cbb07) {
                 return module_auto_build.instantBuyTown = false, $.each(MM.getOnlyCollectionByName('BuildingOrder').models, function (_0x5e206f, _0x30eeb4) {
@@ -2005,11 +2028,11 @@ Object.defineProperty(module_autobot, 'title', {
             }, 
             initQueue (_0x330ace, _0x1fcfd2) {
                 var _0x1f0d83 = _0x330ace.find('.ui_various_orders');
-                _0x1f0d83.find('.empty_slot').remove(), 'building' === _0x1fcfd2 && ($('#building_tasks_main').addClass('active'), void 0 !== module_auto_build.building_queue[Game.townId] && $.each(module_auto_build.building_queue[Game.townId], function (_0x17748a, _0x18f33b) {
+                _0x1f0d83.find('.empty_slot').remove(), 'building' === _0x1fcfd2 && ($('#building_tasks_main').addClass('active'), void 0 !== module_auto_build.building_queue[module_game.townId] && $.each(module_auto_build.building_queue[module_game.townId], function (_0x17748a, _0x18f33b) {
                     _0x1f0d83.append(module_auto_build.buildingElement(_0x1f0d83, _0x18f33b));
-                })), 'unit' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== module_auto_build.units_queue[Game.townId] && $.each(module_auto_build.units_queue[Game.townId], function (_0x3d42e7, _0x50d168) {
+                })), 'unit' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== module_auto_build.units_queue[module_game.townId] && $.each(module_auto_build.units_queue[module_game.townId], function (_0x3d42e7, _0x50d168) {
                     _0x1f0d83.append(module_auto_build.unitElement(_0x1f0d83, _0x50d168, _0x1fcfd2));
-                })), 'ship' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== module_auto_build.ships_queue[Game.townId] && $.each(module_auto_build.ships_queue[Game.townId], function (_0x554efc, _0x25417c) {
+                })), 'ship' === _0x1fcfd2 && ($('#unit_orders_queue').addClass('active'), void 0 !== module_auto_build.ships_queue[module_game.townId] && $.each(module_auto_build.ships_queue[module_game.townId], function (_0x554efc, _0x25417c) {
                     _0x1f0d83.append(module_auto_build.unitElement(_0x1f0d83, _0x25417c, _0x1fcfd2));
                 })), module_auto_build.setEmptyItems(_0x1f0d83), _0x1f0d83.parent().mousewheel(function (_0xa72ca6, _0x5cf784) {
                     this.scrollLeft -= 0x1e * _0x5cf784, _0xa72ca6.preventDefault();
@@ -2021,7 +2044,7 @@ Object.defineProperty(module_autobot, 'title', {
                     _0x566952 = _0x4a693e.$el['find']('#unit_order_addqueue'),
                     _0x44539c = _0x4a693e.$el.find('#unit_order_slider');
                 if (_0x566952.length >= 0 && (_0x732846.missing_building_dependencies.length >= 0x1 || _0x732846.missing_research_dependencies.length >= 0x1) && _0x566952.hide(), 0 === _0x732846.missing_building_dependencies.length && 0 === _0x732846.missing_research_dependencies.length) {
-                    var _0x4a4fb5 = ITowns.towns[Game.townId],
+                    var _0x4a4fb5 = ITowns.towns[module_game.townId],
                         _0x5c3e3a = _0x732846.max_build,
                         _0x34d4eb = Math.max.apply(this, [_0x732846.resources.wood, _0x732846.resources['stone'], _0x732846.resources['iron']]),
                         _0x1060a2 = [];
@@ -2044,28 +2067,28 @@ Object.defineProperty(module_autobot, 'title', {
             }, 
             checkBuildingLevel (_0x231975) {
                 console.log(_0x231975);
-                var _0x47971a = ITowns.towns[Game.townId].getBuildings().attributes[_0x231975.item_name];
-                return $.each(ITowns.towns[Game.townId].buildingOrders().models, function (_0x58774e, _0x4c2976) {
+                var _0x47971a = ITowns.towns[module_game.townId].getBuildings().attributes[_0x231975.item_name];
+                return $.each(ITowns.towns[module_game.townId].buildingOrders().models, function (_0x58774e, _0x4c2976) {
                     _0x4c2976.attributes.building_type === _0x231975.item_name && _0x47971a++;
-                }), void 0 !== module_auto_build.building_queue[Game.townId] && $(module_auto_build.building_queue[Game.townId]).each(function (_0xf86fe5, _0x1570e7) {
+                }), void 0 !== module_auto_build.building_queue[module_game.townId] && $(module_auto_build.building_queue[module_game.townId]).each(function (_0xf86fe5, _0x1570e7) {
                     if (_0x1570e7.id === _0x231975.id) return false;
                     _0x1570e7.item_name === _0x231975.item_name && _0x47971a++;
                 }), ++_0x47971a;
             }, 
             checkPopulationBeingBuild () {
                 var _0x430413 = 0;
-                return void 0 !== module_auto_build.units_queue[Game.townId] && $(module_auto_build.units_queue[Game.townId].unit).each(function (_0x212d15, _0x21b244) {
+                return void 0 !== module_auto_build.units_queue[module_game.townId] && $(module_auto_build.units_queue[module_game.townId].unit).each(function (_0x212d15, _0x21b244) {
                     _0x430413 += _0x21b244.count * GameData.units[_0x21b244.item_name].population;
-                }), void 0 !== module_auto_build.ships_queue[Game.townId] && $(module_auto_build.ships_queue[Game.townId].ship).each(function (_0x303cf8, _0x41857a) {
+                }), void 0 !== module_auto_build.ships_queue[module_game.townId] && $(module_auto_build.ships_queue[module_game.townId].ship).each(function (_0x303cf8, _0x41857a) {
                     _0x430413 += _0x41857a.count * GameData.units[_0x41857a.item_name].population;
                 }), _0x430413;
             }, 
             addUnitQueueItem (_0x43803b, _0x4315d3) {
                 basic_actions.Auth('addItemQueue', {
-                    'player_id': data.Account.player_id,
-                    'world_id': data.Account.world_id,
-                    'csrfToken': data.Account.csrfToken,
-                    'town_id': Game.townId,
+                    'player_id': module_autobot.Account.player_id,
+                    'world_id': module_autobot.Account.world_id,
+                    'csrfToken': module_autobot.Account.csrfToken,
+                    'town_id': module_game.townId,
                     'item_name': _0x43803b.id,
                     'type': _0x4315d3,
                     'count': UnitOrder.slider['getValue']()
@@ -2105,10 +2128,10 @@ Object.defineProperty(module_autobot, 'title', {
                     'class': 'btn_cancel_order button_new square remove js-item-btn-cancel-order build_queue'
                 }).on('click', function (_0x111cab) {
                     _0x111cab.preventDefault(), basic_actions.Auth('removeItemQueue', {
-                        'player_id': data.Account['player_id'],
-                        'world_id': data.Account.world_id,
-                        'csrfToken': data.Account['csrfToken'],
-                        'town_id': Game.townId,
+                        'player_id': module_autobot.Account['player_id'],
+                        'world_id': module_autobot.Account.world_id,
+                        'csrfToken': module_autobot.Account['csrfToken'],
+                        'town_id': module_game.townId,
                         'item_id': _0xb2dc47.id,
                         'type': 'building'
                     }, module_auto_build.callbackSaveBuilding($('#building_tasks_main .ui_various_orders, .construction_queue_order_container .ui_various_orders'))), $('.queue_id_' + _0xb2dc47.id).remove();
@@ -2135,10 +2158,10 @@ Object.defineProperty(module_autobot, 'title', {
                     'class': 'btn_cancel_order button_new square remove js-item-btn-cancel-order build_queue'
                 }).on('click', function (_0x5a52ba) {
                     _0x5a52ba.preventDefault(), basic_actions.Auth('removeItemQueue', {
-                        'player_id': data.Account.player_id,
-                        'world_id': data.Account['world_id'],
-                        'csrfToken': data.Account.csrfToken,
-                        'town_id': Game.townId,
+                        'player_id': module_autobot.Account.player_id,
+                        'world_id': module_autobot.Account['world_id'],
+                        'csrfToken': module_autobot.Account.csrfToken,
+                        'town_id': module_game.townId,
                         'item_id': _0x395850.id,
                         'type': _0x5182ae
                     }, module_auto_build.callbackSaveUnits($('#unit_orders_queue .ui_various_orders'), _0x5182ae)), $('.queue_id_' + _0x395850.id).remove();
@@ -2155,7 +2178,7 @@ Object.defineProperty(module_autobot, 'title', {
             contentSettings () {
                 return $('<fieldset/>', {
                     'id': 'Autobuild_settings',
-                    'class': jugador.hasPremium ? '' : 'disabled-box',
+                    'class': module_game.hasPremium ? '' : 'disabled-box',
                     'style': 'float:left; width:472px; height: 270px;'
                 }).append($('<legend/>').html('Autobuild Settings')).append(_0x257397.checkbox({
                     'text': 'AutoStart Autobuild.',
@@ -2203,18 +2226,18 @@ Object.defineProperty(module_autobot, 'title', {
                     var _0x54e89f = _0x257397.button({
                         'name': DM.getl10n('notes').btn_save,
                         'style': 'top: 10px;',
-                        'class': jugador.hasPremium ? '' : ' disabled'
+                        'class': module_game.hasPremium ? '' : ' disabled'
                     }).on('click', function () {
-                        if (!jugador.hasPremium) return false;
+                        if (!module_game.hasPremium) return false;
                         var _0x2a0611 = $('#Autobuild_settings').serializeObject();
                         module_auto_build.settings.autostart = void 0 !== _0x2a0611.autobuild_autostart, module_auto_build.settings['timeinterval'] = parseInt(_0x2a0611.autobuild_timeinterval), module_auto_build.settings['autostart'] = void 0 !== _0x2a0611.autobuild_autostart, module_auto_build.settings.enable_building = void 0 !== _0x2a0611.autobuild_building_enable, module_auto_build.settings.enable_units = void 0 !== _0x2a0611.autobuild_barracks_enable, module_auto_build.settings.enable_ships = void 0 !== _0x2a0611.autobuild_ships_enable, module_auto_build.settings['instant_buy'] = void 0 !== _0x2a0611.autobuild_instant_buy, basic_actions.Auth('saveBuild', {
-                            'player_id': data.Account.player_id,
-                            'world_id': data.Account.world_id,
-                            'csrfToken': data.Account.csrfToken,
-                            'autobuild_settings': data.stringify(module_auto_build.settings)
+                            'player_id': module_autobot.Account.player_id,
+                            'world_id': module_autobot.Account.world_id,
+                            'csrfToken': module_autobot.Account.csrfToken,
+                            'autobuild_settings': module_autobot.stringify(module_auto_build.settings)
                         }, module_auto_build.callbackSaveSettings);
                     });
-                    return jugador.hasPremium || _0x54e89f.mousePopup(new MousePopup(jugador.requiredPrem)), _0x54e89f;
+                    return module_game.hasPremium || _0x54e89f.mousePopup(new MousePopup(module_game.requiredPrem)), _0x54e89f;
                 });
             }
         }
@@ -2283,12 +2306,12 @@ Object.defineProperty(module_autobot, 'title', {
                     var _0x3464ad = ['theater', 'thermal', 'library', 'lighthouse', 'tower', 'statue', 'oracle', 'trade_office'];
                     $.each($('#buildings .button_build.build_grey.build_up.small.bold'), function () {
                         var _0x148b01 = $(this).parent().parent().attr('id').replace('building_main_', '');
-                        module_auto_build.checkBuildingDepencencies(_0x148b01, ITowns.getTown(Game.townId)).length <= 0 && -0x1 === $.inArray(_0x148b01, _0x3464ad) && $(this).removeClass('build_grey').addClass('build').html('Add to queue').on('click', function (_0x342fa8) {
+                        module_auto_build.checkBuildingDepencencies(_0x148b01, ITowns.getTown(module_game.townId)).length <= 0 && -0x1 === $.inArray(_0x148b01, _0x3464ad) && $(this).removeClass('build_grey').addClass('build').html('Add to queue').on('click', function (_0x342fa8) {
                             _0x342fa8.preventDefault(), basic_actions.Auth('addItemQueue', {
-                                'player_id': data.Account.player_id,
-                                'world_id': data.Account.world_id,
-                                'csrfToken': data.Account['csrfToken'],
-                                'town_id': Game.townId,
+                                'player_id': module_autobot.Account.player_id,
+                                'world_id': module_autobot.Account.world_id,
+                                'csrfToken': module_autobot.Account['csrfToken'],
+                                'town_id': module_game.townId,
                                 'item_name': _0x148b01,
                                 'count': 0x1,
                                 'type': 'building'
@@ -2302,3 +2325,597 @@ Object.defineProperty(module_autobot, 'title', {
             }
         }
     });
+
+
+    var console = {
+            contentConsole () {
+                var _0x3cb7ae = $('<fieldset/>', {
+                        'style': 'float:left; width:472px;'
+                    }).append($('<legend/>').html('Autobot Console')).append($('<div/>', {
+                        'class': 'terminal'
+                    }).append($('<div/>', {
+                        'class': 'terminal-output'
+                    })).scroll(function () {
+                        console.LogScrollBottom();
+                    })),
+                    _0x392edf = _0x3cb7ae.find('.terminal-output');
+                return $.each(console.Logs, function (_0x4acef2, _0x685b91) {
+                    _0x392edf.append(_0x685b91);
+                }), _0x3cb7ae;
+            }, 
+            Log (message, type) {
+                function _0x4a56ce(_0x450bde) {
+                    return _0x450bde < 0xa ? '0' + _0x450bde : _0x450bde;
+                }
+                this.Logs.length >= 0x1f4 && this.Logs.shift();
+                var _0x2da986 = new Date(),
+                    _0xb1632c = _0x4a56ce(_0x2da986.getHours()) + ':' + _0x4a56ce(_0x2da986.getMinutes()) + ':' + _0x4a56ce(_0x2da986.getSeconds()),
+                    _0x380e1c = $('<div/>').append($('<div/>', {
+                        'style': 'width: 100%;'
+                    }).html(_0xb1632c + ' - [' + console.Types[type] + ']: ' + message));
+                this.Logs['push'](_0x380e1c);
+                var _0x5da79b = $('.terminal-output');
+                if (_0x5da79b.length && (_0x5da79b.append(_0x380e1c), this.scrollUpdate)) {
+                    var _0x4bf51c = $('.terminal'),
+                        _0x497166 = $('.terminal-output')[0].scrollHeight;
+                    _0x4bf51c.scrollTop(_0x497166);
+                }
+            }, 
+            LogScrollBottom () {
+                clearInterval(this.scrollInterval);
+                var _0x36b9fc = $('.terminal'),
+                    _0x1107fe = $('.terminal-output');
+                this.scrollUpdate = _0x36b9fc.scrollTop() + _0x36b9fc.height() === _0x1107fe.height();
+                var _0x5b625a = _0x1107fe[0].scrollHeight;
+                this.scrollInterval = setInterval(function () {
+                    _0x36b9fc.scrollTop(_0x5b625a);
+                }, 0x1b58);
+            }
+    };
+    Object.defineProperty(console, 'Logs', {
+        'enumerable': true,
+        'writable': true,
+        'value': []
+    }), Object.defineProperty(console, 'Types', {
+        'enumerable': true,
+        'writable': true,
+        'value': ['Autobot', 'Farming', 'Culture', 'Builder', 'Attack ']
+    }), Object.defineProperty(console, 'scrollInterval', {
+        'enumerable': true,
+        'writable': true,
+        'value': ''
+    }), Object.defineProperty(console, 'scrollUpdate', {
+        'enumerable': true,
+        'writable': true,
+        'value': true
+    });
+
+
+    var attack_manager = {
+            init () {
+                Console.Log('Initialize Autoattack', 0x4), attack_manager.initButton(), module_autobot.checkPremium('captain') && attack_manager.loadAttackQueue();
+            },
+            setSettings (_0x2bde14) {
+                '' !== _0x2bde14 && null != _0x2bde14 && $.extend(attack_manager.settings, JSON.parse(_0x2bde14));
+            },
+            
+            initButton () {
+                module_game.initButtons('Autoattack');
+            },
+            start () {
+                attack_manager.attacks_timers = [];
+                var _0x394118 = $.map(attack_manager.attacks, function (_0x42c631, _0x35371c) {
+                    var _0x63544d = $.Deferred();
+                    return attack_manager.checkAttack(_0x42c631, _0x35371c).then(function () {
+                        _0x63544d.resolve();
+                    }), _0x63544d;
+                });
+                $.when.apply($, _0x394118).done(function () {
+                    attack_manager.checked_count = 0;
+                    var _0x27fb3e = null;
+                    0 === attack_manager.countRunningAttacks() ? (_0x27fb3e = DM.getl10n('COMMON').no_results + '.', HumanMessage.error(_0x27fb3e), Console.Log('<span style="color: #ff4f23;">' + _0x27fb3e + '</span>', 0x4), attack_manager.disableStart()) : (_0x27fb3e = DM.getl10n('alliance').index.button_send + ': ' + attack_manager.countRunningAttacks() + ' ' + DM.getl10n('layout').toolbar_activities.incomming_attacks.toLocaleLowerCase() + '.', HumanMessage.success(_0x27fb3e), Console.Log('<span style="color: #ff4f23;">' + _0x27fb3e + '</span>', 0x4));
+                });
+            },
+            checkAttack (_0x574b65, _0xbd7715) {
+                var _0x282394 = $.Deferred();
+                return _0x574b65.send_at >= Timestamp.now() ? (attack_manager.checked_count++, setTimeout(function () {
+                    basic_actions.town_info_attack(_0x574b65.town_id, _0x574b65, function (_0x30d319) {
+                        if (void 0 !== _0x30d319.json) {
+                            if (!_0x30d319.json.same_island || GameDataUnits.hasNavalUnits(_0x574b65.units)) {
+                                var _0x3a8a2f = GameDataUnits.calculateCapacity(_0x574b65.town_id, _0x574b65.units);
+                                if (_0x3a8a2f.needed_capacity > _0x3a8a2f.total_capacity) {
+                                    var _0x530343 = DM.getl10n('place').support_overview.slow_transport_ship;
+                                    return $('#attack_order_id_' + _0x574b65.id + ' .attack_bot_timer').removeClass('success').html(_0x530343), attack_manager.addAttack(_0xbd7715, _0x530343), _0x282394.resolve(), false;
+                                }
+                            }
+                            attack_manager.addAttack(_0xbd7715), _0x282394.resolve();
+                        }
+                    });
+                }, 0x3e8 * attack_manager.checked_count / 0x2)) : (attack_manager.addAttack(_0xbd7715, 'Expired'), $('#attack_order_id_' + _0x574b65.id + ' .attack_bot_timer').removeClass('success').html('Expired'), _0x282394.resolve()), _0x282394;
+            },
+            addAttack (_0x6d20eb, _0x431ecb) {
+                var _0x66ff6 = {
+                    'is_running': false,
+                    'attack_id': attack_manager.attacks[_0x6d20eb].id,
+                    'interval': null,
+                    'message': '',
+                    'message_text': ''
+                };
+                void 0 !== _0x431ecb ? _0x66ff6.message_text = _0x431ecb : (_0x66ff6.is_running = true, _0x66ff6.interval = setInterval(function () {
+                    if (void 0 !== attack_manager.attacks[_0x6d20eb]) {
+                        var _0x1c749b = attack_manager.attacks[_0x6d20eb].send_at - Timestamp.now();
+                        _0x66ff6.message = $('#attack_order_id_' + _0x66ff6.attack_id + ' .attack_bot_timer'), _0x66ff6.message.html(module_autobot.toHHMMSS(_0x1c749b)), 0x12c !== _0x1c749b && 0x78 !== _0x1c749b && 0x3c !== _0x1c749b || Console.Log('<span style=\"color: #ff4f23;\">[' + attack_manager.attacks[_0x6d20eb].origin_town_name + ' &#62; ' + attack_manager.attacks[_0x6d20eb].target_town_name + '] ' + DM.getl10n('heroes').common.departure['toLowerCase']().replace(':', '') + ' ' + DM.getl10n('place').support_overview.just_in + ' ' + hours_minutes_seconds(_0x1c749b) + '.</span>', 0x4), attack_manager.attacks[_0x6d20eb].send_at <= Timestamp.now() && (_0x66ff6.is_running = false, attack_manager.sendAttack(attack_manager.attacks[_0x6d20eb]), attack_manager.stopTimer(_0x66ff6));
+                    } else _0x66ff6.is_running = false, _0x66ff6.message.html('Stopped'), attack_manager.stopTimer(_0x66ff6);
+                }, 0x3e8)), attack_manager.attacks_timers['push'](_0x66ff6);
+            },
+            countRunningAttacks () {
+                var _0x597eed = 0;
+                return attack_manager.attacks_timers.forEach(function (_0x4b2bcf) {
+                    _0x4b2bcf.is_running && _0x597eed++;
+                }), _0x597eed;
+            },
+            stopTimer (_0x337104) {
+                clearInterval(_0x337104.interval), 0 === attack_manager.countRunningAttacks() && (Console.Log('<span style="color: #ff4f23;">All finished.</span>', 0x4), attack_manager.stop());
+            },
+            stop () {
+                attack_manager.disableStart(), attack_manager.attacks_timers.forEach(function (_0x2209e6) {
+                    _0x2209e6.is_running && $('#attack_order_id_' + _0x2209e6.attack_id + ' .attack_bot_timer').html(''), clearInterval(_0x2209e6.interval);
+                });
+            },
+            disableStart () {
+                module_game.modules.Autoattack.isOn = false, $('#Autoattack_onoff').removeClass('on').find('span').mousePopup(new MousePopup('Start Autoattack'));
+            },
+            sendAttack (_0x2aa01c) {
+                basic_actions.send_units(_0x2aa01c.town_id, _0x2aa01c.type, _0x2aa01c.target_town_id, attack_manager.unitsToSend(_0x2aa01c.units), function (_0x5aef6f) {
+                    var _0x440cce = attack_manager.attacks_timers.filter(function (_0x35cbf2) {
+                        return _0x35cbf2.attack_id === _0x2aa01c.id;
+                    });
+                    void 0 !== _0x5aef6f.success && _0x440cce.length ? (_0x440cce[0].message_text = 'Success', _0x440cce[0].message.addClass('success').html('Success'), Console.Log('<span style="color: #ff9e22;">[' + _0x2aa01c.origin_town_name + ' &#62; ' + _0x2aa01c.target_town_name + '] ' + _0x5aef6f.success + '</span>', 0x4)) : void 0 !== _0x5aef6f.error && _0x440cce.length && (_0x440cce[0].message_text = 'Invalid', _0x440cce[0].message['html']('Invalid'), Console.Log('<span style="color: #ff3100;">[' + _0x2aa01c.origin_town_name + ' &#62; ' + _0x2aa01c.target_town_name + '] ' + _0x5aef6f.error + '</span>', 0x4));
+                });
+            },
+            unitsToSend (_0x318fa0) {
+                var _0x55be8c = {};
+                return $.each(_0x318fa0, function (_0x5c4c76, _0x5a725a) {
+                    _0x5a725a > 0 && (_0x55be8c[_0x5c4c76] = _0x5a725a);
+                }), _0x55be8c;
+            },
+            calls (_0x21453c, _0xb9ac64) {
+                switch (_0x21453c) {
+                case 'attack_planer/add_origin_town':
+                case 'attack_planer/edit_origin_town':
+                    attack_manager.stop(), attack_manager.loadAttackQueue();
+                    break;
+                case 'attack_planer/attacks':
+                    void 0 !== (_0xb9ac64 = JSON.parse(_0xb9ac64)).json.data && attack_manager.setAttackData(_0xb9ac64.json);
+                }
+            },
+            setAttackData (_0x3bcd34) {
+                module_autobot.checkPremium('captain') && (attack_manager.attacks = (void 0 !== _0x3bcd34.module_autobot.attacks) ? _0x3bcd34.module_autobot.attacks : []);
+            },
+            attackOrderRow (_0x44f08c, _0x1a98fd) {
+                var _0x1ad65a = $('<div/>', {
+                    'class': 'origin_town_units'
+                });
+                void 0 !== _0x44f08c.units && $.each(_0x44f08c.units, function (_0x5e2e39, _0x4857c0) {
+                    _0x4857c0 > 0 && _0x1ad65a.append($('<div/>', {
+                        'class': 'unit_icon25x25 ' + _0x5e2e39
+                    }).html(_0x4857c0));
+                });
+                var _0xd252d5 = $('<li/>', {
+                    'class': 'attacks_row ' + (_0x1a98fd % 0x2 == 0 ? 'odd' : 'even'),
+                    'id': 'attack_order_id_' + _0x44f08c.id
+                });
+                return _0x44f08c.send_at > Timestamp.now() && _0xd252d5.hover(function () {
+                    $(this).toggleClass('brown');
+                }), _0xd252d5.append($('<div/>', {
+                    'class': 'attack_type32x32 ' + _0x44f08c.type
+                })).append($('<div/>', {
+                    'class': 'arrow'
+                })).append($('<div/>', {
+                    'class': 'row1'
+                }).append(' ' + _0x44f08c.origin_town_link + ' ').append('(' + _0x44f08c.origin_player_link + ')').append($('<span/>', {
+                    'class': 'small_arrow'
+                })).append(' ' + _0x44f08c.target_town_link + ' ').append('(' + _0x44f08c.origin_player_link + ') ')).append($('<div/>', {
+                    'class': 'row2' + (_0x44f08c.send_at <= Timestamp.now() ? ' expired' : '')
+                }).append($('<span/>').html(DM.getl10n('heroes').common.departure)).append(' ' + DateHelper.formatDateTimeNice(_0x44f08c.send_at) + ' ').append($('<span/>').html(DM.getl10n('heroes').common.arrival)).append(' ' + DateHelper.formatDateTimeNice(_0x44f08c.arrival_at) + ' ')).append($('<div/>', {
+                    'class': 'show_units'
+                }).on('click', function () {
+                    _0x1ad65a.toggle();
+                })).append($('<div/>', {
+                    'class': 'attack_bot_timer'
+                }).html(function () {
+                    var _0x354d5b = attack_manager.attacks_timers.filter(function (_0x1572bd) {
+                        return _0x1572bd.attack_id === _0x44f08c.id;
+                    });
+                    if (_0x354d5b.length) return _0x354d5b[0].is_running ? module_autobot.toHHMMSS(_0x44f08c.send_at - Timestamp.now()) : _0x354d5b[0].message_text;
+                })).append(_0x1ad65a);
+            },
+        loadAttackQueue () {
+                basic_actions.attack_planner(module_game.townId, function (attack_info) {
+                    attack_manager.setAttackData(attack_info), attack_manager.setAttackQueue($('#attack_bot'));
+                });
+            },
+        setAttackQueue (attacks_info) {
+                if (attacks_info.length) {
+                    var attacks_list = attacks_info.find('ul.attacks_list');
+                    attacks_list.empty(), basic_actions.attack_planner(module_game.townId, function (response) {
+                        attack_manager.setAttackData(response), $.each(attack_manager.attacks, function (_0x180bbf, _0x31a9c7) {
+                            _0x180bbf++, attacks_list.append(attack_manager.attackOrderRow(_0x31a9c7, _0x180bbf));
+                        });
+                    });
+                }
+            },
+        contentSettings () {
+                var _0x5816ae = $('<div id="attack_bot" class="attack_bot attack_planner attacks' + (module_game.hasPremium ? '' : ' disabled-box') + '"><div class="game_border"><div class="game_border_top"></div><div class="game_border_bottom"></div><div class="game_border_left"></div><div class="game_border_right"></div><div class="game_border_top"></div><div class="game_border_corner corner1"></div><div class="game_border_corner corner2"></div><div class="game_border_corner corner3"></div><div class="game_border_corner corner4"></div><div class="game_header bold" id="settings_header">AutoAttack</div><div><div class="attacks_list"><ul class="attacks_list"></ul></div><div class="game_list_footer autoattack_settings"></div></div></div></div>');
+                return _0x5816ae.find('.autoattack_settings').append(function () {
+                    var _0x5849c7 = _0x257397.button({
+                        'name': DM.getl10n('premium').advisors.short_advantages.attack_planner,
+                        'style': 'float: left;',
+                        'class': module_autobot.checkPremium('captain') ? '' : ' disabled'
+                    });
+                    return module_autobot.checkPremium('captain') ? _0x5849c7.click(function () {
+                        AttackPlannerWindowFactory.openAttackPlannerWindow();
+                    }) : _0x5849c7;
+                }).append(function () {
+                    var _0x37d33c = _0x257397.button({
+                        'name': DM.getl10n('update_notification').refresh,
+                        'style': 'float: left;',
+                        'class': module_autobot.checkPremium('captain') ? '' : ' disabled'
+                    });
+                    return module_autobot.checkPremium('captain') ? _0x37d33c.click(function () {
+                        attack_manager.setAttackQueue(_0x5816ae);
+                    }) : _0x37d33c;
+                }).append(function () {
+                    if (!module_autobot.checkPremium('captain')) return _0x257397.button({
+                        'name': DM.getl10n('construction_queue').advisor_banner.activate(module_game.premium_data['captain'].name),
+                        'style': 'float: right;'
+                    }).click(function () {
+                        PremiumWindowFactory.openBuyAdvisorsWindow();
+                    });
+                }), attack_manager.setAttackQueue(_0x5816ae), _0x5816ae;
+            }
+        };
+
+    Object.defineProperty(attack_manager, 'settings', {
+        'enumerable': true,
+        'writable': true,
+        'value': {
+            'autostart': false
+        }
+    }), Object.defineProperty(attack_manager, 'attacks', {
+        'enumerable': true,
+        'writable': true,
+        'value': []
+    }), Object.defineProperty(attack_manager, 'attacks_timers', {
+        'enumerable': true,
+        'writable': true,
+        'value': []
+    }), Object.defineProperty(attack_manager, 'view', {
+        'enumerable': true,
+        'writable': true,
+        'value': null
+    }), Object.defineProperty(attack_manager, 'checked_count', {
+        'enumerable': true,
+        'writable': true,
+        'value': 0
+    });
+
+
+    let configurations =  {
+        init () {
+                Console.Log('Initialize Assistant', 0);
+            }, 
+        setSettings (_0x3168ff) {
+                '' !== _0x3168ff && null != _0x3168ff && $.extend(configurations.settings, _0x3168ff), configurations.initSettings();
+            }, 
+            initSettings () {
+                configurations.settings.town_names ? $('#map_towns .flag').addClass('active_town') : $('#map_towns .flag').removeClass('active_town'), configurations.settings['player_name'] ? $('#map_towns .flag').addClass('active_player') : $('#map_towns .flag').removeClass('active_player'), configurations.settings.alliance_name ? $('#map_towns .flag').addClass('active_alliance') : $('#map_towns .flag').removeClass('active_alliance');
+            }, 
+            contentSettings () {
+                return $('<fieldset/>', {
+                    'id': 'Assistant_settings',
+                    'style': 'float:left; width:472px;height: 270px;'
+                }).append($('<legend/>').html('Assistant Settings')).append(_0x257397.checkbox({
+                    'text': 'Show town names on island view.',
+                    'id': 'assistant_town_names',
+                    'name': 'assistant_town_names',
+                    'checked': configurations.settings.town_names
+                })).append(_0x257397.checkbox({
+                    'text': 'Show player names on island view.',
+                    'id': 'assistant_player_names',
+                    'name': 'assistant_player_names',
+                    'checked': configurations.settings.player_name
+                })).append(_0x257397.checkbox({
+                    'text': 'Show alliance names on island view.',
+                    'id': 'assistant_alliance_names',
+                    'name': 'assistant_alliance_names',
+                    'checked': configurations.settings.alliance_name
+                })).append(_0x257397.selectBox({
+                    'id': 'assistant_auto_relogin',
+                    'name': 'assistant_auto_relogin',
+                    'label': 'Auto re-login: ',
+                    'styles': 'width: 120px;',
+                    'value': configurations.settings['auto_relogin'],
+                    'options': [{
+                        'value': '0',
+                        'name': 'Disabled'
+                    }, {
+                        'value': '120',
+                        'name': 'After 2 minutes'
+                    }, {
+                        'value': '300',
+                        'name': 'After 5 minutes'
+                    }, {
+                        'value': '600',
+                        'name': 'After 10 minutes'
+                    }, {
+                        'value': '900',
+                        'name': 'After 15 minutes'
+                    }]
+                })).append(_0x257397.button({
+                    'name': DM.getl10n('notes').btn_save,
+                    'style': 'top: 120px;'
+                }).on('click', function () {
+                    var _0x2d57c4 = $('#Assistant_settings').serializeObject();
+                    configurations.settings.town_names = void 0 !== _0x2d57c4.assistant_town_names, configurations.settings['player_name'] = void 0 !== _0x2d57c4.assistant_player_names, configurations.settings.alliance_name = void 0 !== _0x2d57c4.assistant_alliance_names, configurations.settings.auto_relogin = parseInt(_0x2d57c4.assistant_auto_relogin), basic_actions.Auth('saveAssistant', {
+                        'player_id': module_autobot.Account.player_id,
+                        'world_id': module_autobot.Account.world_id,
+                        'csrfToken': module_autobot.Account.csrfToken,
+                        'assistant_settings': module_autobot.stringify(configurations.settings)
+                    }, configurations.callbackSave);
+                }));
+            }, 
+            callbackSave () {
+                HumanMessage.success('The settings were saved!'), configurations.initSettings();
+            }
+    };
+    Object.defineProperty(configurations, 'settings', {
+        'enumerable': true,
+        'writable': true,
+        'value': {
+            'town_names': false,
+            'player_name': false,
+            'alliance_name': true,
+            'auto_relogin': 0
+        }
+    });
+
+
+
+    let module_menu =  {
+        button (_0x2c0c28) {
+                return $('<div/>').append($('<a/>', {
+                    'class': 'button_new' + (_0x2c0c28.class || ''),
+                    'href': '#',
+                    'style': 'margin-top:1px;float:left;' + (_0x2c0c28.style || '')
+                }).append($('<span/>', {
+                    'class': 'left'
+                })).append($('<span/>', {
+                    'class': 'right'
+                })).append($('<div/>', {
+                    'class': 'caption js-caption'
+                }).text(_0x2c0c28.name)));
+            }, 
+        checkbox (_0xbecd03, _0x23d511, _0x55795a) {
+                return $('<div/>', {
+                    'class': 'checkbox_new' + (_0xbecd03.checked ? ' checked' : '') + (_0xbecd03.disabled ? ' disabled' : ''),
+                    'style': 'padding: 5px;' + (_0xbecd03.style || '')
+                }).append($('<input/>', {
+                    'type': 'checkbox',
+                    'name': _0xbecd03.name,
+                    'id': _0xbecd03.id,
+                    'checked': _0xbecd03.checked,
+                    'style': 'display: none;'
+                })).append($('<div/>', {
+                    'class': 'cbx_icon',
+                    'rel': _0xbecd03.name
+                })).append($('<div/>', {
+                    'class': 'cbx_caption'
+                }).text(_0xbecd03.text)).bind('click', function () {
+                    $(this).toggleClass('checked'), $(this).find($('input[type="checkbox"]')).prop('checked', $(this).hasClass('checked')), $(this).hasClass('checked') ? void 0 !== _0x23d511 && _0x23d511() : void 0 !== _0x55795a && _0x55795a();
+                });
+            }, 
+            input (_0x2d09c8) {
+                return $('<div/>', {
+                    'style': 'padding: 5px;'
+                }).append($('<label/>', {
+                    'for': _0x2d09c8.id
+                }).text(_0x2d09c8.name + ': ')).append($('<div/>', {
+                    'class': 'textbox',
+                    'style': _0x2d09c8.style
+                }).append($('<div/>', {
+                    'class': 'left'
+                })).append($('<div/>', {
+                    'class': 'right'
+                })).append($('<div/>', {
+                    'class': 'middle'
+                }).append($('<div/>', {
+                    'class': 'ie7fix'
+                }).append($('<input/>', {
+                    'type': _0x2d09c8.type,
+                    'tabindex': '1',
+                    'id': _0x2d09c8.id,
+                    'name': _0x2d09c8.id,
+                    'value': _0x2d09c8.value
+                }).attr('size', _0x2d09c8.size)))));
+            }, 
+            
+            textarea (_0x285f03) {
+                return $('<div/>', {
+                    'style': 'padding: 5px;'
+                }).append($('<label/>', {
+                    'for': _0x285f03.id
+                }).text(_0x285f03.name + ': ')).append($('<div/>').append($('<textarea/>', {
+                    'name': _0x285f03.id,
+                    'id': _0x285f03.id
+                })));
+            }, 
+            inputMinMax (_0x446c03) {
+                return $('<div/>', {
+                    'class': 'textbox'
+                }).append($('<span/>', {
+                    'class': 'grcrt_spinner_btn grcrt_spinner_down',
+                    'rel': _0x446c03.name
+                }).click(function () {
+                    var _0xa93698 = $(this).parent().find('#' + $(this).attr('rel'));
+                    parseInt($(_0xa93698).attr('min')) < parseInt($(_0xa93698).attr('value')) && $(_0xa93698).attr('value', parseInt($(_0xa93698).attr('value')) - 0x1);
+                })).append($('<div/>', {
+                    'class': 'textbox',
+                    'style': _0x446c03.style
+                }).append($('<div/>', {
+                    'class': 'left'
+                })).append($('<div/>', {
+                    'class': 'right'
+                })).append($('<div/>', {
+                    'class': 'middle'
+                }).append($('<div/>', {
+                    'class': 'ie7fix'
+                }).append($('<input/>', {
+                    'type': 'text',
+                    'tabindex': '1',
+                    'id': _0x446c03.name,
+                    'value': _0x446c03.value,
+                    'min': _0x446c03.min,
+                    'max': _0x446c03.max
+                }).attr('size', _0x446c03.size || 0xa).css('text-align', 'right'))))).append($('<span/>', {
+                    'class': 'grcrt_spinner_btn grcrt_spinner_up',
+                    'rel': _0x446c03.name
+                }).click(function () {
+                    var _0x3256df = $(this).parent().find('#' + $(this).attr('rel'));
+                    parseInt($(_0x3256df).attr('max')) > parseInt($(_0x3256df).attr('value')) && $(_0x3256df).attr('value', parseInt($(_0x3256df).attr('value')) + 0x1);
+                }));
+            }, 
+            inputSlider (_0x377111) {
+                return $('<div/>', {
+                    'id': 'grcrt_' + _0x377111.name + '_config'
+                }).append($('<div/>', {
+                    'class': 'slider_container'
+                }).append($('<div/>', {
+                    'style': 'float:left;width:120px;'
+                }).html(_0x377111.name)).append(module_menu.input({
+                    'name': 'grcrt_' + _0x377111.name + '_value',
+                    'style': 'float:left;width:33px;'
+                }).hide()).append($('<div/>', {
+                    'class': 'windowmgr_slider',
+                    'style': 'width: 200px;float: left;'
+                }).append($('<div/>', {
+                    'class': 'grepo_slider sound_volume'
+                })))).append($('<script/>', {
+                    'type': 'text/javascript'
+                }).text("RepConv.slider = $('#grcrt_" + _0x377111.name + `_config .sound_volume').grepoSlider({\
+min: 0,\
+max: 100,\
+step: 5,\
+value: ` + _0x377111.volume + `,\
+template: 'tpl_grcrt_slider'\
+}).on('sl:change:value', function (e, _sl, value) {\
+$('#grcrt_` + _0x377111.name + `_value').attr('value',value);\
+if (RepConv.audio.test != undefined){\
+RepConv.audio.test.volume = value/100;\
+}\
+}),\
+$('#grcrt_` + _0x377111.name + `_config .button_down').css('background-position','-144px 0px;'),\
+$('#grcrt_` + _0x377111.name + `_config .button_up').css('background-position','-126px 0px;')\
+`));
+            }, 
+            selectBox (_0x5bb404) {
+                return $('<div/>', {
+                    'style': 'padding: 5px'
+                }).append($('<input/>', {
+                    'type': 'hidden',
+                    'name': _0x5bb404.name,
+                    'id': _0x5bb404.id,
+                    'value': _0x5bb404.value
+                })).append($('<label/>', {
+                    'for': _0x5bb404.id
+                }).text(_0x5bb404.label)).append($('<div/>', {
+                    'id': _0x5bb404.id,
+                    'class': 'dropdown default',
+                    'style': _0x5bb404.styles
+                }).dropdown({
+                    'list_pos': 'left',
+                    'value': _0x5bb404.value,
+                    'disabled': _0x5bb404.disabled || false,
+                    'options': _0x5bb404.options
+                }).on('dd:change:value', function (_0xad0ea0, _0x29a048) {
+                    $('#' + _0x5bb404.id).attr('value', _0x29a048);
+                }));
+            }, 
+            timerBoxFull (_0x3160f2) {
+                return $('<div/>', {
+                    'class': 'single-progressbar instant_buy js-progressbar type_building_queue',
+                    'id': _0x3160f2.id,
+                    'style': _0x3160f2.styles
+                }).append($('<div/>', {
+                    'class': 'border_l'
+                })).append($('<div/>', {
+                    'class': 'border_r'
+                })).append($('<div/>', {
+                    'class': 'body'
+                })).append($('<div/>', {
+                    'class': 'progress'
+                }).append($('<div/>', {
+                    'class': 'indicator',
+                    'style': 'width: 0%;'
+                }))).append($('<div/>', {
+                    'class': 'caption'
+                }).append($('<span/>', {
+                    'class': 'text'
+                })).append($('<span/>', {
+                    'class': 'value_container'
+                }).append($('<span/>', {
+                    'class': 'curr'
+                }).html('0%'))));
+            }, 
+            timerBoxSmall (_0x30ac98) {
+                return $('<div/>', {
+                    'class': 'single-progressbar instant_buy js-progressbar type_building_queue',
+                    'id': _0x30ac98.id,
+                    'style': _0x30ac98.styles
+                }).append($('<div/>', {
+                    'class': 'progress'
+                }).append($('<div/>', {
+                    'class': 'indicator',
+                    'style': 'width: 0%;'
+                }))).append($('<div/>', {
+                    'class': 'caption'
+                }).append($('<span/>', {
+                    'class': 'text'
+                })).append($('<span/>', {
+                    'class': 'value_container'
+                }).append($('<span/>', {
+                    'class': 'curr'
+                }).html(_0x30ac98.text ? _0x30ac98.text : '-'))));
+            }, 
+            gameWrapper (_0xe2f60, _0x3506ad, _0x366dcd, _0x235967) {
+                var _0x4136d3 = arguments.length > 0x4 && void 0 !== arguments[0x4] && arguments[0x4];
+                return $('<div/>', {
+                    'class': 'game_inner_box' + (_0x4136d3 ? ' disabled-box' : ''),
+                    'style': _0x235967,
+                    'id': _0x3506ad
+                }).append($('<div/>', {
+                    'class': 'game_border'
+                }).append($('<div/>', {
+                    'class': 'game_border_top'
+                })).append($('<div/>', {
+                    'class': 'game_border_bottom'
+                })).append($('<div/>', {
+                    'class': 'game_border_left'
+                })).append($('<div/>', {
+                    'class': 'game_border_right'
+                })).append($('<div/>', {
+                    'class': 'game_border_top'
+                })).append($('<div/>', {
+                    'class': 'game_border_corner corner1'
+                })).append($('<div/>', {
+                    'class': 'game_border_corner corner2'
+                })).append($('<div/>', {
+                    'class': 'game_border_corner corner3'
+                })).append($('<div/>', {
+                    'class': 'game_border_corner corner4'
+                })).append($('<div/>', {
+                    'class': 'game_header bold',
+                    'id': 'settings_header'
+                }).html(_0xe2f60)).append($('<div/>').append(_0x366dcd)));
+            }
+        };
