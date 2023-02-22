@@ -1,0 +1,1 @@
+No Content: https://es113.grepolis.com/cache/js/game/events/crafting/views/sub_windows/overall_rewards.js
